@@ -1,4 +1,4 @@
-package fr.eni.team42.enchere.dal;
+package fr.eni.team42.enchere.bo;
 
 public class Utilisateur {
 
@@ -37,7 +37,7 @@ public class Utilisateur {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
+        setEmail(email);
         this.telephone = telephone;
         this.rue = rue;
         this.codePostal = codePostal;
@@ -84,6 +84,9 @@ public class Utilisateur {
     }
 
     public void setEmail(String email) {
+        if (!email.matches(".+@.+\\.[a-z]+")) {
+            throw new RuntimeException();
+        }
         this.email = email;
     }
 
