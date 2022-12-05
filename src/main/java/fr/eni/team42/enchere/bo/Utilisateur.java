@@ -13,9 +13,22 @@ public class Utilisateur {
     private String ville;
     private String mdp;
     private int credit;
-    private boolean admin;
+    private boolean admin = false;
 
     public Utilisateur() {
+    }
+
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit) {
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        setEmail(email);
+        this.telephone = telephone;
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.mdp = mdp;
+        this.credit = credit;
     }
 
     public Utilisateur(int idUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
@@ -23,7 +36,7 @@ public class Utilisateur {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
+        setEmail(email);
         this.telephone = telephone;
         this.rue = rue;
         this.codePostal = codePostal;
