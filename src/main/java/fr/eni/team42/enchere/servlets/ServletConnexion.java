@@ -34,7 +34,7 @@ public class ServletConnexion extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
 		rd.forward(request, response);
 	}
 
@@ -46,18 +46,21 @@ public class ServletConnexion extends HttpServlet {
 		String identifiant;
 		String password;
 		try {
-			identifiant = request.getParameter("identifiant");
+			identifiant = request.getParameter("email");
 			password = request.getParameter("password");
-			UtilisateurManager userManager = new UtilisateurManager();
-			if(userManager.logIn(identifiant, password) != null){
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Encheres.jsp");
-				rd.forward(request, response);		
+			if(identifiant != null || password != null) {
+				UtilisateurManager userManager = new UtilisateurManager();
+				if(userManager.logIn(identifiant, password) != null){
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Encheres.jsp");
+					rd.forward(request, response);		
+				}
 			}
 		}
 		catch(Exception e){
 			e.printStackTrace();
-		}	
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
+		}
+		request.setAttribute("erreurConnexion", "Le login ou le mot de passe est incorrect");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
 		//request.getParameter("login") dans la jsp pour remettre la valeur saisie
 		rd.forward(request, response);		
 	}
