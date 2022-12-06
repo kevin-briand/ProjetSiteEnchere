@@ -18,19 +18,32 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
-    public Utilisateur(int idUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
-        this.idUtilisateur = idUtilisateur;
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit) {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
-        this.email = email;
+        setEmail(email);
         this.telephone = telephone;
         this.rue = rue;
         this.codePostal = codePostal;
         this.ville = ville;
         this.mdp = mdp;
         this.credit = credit;
-        this.admin = admin;
+    }
+
+    public Utilisateur(int idUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
+        this.idUtilisateur = idUtilisateur;
+        this.pseudo = pseudo;
+        this.nom = nom;
+        this.prenom = prenom;
+        setEmail(email);
+        this.telephone = telephone;
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+        this.mdp = mdp;
+        this.credit = credit;
+        this.admin = false;
     }
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
@@ -44,7 +57,7 @@ public class Utilisateur {
         this.ville = ville;
         this.mdp = mdp;
         this.credit = credit;
-        this.admin = admin;
+        this.admin = false;
     }
 
     public int getIdUtilisateur() {
