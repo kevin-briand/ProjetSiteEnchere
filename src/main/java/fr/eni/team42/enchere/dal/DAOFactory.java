@@ -4,7 +4,7 @@ import fr.eni.team42.enchere.dal.jdbc.UtilisateurJdbcImpl;
 
 public class DAOFactory {
 
-    public static DAO getUtilisateurDAO() {
+    public static UtilisateurDAO getUtilisateurDAO() {
         return new UtilisateurJdbcImpl();
     }
 }
