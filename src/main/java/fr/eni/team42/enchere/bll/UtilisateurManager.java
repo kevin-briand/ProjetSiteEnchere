@@ -3,6 +3,8 @@ package fr.eni.team42.enchere.bll;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
+import java.security.NoSuchAlgorithmException;
+
 
 public class UtilisateurManager {
 
@@ -57,6 +59,10 @@ public class UtilisateurManager {
             u = selectByEmail(identifiant);
         } else {
             u = selectByPseudo(identifiant);
+        }
+
+        if (!u.getMdp().equals(PasswordHashManager.hashMdp(password))) {
+            throw new BLLException();
         }
     }
 }
