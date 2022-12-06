@@ -4,35 +4,35 @@ import java.time.LocalDateTime;
 
 public class Enchere {
 
-    private int idUtilisateur;
-    private int idArticle;
+    private Utilisateur utilisateur;
+    private ArticleVendu articleVendu;
     private LocalDateTime dateEnchere;
     private int montantEnchere;
 
     public Enchere() {
     }
 
-    public Enchere(int idUtilisateur, int idArticle, LocalDateTime dateEnchere, int montantEnchere) {
-        this.idUtilisateur = idUtilisateur;
-        this.idArticle = idArticle;
+    public Enchere(Utilisateur utilisateur, ArticleVendu articleVendu, LocalDateTime dateEnchere, int montantEnchere) {
+        this.utilisateur = utilisateur;
+        this.articleVendu = articleVendu;
         this.dateEnchere = dateEnchere;
         this.montantEnchere = montantEnchere;
     }
 
-    public int getIdUtilisateur() {
-        return idUtilisateur;
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
     }
 
-    public void setIdUtilisateur(int idUtilisateur) {
-        this.idUtilisateur = idUtilisateur;
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
     }
 
-    public int getIdArticle() {
-        return idArticle;
+    public ArticleVendu getArticleVendu() {
+        return articleVendu;
     }
 
-    public void setIdArticle(int idArticle) {
-        this.idArticle = idArticle;
+    public void setArticleVendu(ArticleVendu articleVendu) {
+        this.articleVendu = articleVendu;
     }
 
     public LocalDateTime getDateEnchere() {
