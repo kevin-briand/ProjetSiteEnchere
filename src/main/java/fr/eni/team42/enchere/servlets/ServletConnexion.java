@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.team42.enchere.bo.Utilisateur;
+import fr.eni.team42.enchere.bll.UtilisateurManager;
+import fr.eni.team42.enchere.bll.BLLException;
+
 
 /**
  * Servlet implementation class ServletConnexion
@@ -40,12 +43,13 @@ public class ServletConnexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String login;
+		String identifiant;
 		String password;
 		try {
-			login = request.getParameter("login");
+			identifiant = request.getParameter("identifiant");
 			password = request.getParameter("password");
-			if((Utilisateur.getEmail() == login || Utilisateur.getPseudo() == login) && Utilisateur.getMdp() == password){
+			UtilisateurManager userManager = new UtilisateurManager();
+			if(userManager.logIn(identifiant, password) != null){
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Encheres.jsp");
 				rd.forward(request, response);		
 			}
