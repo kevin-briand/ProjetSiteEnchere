@@ -3,6 +3,8 @@ package fr.eni.team42.enchere.bll;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
+import java.security.NoSuchAlgorithmException;
+
 
 public class UtilisateurManager {
 
@@ -51,12 +53,17 @@ public class UtilisateurManager {
         }
     }
 
-    public void logIn(String identifiant, String password) throws Exception {
+    public Utilisateur logIn(String identifiant, String password) throws Exception {
         Utilisateur u = null;
         if (identifiant.matches(".+@.+\\.[a-z]+")) {
             u = selectByEmail(identifiant);
         } else {
             u = selectByPseudo(identifiant);
         }
+
+        if (u == null || !u.getMdp().equals(PasswordHashManager.hashMdp(password))) {
+            return null;
+        }
+        return u;
     }
 }
