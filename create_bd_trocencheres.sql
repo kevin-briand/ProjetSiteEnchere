@@ -23,15 +23,15 @@ ALTER TABLE RETRAITS ADD constraint retrait_pk PRIMARY KEY  (no_article);
 
 CREATE TABLE UTILISATEURS (
     no_utilisateur   INTEGER AUTO_INCREMENT NOT NULL,
-    pseudo           VARCHAR(30) NOT NULL,
+    pseudo           VARCHAR(30) UNIQUE NOT NULL,
     nom              VARCHAR(30) NOT NULL,
     prenom           VARCHAR(30) NOT NULL,
-    email            VARCHAR(20) NOT NULL,
+    email            VARCHAR(20) UNIQUE NOT NULL,
     telephone        VARCHAR(15),
     rue              VARCHAR(30) NOT NULL,
     code_postal      VARCHAR(10) NOT NULL,
     ville            VARCHAR(30) NOT NULL,
-    mot_de_passe     VARCHAR(30) NOT NULL,
+    mot_de_passe     VARCHAR(250) NOT NULL,
     credit           INTEGER NOT NULL,
     administrateur   bit NOT NULL,
     CONSTRAINT utilisateur_pk PRIMARY KEY (no_utilisateur)
