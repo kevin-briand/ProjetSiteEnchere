@@ -3,9 +3,6 @@ package fr.eni.team42.enchere.dal;
 import fr.eni.team42.enchere.bo.Utilisateur;
 
 public interface UtilisateurDAO extends DAO<Utilisateur, Integer> {
-
-    Utilisateur selectByPseudo(String pseudo);
-
-    Utilisateur selectByEmail(String email);
-
+    Utilisateur selectByPseudo(String pseudo) throws Exception;
+    Utilisateur selectByEmail(String email) throws Exception;
 }
