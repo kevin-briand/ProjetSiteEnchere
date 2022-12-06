@@ -58,8 +58,9 @@ public class ServletConnexion extends HttpServlet {
 		}
 		catch(Exception e){
 			e.printStackTrace();
-		}	
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
+		}
+		request.setAttribute("erreurConnexion", "Le login ou le mot de passe est incorrect");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
 		//request.getParameter("login") dans la jsp pour remettre la valeur saisie
 		rd.forward(request, response);		
 	}
