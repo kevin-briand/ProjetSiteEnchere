@@ -13,7 +13,7 @@ public class Utilisateur {
     private String ville;
     private String mdp;
     private int credit;
-    private boolean admin = false;
+    private boolean admin;
 
     public Utilisateur() {
     }
@@ -43,7 +43,7 @@ public class Utilisateur {
         this.ville = ville;
         this.mdp = mdp;
         this.credit = credit;
-        this.admin = admin;
+        this.admin = false;
     }
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
@@ -57,7 +57,7 @@ public class Utilisateur {
         this.ville = ville;
         this.mdp = mdp;
         this.credit = credit;
-        this.admin = admin;
+        this.admin = false;
     }
 
     public int getIdUtilisateur() {

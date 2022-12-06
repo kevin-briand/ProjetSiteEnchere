@@ -1,42 +1,42 @@
 package fr.eni.team42.enchere.bll;
 
 import fr.eni.team42.enchere.bo.Utilisateur;
-import fr.eni.team42.enchere.dal.UtilisateurDAO;
-import fr.eni.team42.enchere.dal.jdbc.UtilisateurJdbcImpl;
+import fr.eni.team42.enchere.dal.DAOFactory;
 
 
 public class UtilisateurManager {
 
-    private UtilisateurDAO utilisateurDAO = new UtilisateurJdbcImpl();
-
     public UtilisateurManager() throws BLLException {
     }
 
-    public Utilisateur selectById(Integer id) throws BLLException {
-        return utilisateurDAO.selectById(id);
+    public Utilisateur selectById(Integer id) throws Exception {
+        try {
+            return DAOFactory.getUtilisateurDAO().selectById(id);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Utilisateur selectByPseudo(String pseudo) throws Exception {
+        return DAOFactory.getUtilisateurDAO().selectByPseudo(pseudo);
     }
 
-    public Utilisateur selectByPseudo(String pseudo) throws BLLException {
-        return utilisateurDAO.selectByPseudo(pseudo);
+    public Utilisateur selectByEmail(String email) throws Exception {
+        return DAOFactory.getUtilisateurDAO().selectByEmail(email);
     }
 
-    public Utilisateur selectByEmail(String email) throws BLLException {
-        return utilisateurDAO.selectByEmail(email);
-    }
-
-    public void addUtilisateur(Utilisateur u) throws BLLException {
+    public void addUtilisateur(Utilisateur u) throws Exception {
         validerUtilisateur(u);
-        utilisateurDAO.insert(u);
+        DAOFactory.getUtilisateurDAO().insert(u);
 
     }
 
-    public void updateUtilisateur(Utilisateur u) throws BLLException {
+    public void updateUtilisateur(Utilisateur u) throws Exception {
         validerUtilisateur(u);
-        utilisateurDAO.update(u);
+        DAOFactory.getUtilisateurDAO().update(u);
     }
 
-    public void removeUtilisateur(Utilisateur u) throws BLLException {
-        utilisateurDAO.delete(u);
+    public void removeUtilisateur(Utilisateur u) throws Exception {
+        DAOFactory.getUtilisateurDAO().delete(u);
     }
 
     public void validerUtilisateur(Utilisateur u) throws BLLException {
@@ -51,7 +51,7 @@ public class UtilisateurManager {
         }
     }
 
-    public void logIn(String identifiant, String password) throws BLLException {
+    public void logIn(String identifiant, String password) throws Exception {
         Utilisateur u = null;
         if (identifiant.matches(".+@.+\\.[a-z]+")) {
             u = selectByEmail(identifiant);
