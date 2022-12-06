@@ -33,7 +33,7 @@ public class ServletInscription extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationCompte.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/inscription.jsp");
 		rd.forward(request, response);
 	}
 
