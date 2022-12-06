@@ -51,18 +51,24 @@ public class ServletConnexion extends HttpServlet {
 			if(identifiant != null || password != null) {
 				UtilisateurManager userManager = new UtilisateurManager();
 				if(userManager.logIn(identifiant, password) != null){
-					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Encheres.jsp");
+					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 					rd.forward(request, response);
+				}else {
+					request.setAttribute("erreurConnexion", "Le login ou le mot de passe est incorrect");
+					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
+					rd.forward(request, response);	
 				}
 			}else {
-				request.setAttribute("erreurConnexion", "Le login ou le mot de passe est incorrect");
+				request.setAttribute("erreurConnexion", "Login ou mot de passe manquant");
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
-				//request.getParameter("login") dans la jsp pour remettre la valeur saisie
-				rd.forward(request, response);		
-			}
+				rd.forward(request, response);	
+				}
 		}catch(Exception e){
 			e.printStackTrace();
+			request.setAttribute("erreurConnexion", "Erreur dans la conenxion, veuillez retenter");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
+			//request.getParameter("login") dans la jsp pour remettre la valeur saisie
+			rd.forward(request, response);	
 		}
 	}
-
 }
