@@ -7,7 +7,7 @@
 <body>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
-    <form method="post" action="/ServletInscription">
+    <form method="post" action="<%=request.getContextPath()%>/ServletInscription">
         <div class="row mb-3">
             <div class="col-5">
                 <div class="mb-3 row">
