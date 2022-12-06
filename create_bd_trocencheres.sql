@@ -31,7 +31,7 @@ CREATE TABLE UTILISATEURS (
     rue              VARCHAR(30) NOT NULL,
     code_postal      VARCHAR(10) NOT NULL,
     ville            VARCHAR(30) NOT NULL,
-    mot_de_passe     VARCHAR(250) NOT NULL,
+    mot_de_passe     VARCHAR(256) NOT NULL,
     credit           INTEGER NOT NULL,
     administrateur   bit NOT NULL,
     CONSTRAINT utilisateur_pk PRIMARY KEY (no_utilisateur)
