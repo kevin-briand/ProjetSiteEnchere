@@ -5,9 +5,6 @@ public class Categorie {
     private int idCategorie;
     private String libelle;
 
-    public Categorie() {
-    }
-
     public Categorie(String libelle) {
         this.libelle = libelle;
     }

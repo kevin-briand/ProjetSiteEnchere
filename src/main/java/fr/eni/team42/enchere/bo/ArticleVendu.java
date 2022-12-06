@@ -22,8 +22,8 @@ public class ArticleVendu {
         this.description = description;
         this.dateDebutEnchere = dateDebutEnchere;
         this.dateFinEnchere = dateFinEnchere;
-        this.prixInitial = prixInitial;
-        this.prixVente = prixVente;
+        setPrixInitial(prixInitial);
+        setPrixVente(prixVente);
         this.utilisateur = utilisateur;
         this.categorie = categorie;
     }
@@ -73,7 +73,14 @@ public class ArticleVendu {
     }
 
     public void setPrixInitial(Integer prixInitial) {
-        this.prixInitial = prixInitial;
+        if (prixInitial == null) {
+            this.prixInitial = 0;
+        } else if (prixInitial < 0) {
+            throw new RuntimeException();
+        } else {
+            this.prixInitial = prixInitial;
+        }
+
     }
 
     public Integer getPrixVente() {
@@ -81,7 +88,14 @@ public class ArticleVendu {
     }
 
     public void setPrixVente(Integer prixVente) {
-        this.prixVente = prixVente;
+        if (prixVente == null) {
+            this.prixVente = 0;
+        } else if (prixVente < 0) {
+            throw new RuntimeException();
+        } else {
+            this.prixVente = prixVente;
+        }
+
     }
 
     public Utilisateur getUtilisateur() {

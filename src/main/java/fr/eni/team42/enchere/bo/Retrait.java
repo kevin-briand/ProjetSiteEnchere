@@ -7,9 +7,6 @@ public class Retrait {
     private String codePostal;
     private String ville;
 
-    public Retrait() {
-    }
-
     public Retrait(ArticleVendu article, String rue, String codePostal, String ville) {
         this.article = article;
         this.rue = rue;
