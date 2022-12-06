@@ -6,4 +6,6 @@ public interface UtilisateurDAO extends DAO<Utilisateur, Integer> {
 
     Utilisateur selectByPseudo(String pseudo);
 
+    Utilisateur selectByEmail(String email);
+
 }

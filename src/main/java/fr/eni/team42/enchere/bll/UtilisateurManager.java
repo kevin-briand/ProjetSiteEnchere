@@ -20,6 +20,10 @@ public class UtilisateurManager {
         return utilisateurDAO.selectByPseudo(pseudo);
     }
 
+    public Utilisateur selectByEmail(String email) throws BLLException {
+        return utilisateurDAO.selectByEmail(email);
+    }
+
     public void addUtilisateur(Utilisateur u) throws BLLException {
         validerUtilisateur(u);
         utilisateurDAO.insert(u);
@@ -47,4 +51,12 @@ public class UtilisateurManager {
         }
     }
 
+    public void logIn(String identifiant, String password) throws BLLException {
+        Utilisateur u = null;
+        if (identifiant.matches(".+@.+\\.[a-z]+")) {
+            u = selectByEmail(identifiant);
+        } else {
+            u = selectByPseudo(identifiant);
+        }
+    }
 }
