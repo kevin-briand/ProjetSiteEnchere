@@ -59,13 +59,13 @@ public class ServletConnexion extends HttpServlet {
 					rd.forward(request, response);	
 				}
 			}else {
-				request.setAttribute("erreurIdentification", "Login ou mot de passe manquant");
+				request.setAttribute("erreurConnexion", "Login ou mot de passe manquant");
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
 				rd.forward(request, response);	
 				}
 		}catch(Exception e){
 			e.printStackTrace();
-			request.setAttribute("erreurTotale", "Erreur dans la conenxion, veuillez retenter");
+			request.setAttribute("erreurConnexion", "Erreur dans la conenxion, veuillez retenter");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
 			//request.getParameter("login") dans la jsp pour remettre la valeur saisie
 			rd.forward(request, response);	
