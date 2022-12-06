@@ -12,8 +12,8 @@
 </head>
 <body>
 <form method="post" action="<%=request.getContextPath()%>/ServletConnexion">
-      <label for="email">email : </label> <input id="email" type="email" name="email"><br>
-<label for="mdp">mot de passe : </label>  <input id="mdp" type="password" name="password"><br>
+      <label for="email">email : </label> <input required id="email" type="email" name="email"><br>
+<label for="mdp">mot de passe : </label>  <input required id="mdp" type="password" name="password"><br>
 <input type="submit" name="valider" value="valider">
 </form>
 
