@@ -53,7 +53,7 @@ public class UtilisateurManager {
         }
     }
 
-    public void logIn(String identifiant, String password) throws Exception {
+    public Utilisateur logIn(String identifiant, String password) throws Exception {
         Utilisateur u = null;
         if (identifiant.matches(".+@.+\\.[a-z]+")) {
             u = selectByEmail(identifiant);
@@ -64,5 +64,6 @@ public class UtilisateurManager {
         if (!u.getMdp().equals(PasswordHashManager.hashMdp(password))) {
             throw new BLLException();
         }
+        return u;
     }
 }
