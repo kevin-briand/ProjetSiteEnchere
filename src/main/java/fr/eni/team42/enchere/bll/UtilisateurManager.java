@@ -61,8 +61,8 @@ public class UtilisateurManager {
             u = selectByPseudo(identifiant);
         }
 
-        if (!u.getMdp().equals(PasswordHashManager.hashMdp(password))) {
-            throw new BLLException();
+        if (u == null || !u.getMdp().equals(PasswordHashManager.hashMdp(password))) {
+            return null;
         }
         return u;
     }
