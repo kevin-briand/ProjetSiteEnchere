@@ -61,19 +61,16 @@
                 </div>
                 <div class="mb-3">
                     <input
-                            required="required"
                             type="password"
                             name="password"
                             class="form-control"
                             id="inputPassword"
                             placeholder="Mot de passe actuel"
                             aria-label="Mot de passe actuel"
-                            value="<%=utilisateur.getMdp()%>"
                     />
                 </div>
                 <div class="mb-3">
                     <input
-                            required="required"
                             type="password"
                             name="password"
                             class="form-control"
@@ -134,7 +131,6 @@
                 </div>
                 <div class="mb-3">
                     <input
-                            required="required"
                             type="password"
                             name="passwordConfirmation"
                             class="form-control"
