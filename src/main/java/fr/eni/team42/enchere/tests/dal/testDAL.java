@@ -21,15 +21,6 @@ public class testDAL {
         Utilisateur user2 = new Utilisateur("test2","valjean","gui","gui@valjean.fr","0100000001","1 rue de la barre",
                 "85710","BOIS DE CENE",PasswordHashManager.hashMdp("gre4g586re4fzegrte6g4ze"),100,true);
 
-        System.out.print("INSERT NEW USER 'test' ");
-        try {
-            DAOFactory.getUtilisateurDAO().insert(user);
-            System.out.println("OK");
-        } catch (Exception e) {
-            System.out.println("FAIL");
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
 
         System.out.print("INSERT NEW USER 'test2' ");
         try {
@@ -41,9 +32,9 @@ public class testDAL {
             e.printStackTrace();
         }
 
-        System.out.print("SELECT BY ID USER 'test' ");
+        System.out.print("SELECT BY ID USER 'test2' ");
         try {
-            Utilisateur u = DAOFactory.getUtilisateurDAO().selectById(user.getIdUtilisateur());
+            Utilisateur u = DAOFactory.getUtilisateurDAO().selectById(user2.getIdUtilisateur());
             if(u.getNom().equals("valjean"))
                 System.out.println("OK");
             else
@@ -56,7 +47,7 @@ public class testDAL {
         }
 
         System.out.print("UPDATE USER 'test' (nom=UPDATE) ");
-        user.setNom("UPDATE");
+        user2.setNom("UPDATE");
         try {
             DAOFactory.getUtilisateurDAO().update(user);
             System.out.println("OK");
@@ -66,9 +57,9 @@ public class testDAL {
             e.printStackTrace();
         }
 
-        System.out.print("SELECT BY ID USER 'test' ");
+        System.out.print("SELECT BY ID USER 'test2' ");
         try {
-            Utilisateur u = DAOFactory.getUtilisateurDAO().selectById(user.getIdUtilisateur());
+            Utilisateur u = DAOFactory.getUtilisateurDAO().selectById(user2.getIdUtilisateur());
             if(u.getNom().equals("UPDATE"))
                 System.out.println("OK");
             else
@@ -105,7 +96,7 @@ public class testDAL {
             e.printStackTrace();
         }
 
-        System.out.print("DELETE USER 'test' ");
+        System.out.print("DELETE USER 'test2' ");
         try {
             DAOFactory.getUtilisateurDAO().delete(user2);
             System.out.println("OK");
@@ -120,16 +111,26 @@ public class testDAL {
         try {
             DAOFactory.getUtilisateurDAO().insert(null);
         } catch (BusinessException e) {
-            System.out.println("FAIL");
+            System.out.println("OK");
             System.out.println(LecteurMessage.getMessageErreur(e.getCodeErreur()));
         }
 
-        System.out.print("TEST INSERT NULL ERROR ");
+        System.out.print("INSERT EXISTANT PSEUDO ");
         try {
-            DAOFactory.getUtilisateurDAO().insert(new Utilisateur("testgyuiguiygyuiguiyguyigyuigiuyg","valjean","jean","jean@valjean.fr","0100000000","10 rue de la barre",
-                    "85710","BOIS DE CENE", PasswordHashManager.hashMdp("salut"),0,false));
-        } catch (BusinessException e) {
+            DAOFactory.getUtilisateurDAO().insert(user);
             System.out.println("FAIL");
+        } catch (BusinessException e) {
+                System.out.println("OK");
+                System.out.println(LecteurMessage.getMessageErreur(e.getCodeErreur()));
+        }
+
+        user.setPseudo("ergerher");
+        System.out.print("INSERT EXISTANT EMAIL ");
+        try {
+            DAOFactory.getUtilisateurDAO().insert(user);
+            System.out.println("FAIL");
+        } catch (BusinessException e) {
+            System.out.println("OK");
             System.out.println(LecteurMessage.getMessageErreur(e.getCodeErreur()));
         }
 
