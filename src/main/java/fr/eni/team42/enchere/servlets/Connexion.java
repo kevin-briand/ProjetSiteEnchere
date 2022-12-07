@@ -48,7 +48,7 @@ public class Connexion extends HttpServlet {
 				Utilisateur utilisateur = userManager.logIn(identifiant, password);
 				if(utilisateur != null){
 					HttpSession session = request.getSession(false);
-					session.setAttribute("utilisateurConnecte", utilisateur.getIdUtilisateur());
+					session.setAttribute("utilisateurConnecte", utilisateur);
 					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 					rd.forward(request, response);
 				}else {

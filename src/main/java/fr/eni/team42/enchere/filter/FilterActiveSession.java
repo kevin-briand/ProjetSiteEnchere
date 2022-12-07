@@ -1,5 +1,7 @@
 package fr.eni.team42.enchere.filter;
 
+import fr.eni.team42.enchere.bo.Utilisateur;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -33,10 +35,10 @@ public class FilterActiveSession implements Filter {
             //sinon on regarde s'il existe une session active
         } else {
             HttpSession session = httpServletRequest.getSession(false);
-            Integer sessionActive = (Integer) session.getAttribute("utilisateurConnecte");
+            Utilisateur utilisateurConnecte = (Utilisateur) session.getAttribute("utilisateurConnecte");
 
             //S'il n'y a pas de session active, on redirige l'utilisateur vers index.jsp
-            if (sessionActive == null) {
+            if (utilisateurConnecte == null) {
                 RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(httpServletRequest, httpServletResponse);
              //sinon on laisse passer la requête
