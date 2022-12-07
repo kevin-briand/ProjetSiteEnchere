@@ -1,3 +1,4 @@
+<%@ page import="fr.eni.team42.enchere.bo.Utilisateur" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <body>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
+    <% Utilisateur utilisateur = (Utilisateur) request.getSession(false).getAttribute("utilisateurConnecte"); %>
     <form method="post" action="<%=request.getContextPath()%>/profil/modification">
         <div class="row justify-content-md-around mb-3">
             <div class="col-md-4">
@@ -19,6 +21,7 @@
                             id="pseudo"
                             placeholder="Pseudo"
                             aria-label="Pseudo"
+                            value="<%=utilisateur.getPseudo()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -30,6 +33,7 @@
                             id="prenom"
                             placeholder="Prénom"
                             aria-label="Prénom"
+                            value="<%=utilisateur.getPrenom()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -40,6 +44,7 @@
                             id="telephone"
                             placeholder="Téléphone"
                             aria-label="Téléphone"
+                            value="<%=utilisateur.getTelephone()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -51,6 +56,7 @@
                             id="cp"
                             placeholder="Code Postal"
                             aria-label="Code Postal"
+                            value="<%=utilisateur.getCodePostal()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -62,6 +68,7 @@
                             id="inputPassword"
                             placeholder="Mot de passe actuel"
                             aria-label="Mot de passe actuel"
+                            value="<%=utilisateur.getMdp()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -86,6 +93,7 @@
                             id="nom"
                             placeholder="Nom"
                             aria-label="Nom"
+                            value="<%=utilisateur.getNom()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -97,6 +105,7 @@
                             id="email"
                             placeholder="Email"
                             aria-label="Email"
+                            value="<%=utilisateur.getEmail()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -108,6 +117,7 @@
                             id="rue"
                             placeholder="Rue"
                             aria-label="Rue"
+                            value="<%=utilisateur.getRue()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -119,6 +129,7 @@
                             id="ville"
                             placeholder="Ville"
                             aria-label="Ville"
+                            value="<%=utilisateur.getVille()%>"
                     />
                 </div>
                 <div class="mb-3">
