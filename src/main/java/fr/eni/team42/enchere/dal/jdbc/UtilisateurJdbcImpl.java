@@ -75,6 +75,7 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
     }
