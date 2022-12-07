@@ -35,7 +35,7 @@ public class ModifierProfil extends HttpServlet {
         RequestDispatcher rd;
 
         try {
-            Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");
+            Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
             if(user != null) {
                 user.setPseudo(pseudo);
                 user.setNom(nom);
