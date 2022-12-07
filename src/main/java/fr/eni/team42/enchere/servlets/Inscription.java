@@ -59,7 +59,7 @@ public class Inscription extends HttpServlet {
 			UtilisateurManager userManager = new UtilisateurManager();
 			userManager.addUtilisateur(u);
 			HttpSession session = request.getSession(false);
-			session.setAttribute("sessionActive", true);
+			session.setAttribute("utilisateurConnecte", u.getIdUtilisateur());
 			//quelque chose côté jsp pour signifier que l'utilisateur est passé à l'état connecté ?
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);		

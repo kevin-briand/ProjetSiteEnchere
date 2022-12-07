@@ -13,7 +13,7 @@ import java.util.List;
 public class FilterActiveSession implements Filter {
 
     //Création d'une liste de servlets path qui sont autorisées hors connexion
-    // (que l'utilisateur peut consulter sans être connecté
+    //que l'utilisateur peut consulter sans être connecté
     private static final List<String> SERVLET_AUTORISEES_HORS_CONNEXION = new ArrayList<>();
 
     public void init(FilterConfig config) {
@@ -33,10 +33,10 @@ public class FilterActiveSession implements Filter {
             //sinon on regarde s'il existe une session active
         } else {
             HttpSession session = httpServletRequest.getSession(false);
-            Boolean sessionActive = (Boolean) session.getAttribute("sessionActive");
+            Integer sessionActive = (Integer) session.getAttribute("utilisateurConnecte");
 
             //S'il n'y a pas de session active, on redirige l'utilisateur vers index.jsp
-            if (sessionActive == null || !sessionActive) {
+            if (sessionActive == null) {
                 RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(httpServletRequest, httpServletResponse);
              //sinon on laisse passer la requête

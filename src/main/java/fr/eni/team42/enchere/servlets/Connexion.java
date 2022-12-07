@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import fr.eni.team42.enchere.bll.UtilisateurManager;
+import fr.eni.team42.enchere.bo.Utilisateur;
 
 
 /**
@@ -44,9 +45,10 @@ public class Connexion extends HttpServlet {
 			password = request.getParameter("password");
 			if(identifiant != null || password != null) {
 				UtilisateurManager userManager = new UtilisateurManager();
-				if(userManager.logIn(identifiant, password) != null){
+				Utilisateur utilisateur = userManager.logIn(identifiant, password);
+				if(utilisateur != null){
 					HttpSession session = request.getSession(false);
-					session.setAttribute("sessionActive", true);
+					session.setAttribute("utilisateurConnecte", utilisateur.getIdUtilisateur());
 					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 					rd.forward(request, response);
 				}else {
