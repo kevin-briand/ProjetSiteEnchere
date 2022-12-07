@@ -7,7 +7,7 @@
 <body>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
-    <form method="post" action="<%=request.getContextPath()%>/Inscription">
+    <form method="post" onsubmit="return testForm(this);" action="<%=request.getContextPath()%>/Inscription">
         <div class="row mb-3">
             <div class="col-5">
                 <div class="mb-3 row">
@@ -120,15 +120,56 @@
                             id="inputConfirmation"
                             placeholder="Confirmation mot de passe"
                             aria-label="Confirmation mot de passe"
+                            oninput="testPassword()"
                     />
                 </div>
             </div>
         </div>
         <div class="buttons">
             <button type="submit" class="btn btn-primary btn-lg">Créer</button>
-            <a type="button" class="btn btn-secondary btn-lg" href="#">Annuler</a>
+            <button type="reset" class="btn btn-secondary btn-lg">Annuler</button>
         </div>
     </form>
 </div>
+<script>
+    function testPassword() {
+        const pwd = document.getElementById("inputPassword");
+        const confirmPwd = document.getElementById("inputConfirmation");
+
+        if(pwd.value !== confirmPwd.value) {
+            pwd.style.borderColor = "red";
+            confirmPwd.style.borderColor = "red";
+            return false;
+        } else {
+            pwd.style.borderColor = "green";
+            confirmPwd.style.borderColor = "green";
+            return true;
+        }
+    }
+
+    function testForm(form) {
+        var isOk = true;
+        if(setErrorInput(form.pseudo, form.pseudo.value.length > 30)) isOk = false;
+        if(setErrorInput(form.nom, form.nom.value.length > 30)) isOk = false;
+        if(setErrorInput(form.prenom, form.prenom.value.length > 30)) isOk = false;
+        if(setErrorInput(form.email, form.email.value.length > 50)) isOk = false;
+        if(setErrorInput(form.telephone, form.telephone.value.length > 15)) isOk = false;
+        if(setErrorInput(form.cp, form.cp.value.length > 5)) isOk = false;
+        if(setErrorInput(form.rue, form.rue.value.length > 50)) isOk = false;
+        if(setErrorInput(form.ville, form.ville.value.length > 30)) isOk = false;
+        if(!testPassword()) isOk = false;
+
+        return isOk;
+    }
+
+    function setErrorInput(input, error) {
+        if(error) {
+            input.style.borderColor = "red";
+        } else {
+            input.style.borderColor = "";
+        }
+        return error;
+    }
+</script>
 </body>
 </html>
