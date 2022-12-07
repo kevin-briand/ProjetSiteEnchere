@@ -16,12 +16,12 @@ import fr.eni.team42.enchere.dal.EnchereDAO;
 
 public class EnchereJdbcImpl implements EnchereDAO {
 
-	private final String INSERT = "INSERT INTO enchere (no_utilisateur, no_article, date_enchere, montant_enchere)" +
+	private final String INSERT = "INSERT INTO encheres (no_utilisateur, no_article, date_enchere, montant_enchere)" +
             "VALUES(?,?,?,?)";
-    private final String UPDATE = "UPDATE enchere SET date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
-    private final String DELETE = "DELETE FROM enchere WHERE no_utilisateur=? AND no_article=?";
-    private final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=? AND no_article=?";
-	
+    private final String UPDATE = "UPDATE encheres SET date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
+    private final String DELETE = "DELETE FROM encheres WHERE no_utilisateur=? AND no_article=?";
+    private final String SELECT_BY_ID = "SELECT * FROM encheres WHERE no_utilisateur=? AND no_article=?";
+
 	@Override
 	public Enchere selectById(Utilisateur utilisateur, ArticleVendu article) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
