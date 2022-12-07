@@ -1,52 +1,49 @@
 package fr.eni.team42.enchere.bll;
 
+import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
 public class UtilisateurManager {
 
-    public UtilisateurManager() throws BLLException {
+    public UtilisateurManager() {
     }
 
-    public Utilisateur selectById(Integer id) throws Exception {
-        try {
-            return DAOFactory.getUtilisateurDAO().selectById(id);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public Utilisateur selectById(Integer id) throws BusinessException {
+        return DAOFactory.getUtilisateurDAO().selectById(id);
     }
-    public Utilisateur selectByPseudo(String pseudo) throws Exception {
+
+    public Utilisateur selectByPseudo(String pseudo) throws BusinessException {
         return DAOFactory.getUtilisateurDAO().selectByPseudo(pseudo);
     }
 
-    public Utilisateur selectByEmail(String email) throws Exception {
+    public Utilisateur selectByEmail(String email) throws BusinessException {
         return DAOFactory.getUtilisateurDAO().selectByEmail(email);
     }
 
-    public void addUtilisateur(Utilisateur u) throws Exception {
+    public void addUtilisateur(Utilisateur u) throws BusinessException {
         validerUtilisateur(u);
         DAOFactory.getUtilisateurDAO().insert(u);
-
     }
 
-    public void updateUtilisateur(Utilisateur u) throws Exception {
+    public void updateUtilisateur(Utilisateur u) throws BusinessException {
         validerUtilisateur(u);
         DAOFactory.getUtilisateurDAO().update(u);
     }
 
-    public void removeUtilisateur(Utilisateur u) throws Exception {
+    public void removeUtilisateur(Utilisateur u) throws BusinessException {
         DAOFactory.getUtilisateurDAO().delete(u);
     }
 
-    public void validerUtilisateur(Utilisateur u) throws BLLException {
+    public void validerUtilisateur(Utilisateur u) throws BusinessException {
         if (u.getPseudo() == null
-        || u.getNom() == null
-        || u.getPrenom() == null
-        || u.getRue() == null
-        || u.getCodePostal() == null
-        || u.getVille() == null
-        || u.getMdp() == null) {
-            throw new BLLException();
+                || u.getNom() == null
+                || u.getPrenom() == null
+                || u.getRue() == null
+                || u.getCodePostal() == null
+                || u.getVille() == null
+                || u.getMdp() == null) {
+            throw new BusinessException();
         }
     }
 

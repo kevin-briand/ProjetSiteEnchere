@@ -63,7 +63,7 @@ public class Connexion extends HttpServlet {
 				}
 		}catch(Exception e){
 			e.printStackTrace();
-			request.setAttribute("erreurConnexion", "Erreur dans la conenxion, veuillez retenter");
+			request.setAttribute("erreurConnexion", "Erreur dans la connexion, veuillez retenter");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
 			//request.getParameter("login") dans la jsp pour remettre la valeur saisie
 			rd.forward(request, response);	
