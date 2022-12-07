@@ -12,6 +12,7 @@
             <div class="col-5">
                 <div class="mb-3 row">
                     <input
+                    		required="required"
                             type="text"
                             name="pseudo"
                             class="form-control"
@@ -22,6 +23,7 @@
                 </div>
                 <div class="mb-3 row">
                     <input
+                    		required="required"
                             type="text"
                             name="prenom"
                             class="form-control"
@@ -42,6 +44,7 @@
                 </div>
                 <div class="mb-3 row">
                     <input
+                    		required="required"
                             type="text"
                             name="cp"
                             class="form-control"
@@ -52,6 +55,7 @@
                 </div>
                 <div class="mb-3 row">
                     <input
+                    		required="required"
                             type="password"
                             name="password"
                             class="form-control"
@@ -65,6 +69,7 @@
             <div class="col-5">
                 <div class="mb-3 row">
                     <input
+                    		required="required"
                             type="text"
                             name="nom"
                             class="form-control"
@@ -75,6 +80,7 @@
                 </div>
                 <div class="mb-3 row">
                     <input
+                    		required="required"
                             type="text"
                             name="email"
                             class="form-control"
@@ -85,6 +91,7 @@
                 </div>
                 <div class="mb-3 row">
                     <input
+                            required="required"
                             type="text"
                             name="rue"
                             class="form-control"
@@ -95,6 +102,7 @@
                 </div>
                 <div class="mb-3 row">
                     <input
+                            required="required"
                             type="text"
                             name="ville"
                             class="form-control"
@@ -105,6 +113,7 @@
                 </div>
                 <div class="mb-3 row">
                     <input
+                            required="required"
                             type="password"
                             name="passwordConfirmation"
                             class="form-control"
