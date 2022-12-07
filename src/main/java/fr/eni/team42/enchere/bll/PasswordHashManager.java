@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordHashManager {
-    static String hashMdp(String input) throws NoSuchAlgorithmException {
+    public static String hashMdp(String input) throws NoSuchAlgorithmException {
         MessageDigest mDigest = MessageDigest.getInstance("SHA256");
         byte[] result = mDigest.digest(input.getBytes());
         StringBuilder sb = new StringBuilder();
