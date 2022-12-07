@@ -45,7 +45,7 @@ public class Connexion extends HttpServlet {
 			if(identifiant != null || password != null) {
 				UtilisateurManager userManager = new UtilisateurManager();
 				if(userManager.logIn(identifiant, password) != null){
-					HttpSession session = request.getSession();
+					HttpSession session = request.getSession(false);
 					session.setAttribute("sessionActive", true);
 					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 					rd.forward(request, response);

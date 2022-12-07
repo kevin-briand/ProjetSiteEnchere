@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.bll.UtilisateurManager;
@@ -57,6 +58,8 @@ public class Inscription extends HttpServlet {
 			Utilisateur u = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, credit, false);
 			UtilisateurManager userManager = new UtilisateurManager();
 			userManager.addUtilisateur(u);
+			HttpSession session = request.getSession(false);
+			session.setAttribute("sessionActive", true);
 			//quelque chose côté jsp pour signifier que l'utilisateur est passé à l'état connecté ?
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 			rd.forward(request, response);		

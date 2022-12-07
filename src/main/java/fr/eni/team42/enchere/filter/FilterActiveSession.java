@@ -18,8 +18,8 @@ public class FilterActiveSession implements Filter {
 
     public void init(FilterConfig config) {
         SERVLET_AUTORISEES_HORS_CONNEXION.add("/index.jsp");
-        SERVLET_AUTORISEES_HORS_CONNEXION.add("/ServletConnexion");
-        SERVLET_AUTORISEES_HORS_CONNEXION.add("/ServletInscription");
+        SERVLET_AUTORISEES_HORS_CONNEXION.add("/Connexion");
+        SERVLET_AUTORISEES_HORS_CONNEXION.add("/Inscription");
     }
 
     @Override
@@ -32,7 +32,7 @@ public class FilterActiveSession implements Filter {
             chain.doFilter(httpServletRequest, httpServletResponse);
             //sinon on regarde s'il existe une session active
         } else {
-            HttpSession session = httpServletRequest.getSession();
+            HttpSession session = httpServletRequest.getSession(false);
             Boolean sessionActive = (Boolean) session.getAttribute("sessionActive");
 
             //S'il n'y a pas de session active, on redirige l'utilisateur vers index.jsp
