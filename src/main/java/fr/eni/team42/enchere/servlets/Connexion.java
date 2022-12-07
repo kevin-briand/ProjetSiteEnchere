@@ -1,8 +1,6 @@
 package fr.eni.team42.enchere.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,22 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.bll.UtilisateurManager;
-import fr.eni.team42.enchere.bll.BLLException;
 
 
 /**
  * Servlet implementation class ServletConnexion
  */
-@WebServlet("/ServletConnexion")
-public class ServletConnexion extends HttpServlet {
+@WebServlet("/Connexion")
+public class Connexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletConnexion() {
+    public Connexion() {
         super();
     }
 

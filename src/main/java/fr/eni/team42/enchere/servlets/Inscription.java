@@ -16,14 +16,14 @@ import fr.eni.team42.enchere.bll.UtilisateurManager;
 /**
  * Servlet implementation class ServletInscription
  */
-@WebServlet("/ServletInscription")
-public class ServletInscription extends HttpServlet {
+@WebServlet("/Inscription")
+public class Inscription extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletInscription() {
+    public Inscription() {
         super();
         // TODO Auto-generated constructor stub
     }
