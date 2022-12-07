@@ -5,11 +5,10 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.*;
 
 import fr.eni.team42.enchere.bll.UtilisateurManager;
+import fr.eni.team42.enchere.bo.Utilisateur;
 
 
 /**
@@ -46,7 +45,10 @@ public class Connexion extends HttpServlet {
 			password = request.getParameter("password");
 			if(identifiant != null || password != null) {
 				UtilisateurManager userManager = new UtilisateurManager();
-				if(userManager.logIn(identifiant, password) != null){
+				Utilisateur utilisateur = userManager.logIn(identifiant, password);
+				if(utilisateur != null){
+					HttpSession session = request.getSession(false);
+					session.setAttribute("utilisateurConnecte", utilisateur);
 					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 					rd.forward(request, response);
 				}else {
