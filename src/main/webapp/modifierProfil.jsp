@@ -1,36 +1,39 @@
+<%@ page import="fr.eni.team42.enchere.bo.Utilisateur" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <title>Inscription</title>
+    <title>Mon profil</title>
 </head>
 <body>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
-
-    <form method="post" onsubmit="return testForm(this);" action="<%=request.getContextPath()%>/Inscription">
+    <% Utilisateur utilisateur = (Utilisateur) request.getSession(false).getAttribute("utilisateurConnecte"); %>
+    <form method="post" action="<%=request.getContextPath()%>/profil/modification">
         <div class="row justify-content-md-around mb-3">
             <div class="col-md-4">
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="pseudo"
                             class="form-control"
                             id="pseudo"
                             placeholder="Pseudo"
                             aria-label="Pseudo"
+                            value="<%=utilisateur.getPseudo()%>"
                     />
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="prenom"
                             class="form-control"
                             id="prenom"
                             placeholder="Prénom"
                             aria-label="Prénom"
+                            value="<%=utilisateur.getPrenom()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -41,52 +44,65 @@
                             id="telephone"
                             placeholder="Téléphone"
                             aria-label="Téléphone"
+                            value="<%=utilisateur.getTelephone()%>"
                     />
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="cp"
                             class="form-control"
                             id="cp"
                             placeholder="Code Postal"
                             aria-label="Code Postal"
+                            value="<%=utilisateur.getCodePostal()%>"
                     />
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
                             type="password"
                             name="password"
                             class="form-control"
                             id="inputPassword"
-                            placeholder="Mot de passe"
-                            aria-label="Mot de passe"
+                            placeholder="Mot de passe actuel"
+                            aria-label="Mot de passe actuel"
+                    />
+                </div>
+                <div class="mb-3">
+                    <input
+                            type="password"
+                            name="password"
+                            class="form-control"
+                            id="removePassword"
+                            placeholder="Nouveau mot de passe"
+                            aria-label="Nouveau mot de passe"
                     />
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="nom"
                             class="form-control"
                             id="nom"
                             placeholder="Nom"
                             aria-label="Nom"
+                            value="<%=utilisateur.getNom()%>"
                     />
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="email"
                             class="form-control"
                             id="email"
                             placeholder="Email"
                             aria-label="Email"
+                            value="<%=utilisateur.getEmail()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -98,6 +114,7 @@
                             id="rue"
                             placeholder="Rue"
                             aria-label="Rue"
+                            value="<%=utilisateur.getRue()%>"
                     />
                 </div>
                 <div class="mb-3">
@@ -109,67 +126,31 @@
                             id="ville"
                             placeholder="Ville"
                             aria-label="Ville"
+                            value="<%=utilisateur.getVille()%>"
                     />
                 </div>
                 <div class="mb-3">
                     <input
-                            required="required"
                             type="password"
                             name="passwordConfirmation"
                             class="form-control"
                             id="inputConfirmation"
                             placeholder="Confirmation mot de passe"
                             aria-label="Confirmation mot de passe"
-                            oninput="testPassword()"
                     />
+                </div>
+                <div class="mb-3" style="margin-right: 300px">
+                    <%="Crédit"%>
                 </div>
             </div>
         </div>
         <div class="buttons">
-            <button type="submit" class="btn btn-primary btn-lg">Créer</button>
-            <button type="reset" class="btn btn-secondary btn-lg">Annuler</button>
+            <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
+            <a type="button" class="btn btn-secondary btn-lg"
+               href="<%=request.getContextPath()%>/SuppressionUtilisateur">Supprimer mon compte</a>
         </div>
     </form>
 </div>
-<script>
-    function testPassword() {
-        const pwd = document.getElementById("inputPassword");
-        const confirmPwd = document.getElementById("inputConfirmation");
-
-        if(pwd.value !== confirmPwd.value) {
-            pwd.style.borderColor = "red";
-            confirmPwd.style.borderColor = "red";
-            return false;
-        } else {
-            pwd.style.borderColor = "green";
-            confirmPwd.style.borderColor = "green";
-            return true;
-        }
-    }
-
-    function testForm(form) {
-        var isOk = true;
-        if(setErrorInput(form.pseudo, form.pseudo.value.length > 30)) isOk = false;
-        if(setErrorInput(form.nom, form.nom.value.length > 30)) isOk = false;
-        if(setErrorInput(form.prenom, form.prenom.value.length > 30)) isOk = false;
-        if(setErrorInput(form.email, form.email.value.length > 50)) isOk = false;
-        if(setErrorInput(form.telephone, form.telephone.value.length > 15)) isOk = false;
-        if(setErrorInput(form.cp, form.cp.value.length > 5)) isOk = false;
-        if(setErrorInput(form.rue, form.rue.value.length > 50)) isOk = false;
-        if(setErrorInput(form.ville, form.ville.value.length > 30)) isOk = false;
-        if(!testPassword()) isOk = false;
-
-        return isOk;
-    }
-
-    function setErrorInput(input, error) {
-        if(error) {
-            input.style.borderColor = "red";
-        } else {
-            input.style.borderColor = "";
-        }
-        return error;
-    }
-</script>
 </body>
 </html>
+

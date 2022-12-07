@@ -1,7 +1,8 @@
 package fr.eni.team42.enchere;
 
 public class BusinessException extends Exception {
-    private int codeErreur;
+    private static final long serialVersionUID = 1L;
+	private int codeErreur;
 
     public BusinessException() {
         super();
