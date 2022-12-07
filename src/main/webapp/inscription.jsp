@@ -8,9 +8,9 @@
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
     <form method="post" action="<%=request.getContextPath()%>/Inscription">
-        <div class="row mb-3">
-            <div class="col-5">
-                <div class="mb-3 row">
+        <div class="row justify-content-md-around mb-3">
+            <div class="col-md-4">
+                <div class="mb-3">
                     <input
                     		required="required"
                             type="text"
@@ -21,7 +21,7 @@
                             aria-label="Pseudo"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                     		required="required"
                             type="text"
@@ -32,7 +32,7 @@
                             aria-label="Prénom"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                             type="text"
                             name="telephone"
@@ -42,7 +42,7 @@
                             aria-label="Téléphone"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                     		required="required"
                             type="text"
@@ -53,7 +53,7 @@
                             aria-label="Code Postal"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                     		required="required"
                             type="password"
@@ -65,9 +65,8 @@
                     />
                 </div>
             </div>
-            <div class="col-2"></div>
-            <div class="col-5">
-                <div class="mb-3 row">
+            <div class="col-md-4">
+                <div class="mb-3">
                     <input
                     		required="required"
                             type="text"
@@ -78,7 +77,7 @@
                             aria-label="Nom"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                     		required="required"
                             type="text"
@@ -89,7 +88,7 @@
                             aria-label="Email"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                             required="required"
                             type="text"
@@ -100,7 +99,7 @@
                             aria-label="Rue"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                             required="required"
                             type="text"
@@ -111,7 +110,7 @@
                             aria-label="Ville"
                     />
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3">
                     <input
                             required="required"
                             type="password"
