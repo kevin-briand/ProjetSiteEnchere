@@ -1,11 +1,12 @@
 package fr.eni.team42.enchere.dal.jdbc;
 
+import com.mysql.cj.exceptions.MysqlErrorNumbers;
+import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.Utilisateur;
+import fr.eni.team42.enchere.dal.DALExceptionCode;
 import fr.eni.team42.enchere.dal.UtilisateurDAO;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 public class UtilisateurJdbcImpl implements UtilisateurDAO {
     private final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, " +
@@ -19,7 +20,7 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
     private final String SELECT_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email=?";
 
     @Override
-    public Utilisateur selectById(Integer id) throws Exception {
+    public Utilisateur selectById(Integer id) throws BusinessException {
         try(Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ID);
             pstmt.setInt(1, id);
@@ -29,16 +30,17 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
                         rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9),
                         rs.getString(10), rs.getInt(11), rs.getBoolean(12));
+            } else {
+                throw new BusinessException(DALExceptionCode.UTILISATEUR_INCONNU);
             }
 
         } catch (Exception e) {
-            throw new Exception("Echec de la sélection de l'utilisateur");
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
-        return null;
     }
 
     @Override
-    public Utilisateur selectByPseudo(String pseudo) throws Exception {
+    public Utilisateur selectByPseudo(String pseudo) throws BusinessException {
         try(Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_PSEUDO);
             pstmt.setString(1, pseudo);
@@ -48,16 +50,17 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
                         rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9),
                         rs.getString(10), rs.getInt(11), rs.getBoolean(12));
+            } else {
+                throw new BusinessException(DALExceptionCode.UTILISATEUR_INCONNU);
             }
 
         } catch (Exception e) {
-            throw new Exception("Echec de la sélection de l'utilisateur");
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
-        return null;
     }
 
     @Override
-    public Utilisateur selectByEmail(String email) throws Exception {
+    public Utilisateur selectByEmail(String email) throws BusinessException {
         try(Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_EMAIL);
             pstmt.setString(1, email);
@@ -67,18 +70,19 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
                         rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9),
                         rs.getString(10), rs.getInt(11), rs.getBoolean(12));
+            } else {
+                throw new BusinessException(DALExceptionCode.UTILISATEUR_INCONNU);
             }
 
         } catch (Exception e) {
-            throw new Exception("Echec de la sélection de l'utilisateur");
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
-        return null;
     }
 
     @Override
-    public void insert(Utilisateur utilisateur) throws Exception {
+    public void insert(Utilisateur utilisateur) throws BusinessException {
         if(utilisateur==null)
-            throw new Exception("Utilisateur null");
+            throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
 
         try(Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -95,20 +99,26 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
             pstmt.setBoolean(11, utilisateur.isAdmin());
             pstmt.executeUpdate();
             ResultSet rs = pstmt.getGeneratedKeys();
-            if(rs.next())
-            {
+            if(rs.next()) {
                 utilisateur.setIdUtilisateur(rs.getInt(1));
+            } else {
+                throw new BusinessException(DALExceptionCode.INSERT_ERREUR);
             }
-        } catch(Exception e) {
-            e.printStackTrace();
-            throw new Exception("Une erreur s'est produite lors de la création de l'utilisateur");
+        } catch(SQLException e) {
+            if(e.getErrorCode() == MysqlErrorNumbers.ER_DUP_ENTRY) {
+                if(e.getMessage().contains("pseudo"))
+                    throw new BusinessException(DALExceptionCode.DUPLICATION_PSEUDO);
+                else
+                    throw new BusinessException(DALExceptionCode.DUPLICATION_EMAIL);
+            }
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
     }
 
     @Override
-    public void update(Utilisateur utilisateur) throws Exception {
+    public void update(Utilisateur utilisateur) throws BusinessException {
         if(utilisateur == null)
-            throw new Exception("Utilisateur null");
+            throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
 
         try(Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
@@ -126,15 +136,21 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
             pstmt.setInt(12, utilisateur.getIdUtilisateur());
             pstmt.executeUpdate();
 
-        } catch (Exception e) {
-            throw new Exception("Une erreur s'est produite lors de la mise à jour de l'utilisateur");
+        } catch(SQLException e) {
+            if(e.getErrorCode() == MysqlErrorNumbers.ER_DUP_ENTRY) {
+                if(e.getMessage().contains("pseudo"))
+                    throw new BusinessException(DALExceptionCode.DUPLICATION_PSEUDO);
+                else
+                    throw new BusinessException(DALExceptionCode.DUPLICATION_EMAIL);
+            }
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
     }
 
     @Override
-    public void delete(Utilisateur utilisateur) throws Exception {
+    public void delete(Utilisateur utilisateur) throws BusinessException {
         if(utilisateur == null)
-            throw new Exception("Utilisateur null");
+            throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
 
         try(Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(DELETE);
@@ -142,7 +158,7 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
             pstmt.executeUpdate();
 
         } catch (Exception e) {
-            throw new Exception("Une erreur s'est produite lors de la suppression de l'utilisateur");
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
     }
 
