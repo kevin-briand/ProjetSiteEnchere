@@ -36,9 +36,9 @@ public class AfficherProfil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfil.jsp");
 		try {
-			Integer id = Integer.valueOf(request.getParameter("id"));
+			Integer idUtilisateur = Integer.valueOf(request.getParameter("idUtilisateur"));
 			UtilisateurManager userManager = new UtilisateurManager();
-			Utilisateur user = userManager.selectById(id);
+			Utilisateur user = userManager.selectById(idUtilisateur);
 			request.setAttribute("utilisateur", user);
 			rd.forward(request, response);
 		} catch (Exception e) {
