@@ -25,18 +25,20 @@
             </ul>
         </div>
 
-        <c:if test="${utilisateurConnecte == null}">
-            <div class="text-end">
-                <a href="/ProjetSiteEnchere/Connexion" type="button" class="btn btn-light text-dark me-2">Se
-                    connecter</a>
-                <a href="/ProjetSiteEnchere/Inscription" type="button" class="btn btn-primary">S'inscrire</a>
-            </div>
-        </c:if>
-        <c:if test="${utilisateurConnecte != null}">
-            <div class="text-end">
-                ${utilisateurConnecte.pseudo}
-                <a href="index.jsp" type="button" class="btn btn-primary">Se déconnecter</a>
-            </div>
-        </c:if>
+        <c:choose>
+            <c:when test="${utilisateurConnecte == null}">
+                <div class="text-end">
+                    <a href="/ProjetSiteEnchere/Connexion" type="button" class="btn btn-light text-dark me-2">Se
+                        connecter</a>
+                    <a href="/ProjetSiteEnchere/Inscription" type="button" class="btn btn-primary">S'inscrire</a>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="text-end">
+                        ${utilisateurConnecte.pseudo}
+                    <a href="index.jsp" type="button" class="btn btn-primary">Se déconnecter</a>
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
 </nav>

@@ -51,6 +51,9 @@ public class Utilisateur {
         this.admin = admin;
     }
 
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, Integer credit, boolean b) {
+    }
+
     public int getIdUtilisateur() {
         return idUtilisateur;
     }
