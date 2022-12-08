@@ -7,14 +7,7 @@
     <title>Inscription</title>
 </head>
 <body>
-<jsp:useBean id="utilisateurConnecte" scope="session" class="fr.eni.team42.enchere.bo.Utilisateur"></jsp:useBean>
-<c:if test="${utilisateurConnecte == null}">
-    <%@ include file="/WEB-INF/header.html" %>
-</c:if>
-<jsp:useBean id="utilisateurConnecte" scope="session" class="fr.eni.team42.enchere.bo.Utilisateur"></jsp:useBean>
-<c:if test="${utilisateurConnecte != null}">
-    <%@ include file="/WEB-INF/headerModeConnecte.html" %>
-</c:if>
+<%@ include file="/WEB-INF/header.jsp" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
 
