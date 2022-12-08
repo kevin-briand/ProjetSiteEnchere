@@ -1,10 +1,20 @@
+<%@ page import="javax.swing.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <title>Inscription</title>
 </head>
 <body>
+<jsp:useBean id="utilisateurConnecte" scope="session" class="fr.eni.team42.enchere.bo.Utilisateur"></jsp:useBean>
+<c:if test="${utilisateurConnecte == null}">
+    <%@ include file="/WEB-INF/header.html" %>
+</c:if>
+<jsp:useBean id="utilisateurConnecte" scope="session" class="fr.eni.team42.enchere.bo.Utilisateur"></jsp:useBean>
+<c:if test="${utilisateurConnecte != null}">
+    <%@ include file="/WEB-INF/headerModeConnecte.html" %>
+</c:if>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
 
@@ -16,7 +26,7 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="pseudo"
                             class="form-control"
@@ -28,7 +38,7 @@
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="prenom"
                             class="form-control"
@@ -51,7 +61,7 @@
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="cp"
                             class="form-control"
@@ -63,7 +73,7 @@
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="password"
                             name="password"
                             class="form-control"
@@ -76,7 +86,7 @@
             <div class="col-md-4">
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="nom"
                             class="form-control"
@@ -88,7 +98,7 @@
                 </div>
                 <div class="mb-3">
                     <input
-                    		required="required"
+                            required="required"
                             type="text"
                             name="email"
                             class="form-control"
@@ -142,12 +152,13 @@
         </div>
     </form>
 </div>
+<%@include file="/WEB-INF/footer.html" %>
 <script>
     function testPassword() {
         const pwd = document.getElementById("inputPassword");
         const confirmPwd = document.getElementById("inputConfirmation");
 
-        if(pwd.value !== confirmPwd.value) {
+        if (pwd.value !== confirmPwd.value) {
             pwd.style.borderColor = "red";
             confirmPwd.style.borderColor = "red";
             return false;
@@ -160,21 +171,21 @@
 
     function testForm(form) {
         var isOk = true;
-        if(setErrorInput(form.pseudo, form.pseudo.value.length > 30)) isOk = false;
-        if(setErrorInput(form.nom, form.nom.value.length > 30)) isOk = false;
-        if(setErrorInput(form.prenom, form.prenom.value.length > 30)) isOk = false;
-        if(setErrorInput(form.email, form.email.value.length > 50)) isOk = false;
-        if(setErrorInput(form.telephone, form.telephone.value.length > 15)) isOk = false;
-        if(setErrorInput(form.cp, form.cp.value.length > 5)) isOk = false;
-        if(setErrorInput(form.rue, form.rue.value.length > 50)) isOk = false;
-        if(setErrorInput(form.ville, form.ville.value.length > 30)) isOk = false;
-        if(!testPassword()) isOk = false;
+        if (setErrorInput(form.pseudo, form.pseudo.value.length > 30)) isOk = false;
+        if (setErrorInput(form.nom, form.nom.value.length > 30)) isOk = false;
+        if (setErrorInput(form.prenom, form.prenom.value.length > 30)) isOk = false;
+        if (setErrorInput(form.email, form.email.value.length > 50)) isOk = false;
+        if (setErrorInput(form.telephone, form.telephone.value.length > 15)) isOk = false;
+        if (setErrorInput(form.cp, form.cp.value.length > 5)) isOk = false;
+        if (setErrorInput(form.rue, form.rue.value.length > 50)) isOk = false;
+        if (setErrorInput(form.ville, form.ville.value.length > 30)) isOk = false;
+        if (!testPassword()) isOk = false;
 
         return isOk;
     }
 
     function setErrorInput(input, error) {
-        if(error) {
+        if (error) {
             input.style.borderColor = "red";
         } else {
             input.style.borderColor = "";
@@ -182,5 +193,11 @@
         return error;
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+        crossorigin="anonymous"></script>
 </body>
 </html>
