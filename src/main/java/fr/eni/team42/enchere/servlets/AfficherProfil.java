@@ -1,6 +1,7 @@
 package fr.eni.team42.enchere.servlets;
 
-import java.io.IOException;
+import fr.eni.team42.enchere.bll.UtilisateurManager;
+import fr.eni.team42.enchere.bo.Utilisateur;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,12 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import fr.eni.team42.enchere.BusinessException;
-import fr.eni.team42.enchere.bll.BLLException;
-import fr.eni.team42.enchere.bll.UtilisateurManager;
-import fr.eni.team42.enchere.bo.Utilisateur;
-import fr.eni.team42.enchere.dal.DALExceptionCode;
+import java.io.IOException;
 
 /**
  * Servlet implementation class AfficherProfil
@@ -33,7 +29,7 @@ public class AfficherProfil extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfil.jsp");
 		try {
 			Integer idUtilisateur = Integer.valueOf(request.getParameter("idUtilisateur"));

@@ -1,6 +1,7 @@
 package fr.eni.team42.enchere.tests.dal;
 
-import java.security.NoSuchAlgorithmException;
+import fr.eni.team42.enchere.BusinessException;
+
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 
@@ -11,7 +12,7 @@ public class testServlet extends HttpServlet {
 
         try {
             testDAL.init();
-        } catch (NoSuchAlgorithmException e) {
+        } catch (BusinessException e) {
             throw new RuntimeException(e);
         }
     }

@@ -7,8 +7,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
+import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bll.UtilisateurManager;
 import fr.eni.team42.enchere.bo.Utilisateur;
+import fr.eni.team42.enchere.messages.LecteurMessage;
 
 
 /**
@@ -38,35 +40,33 @@ public class Connexion extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String identifiant;
-		String password;
+		String identifiant = request.getParameter("email");
+		String password = request.getParameter("password");
+
 		try {
-			identifiant = request.getParameter("email");
-			password = request.getParameter("password");
-			if(identifiant != null || password != null) {
-				UtilisateurManager userManager = new UtilisateurManager();
-				Utilisateur utilisateur = userManager.logIn(identifiant, password);
-				if(utilisateur != null){
-					HttpSession session = request.getSession(false);
-					session.setAttribute("utilisateurConnecte", utilisateur);
-					RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-					rd.forward(request, response);
-				}else {
-					request.setAttribute("erreurConnexion", "Le login ou le mot de passe est incorrect");
-					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
-					rd.forward(request, response);	
-				}
-			}else {
-				request.setAttribute("erreurConnexion", "Login ou mot de passe manquant");
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
-				rd.forward(request, response);	
-				}
-		}catch(Exception e){
-			e.printStackTrace();
-			request.setAttribute("erreurConnexion", "Erreur dans la connexion, veuillez retenter");
+			//si null, renvoie dans le block catch
+			if(identifiant.isEmpty() || password.isEmpty()) throw new BusinessException(ServletExceptionCode.CHAMP_VIDE);
+
+			UtilisateurManager userManager = new UtilisateurManager();
+			Utilisateur utilisateur = userManager.logIn(identifiant, password);
+
+			//si null, renvoie dans le block catch
+			if(utilisateur == null) throw new BusinessException(ServletExceptionCode.UTILISATEUR_NULL);
+
+			//Utilisateur correct, ajout dans la session
+			HttpSession session = request.getSession(true);
+			session.setAttribute("utilisateurConnecte", utilisateur);
+
+			//Retour sur la page d'accueil
+			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+
+		} catch(BusinessException e){
+			request.setAttribute("email", identifiant); //renvoie du champ mail
+			request.setAttribute("erreurConnexion", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
-			//request.getParameter("login") dans la jsp pour remettre la valeur saisie
-			rd.forward(request, response);	
+			rd.forward(request, response);
 		}
 	}
 }
