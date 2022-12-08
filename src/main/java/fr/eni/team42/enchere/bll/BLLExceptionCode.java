@@ -6,4 +6,8 @@ public class BLLExceptionCode {
      * Echec du hashage du mot de passe
      */
     public static final int ERREUR_HASH = 201;
+    /**
+     * Echec Validation champs utilisateur
+     */
+    public static final int ERREUR_VALIDATION = 202;
 }

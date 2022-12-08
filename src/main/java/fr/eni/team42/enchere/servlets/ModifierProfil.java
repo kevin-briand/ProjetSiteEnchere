@@ -29,7 +29,7 @@ public class ModifierProfil extends HttpServlet {
         String email = request.getParameter("email");
         String telephone = request.getParameter("telephone");
         String rue = request.getParameter("rue");
-        String codePostal = request.getParameter("code_postal");
+        String codePostal = request.getParameter("cp");
         String ville = request.getParameter("ville");
         String password = request.getParameter("password");
         String oldPassword= request.getParameter("oldPassword");
@@ -46,7 +46,7 @@ public class ModifierProfil extends HttpServlet {
                 user.setCodePostal(codePostal);
                 user.setNom(nom);
                 user.setVille(ville);
-                if(PasswordHashManager.hashMdp(oldPassword).equals(user.getMdp()) && !password.isEmpty())
+                if(!oldPassword.isEmpty() && !password.isEmpty() && PasswordHashManager.hashMdp(oldPassword).equals(user.getMdp()))
                     user.setMdp(PasswordHashManager.hashMdp(password));
             }
             UtilisateurManager um = new UtilisateurManager();
@@ -56,6 +56,7 @@ public class ModifierProfil extends HttpServlet {
 
             rd = request.getRequestDispatcher("/WEB-INF/afficherProfil.jsp");
         } catch (Exception e) {
+            e.printStackTrace();
             request.setAttribute("erreur","Un champ n'a pas correctement été rempli");
             rd = request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp");
         }

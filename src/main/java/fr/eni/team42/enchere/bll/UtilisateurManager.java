@@ -43,7 +43,7 @@ public class UtilisateurManager {
                 || u.getCodePostal() == null
                 || u.getVille() == null
                 || u.getMdp() == null) {
-            throw new BusinessException();
+            throw new BusinessException(BLLExceptionCode.ERREUR_VALIDATION);
         }
     }
 
