@@ -1,5 +1,9 @@
 package fr.eni.team42.enchere.bo;
 
+import fr.eni.team42.enchere.bll.PasswordHashManager;
+
+import java.security.NoSuchAlgorithmException;
+
 public class Utilisateur {
 
     private int idUtilisateur;
@@ -18,7 +22,8 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+                       String codePostal, String ville, String mdp, int credit) throws NoSuchAlgorithmException {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -27,11 +32,12 @@ public class Utilisateur {
         this.rue = rue;
         this.codePostal = codePostal;
         this.ville = ville;
-        this.mdp = mdp;
+        this.mdp = PasswordHashManager.hashMdp(mdp);
         this.credit = credit;
     }
 
-    public Utilisateur(int idUtilisateur, String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
+    public Utilisateur(int idUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+                       String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
         this.idUtilisateur = idUtilisateur;
         this.pseudo = pseudo;
         this.nom = nom;
@@ -46,7 +52,8 @@ public class Utilisateur {
         this.admin = false;
     }
 
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+                       String codePostal, String ville, String mdp, int credit, boolean admin) throws NoSuchAlgorithmException {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -55,7 +62,7 @@ public class Utilisateur {
         this.rue = rue;
         this.codePostal = codePostal;
         this.ville = ville;
-        this.mdp = mdp;
+        this.mdp = PasswordHashManager.hashMdp(mdp);
         this.credit = credit;
         this.admin = false;
     }

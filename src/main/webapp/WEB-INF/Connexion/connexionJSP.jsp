@@ -11,7 +11,8 @@
     <title>Connexion JSP</title>
 </head>
 <body>
-<form method="post" action="<%=request.getContextPath()%>/ServletConnexion">
+<p><%=request.getAttribute("erreurConnexion")%></p>
+<form method="post" action="<%=request.getContextPath()%>/Connexion">
       <label for="email">email : </label> <input required id="email" type="email" name="email"><br>
 <label for="mdp">mot de passe : </label>  <input required id="mdp" type="password" name="password"><br>
 <input type="submit" name="valider" value="valider">
