@@ -10,8 +10,6 @@
 
 	<%
 			Object erreurInscription = request.getAttribute("erreurInscription");
-	//si tout s'est bien passé, notre object avis ne sera pas null
-	//et donc on affiche juste notre objet avis avec le contenu de la méthode toString
 			if(erreurInscription!=null){
 		%>
 				<p style="margin-bottom: 50px; color:red;"><%=erreurInscription %></p>
