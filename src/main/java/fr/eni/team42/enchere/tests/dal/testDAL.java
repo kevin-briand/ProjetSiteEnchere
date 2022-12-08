@@ -6,20 +6,17 @@ import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 import fr.eni.team42.enchere.messages.LecteurMessage;
 
-import java.security.NoSuchAlgorithmException;
-
-
 public class testDAL {
-    public static void init() throws NoSuchAlgorithmException {
+    public static void init() throws BusinessException {
 
         System.out.println("---------------BEGIN TEST DAL---------------------");
         System.out.println("CREATE NEW USER 'test'");
         Utilisateur user = new Utilisateur("test","valjean","jean","jean@valjean.fr","0100000000","10 rue de la barre",
-                "85710","BOIS DE CENE", PasswordHashManager.hashMdp("salut"),0,false);
+                "85710","BOIS DE CENE", PasswordHashManager.hashMdp("salut"),0);
 
         System.out.println("CREATE NEW USER 'test2'");
         Utilisateur user2 = new Utilisateur("test2","valjean","gui","gui@valjean.fr","0100000001","1 rue de la barre",
-                "85710","BOIS DE CENE",PasswordHashManager.hashMdp("gre4g586re4fzegrte6g4ze"),100,true);
+                "85710","BOIS DE CENE",PasswordHashManager.hashMdp("gre4g586re4fzegrte6g4ze"),100);
 
 
         System.out.print("INSERT NEW USER 'test2' ");

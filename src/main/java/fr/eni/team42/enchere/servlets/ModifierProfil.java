@@ -1,16 +1,17 @@
 package fr.eni.team42.enchere.servlets;
 
-import fr.eni.team42.enchere.bll.BLLException;
 import fr.eni.team42.enchere.bll.PasswordHashManager;
 import fr.eni.team42.enchere.bll.UtilisateurManager;
 import fr.eni.team42.enchere.bo.Utilisateur;
-import fr.eni.team42.enchere.rest.encheres;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 @WebServlet(name = "ModifierProfil", value = "/profil/modification")
 public class ModifierProfil extends HttpServlet {
@@ -38,12 +39,12 @@ public class ModifierProfil extends HttpServlet {
             Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
             if(user != null) {
                 user.setPseudo(pseudo);
-                user.setNom(nom);
                 user.setPrenom(prenom);
                 user.setEmail(email);
                 user.setTelephone(telephone);
                 user.setRue(rue);
                 user.setCodePostal(codePostal);
+                user.setNom(nom);
                 user.setVille(ville);
                 if(PasswordHashManager.hashMdp(oldPassword).equals(user.getMdp()) && !password.isEmpty())
                     user.setMdp(PasswordHashManager.hashMdp(password));

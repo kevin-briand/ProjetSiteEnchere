@@ -47,17 +47,21 @@ public class UtilisateurManager {
         }
     }
 
-    public Utilisateur logIn(String identifiant, String password) throws Exception {
-        Utilisateur u = null;
+    public Utilisateur logIn(String identifiant, String password) throws BusinessException {
+        Utilisateur u;
         if (identifiant.matches(".+@.+\\.[a-z]+")) {
             u = selectByEmail(identifiant);
         } else {
             u = selectByPseudo(identifiant);
         }
 
-        if (u == null || !u.getMdp().equals(PasswordHashManager.hashMdp(password))) {
-            return null;
+        try {
+            if (u == null || !u.getMdp().equals(PasswordHashManager.hashMdp(password))) {
+                return null;
+            }
+            return u;
+        } catch (Exception e) {
+            throw new BusinessException();
         }
-        return u;
     }
 }

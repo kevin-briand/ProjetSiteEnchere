@@ -50,11 +50,10 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
                         rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9),
                         rs.getString(10), rs.getInt(11), rs.getBoolean(12));
-            } else {
-                throw new BusinessException(DALExceptionCode.UTILISATEUR_INCONNU);
             }
-
+            return null;
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
     }
@@ -70,10 +69,8 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
                         rs.getString(4), rs.getString(5), rs.getString(6),
                         rs.getString(7), rs.getString(8), rs.getString(9),
                         rs.getString(10), rs.getInt(11), rs.getBoolean(12));
-            } else {
-                throw new BusinessException(DALExceptionCode.UTILISATEUR_INCONNU);
             }
-
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
@@ -112,6 +109,7 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
                 else
                     throw new BusinessException(DALExceptionCode.DUPLICATION_EMAIL);
             }
+            e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
     }

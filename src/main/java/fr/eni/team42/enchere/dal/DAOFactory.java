@@ -13,4 +13,3 @@ public class DAOFactory {
     	return new EnchereJdbcImpl();
     }
 }
-

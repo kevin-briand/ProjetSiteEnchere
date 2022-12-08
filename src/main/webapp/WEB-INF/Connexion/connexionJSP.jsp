@@ -6,14 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <html>
 <head>
     <title>Connexion JSP</title>
 </head>
 <body>
-<p><%=request.getAttribute("erreurConnexion")%></p>
+<p>${requestScope["erreurConnexion"]}</p>
 <form method="post" action="<%=request.getContextPath()%>/Connexion">
-      <label for="email">email : </label> <input required id="email" type="email" name="email"><br>
+      <label for="email">email : </label> <input required id="email" type="email" name="email" value="${requestScope["email"]}"><br>
 <label for="mdp">mot de passe : </label>  <input required id="mdp" type="password" name="password"><br>
 <input type="submit" name="valider" value="valider">
 </form>

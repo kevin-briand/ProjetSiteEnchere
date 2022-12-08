@@ -38,7 +38,6 @@ public class EnchereJdbcImpl implements EnchereDAO {
         } catch (Exception e) {
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
-
 	}
 
 	@Override

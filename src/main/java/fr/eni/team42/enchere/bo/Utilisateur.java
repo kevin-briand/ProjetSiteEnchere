@@ -1,8 +1,7 @@
 package fr.eni.team42.enchere.bo;
 
+import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bll.PasswordHashManager;
-
-import java.security.NoSuchAlgorithmException;
 
 public class Utilisateur {
 
@@ -23,7 +22,7 @@ public class Utilisateur {
     }
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-                       String codePostal, String ville, String mdp, int credit) throws NoSuchAlgorithmException {
+                       String codePostal, String ville, String mdp, int credit) throws BusinessException {
         this.pseudo = pseudo;
         this.nom = nom;
         this.prenom = prenom;
@@ -49,22 +48,7 @@ public class Utilisateur {
         this.ville = ville;
         this.mdp = mdp;
         this.credit = credit;
-        this.admin = false;
-    }
-
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
-                       String codePostal, String ville, String mdp, int credit, boolean admin) throws NoSuchAlgorithmException {
-        this.pseudo = pseudo;
-        this.nom = nom;
-        this.prenom = prenom;
-        setEmail(email);
-        this.telephone = telephone;
-        this.rue = rue;
-        this.codePostal = codePostal;
-        this.ville = ville;
-        this.mdp = PasswordHashManager.hashMdp(mdp);
-        this.credit = credit;
-        this.admin = false;
+        this.admin = admin;
     }
 
     public int getIdUtilisateur() {
