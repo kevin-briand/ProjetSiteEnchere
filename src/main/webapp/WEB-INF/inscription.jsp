@@ -8,14 +8,8 @@
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
 
-	<%
-			Object erreurInscription = request.getAttribute("erreurInscription");
-			if(erreurInscription!=null){
-		%>
-				<p style="margin-bottom: 50px; color:red;"><%=erreurInscription %></p>
-		<%		
-			}
-		%>
+	<p style="margin-bottom: 50px; color:red;">${requestScope["erreurInscription"]}</p>
+		
 	
     <form method="post" onsubmit="return testForm(this);" action="<%=request.getContextPath()%>/Inscription">
         <div class="row justify-content-md-around mb-3">
@@ -29,7 +23,7 @@
                             id="pseudo"
                             placeholder="Pseudo"
                             aria-label="Pseudo"
-                            value="<%=erreurInscription!=null?request.getParameter("pseudo"):""%>"
+                            value="${user.pseudo}"
                     />
                 </div>
                 <div class="mb-3">
@@ -41,7 +35,7 @@
                             id="prenom"
                             placeholder="Prénom"
                             aria-label="Prénom"
-							value="<%=erreurInscription!=null?request.getParameter("prenom"):""%>"
+							value="${user.prenom}"
                     />
                 </div>
                 <div class="mb-3">
@@ -52,7 +46,7 @@
                             id="telephone"
                             placeholder="Téléphone"
                             aria-label="Téléphone"
-							value="<%=erreurInscription!=null?request.getParameter("telephone"):""%>"
+                            value="${user.telephone}"
                     />
                 </div>
                 <div class="mb-3">
@@ -64,7 +58,7 @@
                             id="cp"
                             placeholder="Code Postal"
                             aria-label="Code Postal"
-                            value="<%=erreurInscription!=null?request.getParameter("cp"):""%>"
+                            value="${user.codePostal}"
                     />
                 </div>
                 <div class="mb-3">
@@ -89,7 +83,7 @@
                             id="nom"
                             placeholder="Nom"
                             aria-label="Nom"
-                            value="<%=erreurInscription!=null?request.getParameter("nom"):""%>"
+					        value="${user.nom}"
                     />
                 </div>
                 <div class="mb-3">
@@ -101,7 +95,7 @@
                             id="email"
                             placeholder="Email"
                             aria-label="Email"
-                            value="<%=erreurInscription!=null?request.getParameter("email"):""%>"
+                            value="${user.email}"
                     />
                 </div>
                 <div class="mb-3">
@@ -113,7 +107,7 @@
                             id="rue"
                             placeholder="Rue"
                             aria-label="Rue"
-                            value="<%=erreurInscription!=null?request.getParameter("rue"):""%>"
+                            value="${user.rue}"
                     />
                 </div>
                 <div class="mb-3">
@@ -125,7 +119,7 @@
                             id="ville"
                             placeholder="Ville"
                             aria-label="Ville"
-                            value="<%=erreurInscription!=null?request.getParameter("ville"):""%>"
+                            value="${user.ville}"
                     />
                 </div>
                 <div class="mb-3">

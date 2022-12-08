@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.team42.enchere.bo.Utilisateur;
+import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bll.UtilisateurManager;
 
 
@@ -42,7 +43,8 @@ public class Inscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String pseudo, nom, prenom, email, telephone, codePostal, rue, ville, mdp;
+		String pseudo = null;
+		String nom, prenom, email, telephone, codePostal, rue, ville, mdp;
 		Integer credit;
 		try {
 			pseudo = request.getParameter("pseudo");
@@ -56,13 +58,24 @@ public class Inscription extends HttpServlet {
 			mdp = request.getParameter("password");
 			credit = 0;
 			Utilisateur u = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, credit, false);
-			UtilisateurManager userManager = new UtilisateurManager();
-			userManager.addUtilisateur(u);
-			HttpSession session = request.getSession(false);
-			session.setAttribute("utilisateurConnecte", u);
-			//quelque chose côté jsp pour signifier que l'utilisateur est passé à l'état connecté ?
-			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-			rd.forward(request, response);		
+			try {
+				UtilisateurManager userManager = new UtilisateurManager();
+				userManager.addUtilisateur(u);
+				HttpSession session = request.getSession(false);
+				session.setAttribute("utilisateurConnecte", u);
+				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+				rd.forward(request, response);		
+			}catch (BusinessException e) {
+				request.setAttribute("user", u);
+				if(e.getCodeErreur() == 6) {
+					request.setAttribute("erreurInscription", "Erreur : l'email est déjà associé à un compte.");
+				}else if(e.getCodeErreur() == 5) {
+					request.setAttribute("erreurInscription", "Erreur : le pseudo est déjà associé à un compte.");
+				}
+				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
+				rd.forward(request, response);		
+			}
+		
 		}
 		catch(Exception e){
 			e.printStackTrace();
