@@ -1,6 +1,5 @@
 package fr.eni.team42.enchere.servlets;
 
-import fr.eni.team42.enchere.bll.UtilisateurManager;
 import fr.eni.team42.enchere.bo.Utilisateur;
 
 import javax.servlet.RequestDispatcher;
@@ -32,9 +31,7 @@ public class AfficherProfil extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfil.jsp");
 		try {
-			Integer idUtilisateur = Integer.valueOf(request.getParameter("idUtilisateur"));
-			UtilisateurManager userManager = new UtilisateurManager();
-			Utilisateur user = userManager.selectById(idUtilisateur);
+			Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
 			request.setAttribute("utilisateur", user);
 			rd.forward(request, response);
 		} catch (Exception e) {
@@ -45,7 +42,7 @@ public class AfficherProfil extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

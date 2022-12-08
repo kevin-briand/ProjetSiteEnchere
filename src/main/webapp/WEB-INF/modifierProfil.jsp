@@ -1,4 +1,3 @@
-<%@ page import="fr.eni.team42.enchere.bo.Utilisateur" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -8,7 +7,7 @@
 <body>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
-    <% Utilisateur utilisateur = (Utilisateur) request.getSession(false).getAttribute("utilisateurConnecte"); %>
+    <p>${requestScope["erreur"]}</p>
     <form method="post" action="<%=request.getContextPath()%>/profil/modification">
         <div class="row justify-content-md-around mb-3">
             <div class="col-md-4">
@@ -21,7 +20,7 @@
                             id="pseudo"
                             placeholder="Pseudo"
                             aria-label="Pseudo"
-                            value="<%=utilisateur.getPseudo()%>"
+                            value="${sessionScope.utilisateurConnecte.pseudo}"
                     />
                 </div>
                 <div class="mb-3">
@@ -33,7 +32,7 @@
                             id="prenom"
                             placeholder="Prénom"
                             aria-label="Prénom"
-                            value="<%=utilisateur.getPrenom()%>"
+                            value="${sessionScope.utilisateurConnecte.prenom}"
                     />
                 </div>
                 <div class="mb-3">
@@ -44,7 +43,7 @@
                             id="telephone"
                             placeholder="Téléphone"
                             aria-label="Téléphone"
-                            value="<%=utilisateur.getTelephone()%>"
+                            value="${sessionScope.utilisateurConnecte.telephone}"
                     />
                 </div>
                 <div class="mb-3">
@@ -56,13 +55,13 @@
                             id="cp"
                             placeholder="Code Postal"
                             aria-label="Code Postal"
-                            value="<%=utilisateur.getCodePostal()%>"
+                            value="${sessionScope.utilisateurConnecte.codePostal}"
                     />
                 </div>
                 <div class="mb-3">
                     <input
                             type="password"
-                            name="password"
+                            name="oldPassword"
                             class="form-control"
                             id="inputPassword"
                             placeholder="Mot de passe actuel"
@@ -90,7 +89,7 @@
                             id="nom"
                             placeholder="Nom"
                             aria-label="Nom"
-                            value="<%=utilisateur.getNom()%>"
+                            value="${sessionScope.utilisateurConnecte.nom}"
                     />
                 </div>
                 <div class="mb-3">
@@ -102,7 +101,7 @@
                             id="email"
                             placeholder="Email"
                             aria-label="Email"
-                            value="<%=utilisateur.getEmail()%>"
+                            value="${sessionScope.utilisateurConnecte.email}"
                     />
                 </div>
                 <div class="mb-3">
@@ -114,7 +113,7 @@
                             id="rue"
                             placeholder="Rue"
                             aria-label="Rue"
-                            value="<%=utilisateur.getRue()%>"
+                            value="${sessionScope.utilisateurConnecte.rue}"
                     />
                 </div>
                 <div class="mb-3">
@@ -126,7 +125,7 @@
                             id="ville"
                             placeholder="Ville"
                             aria-label="Ville"
-                            value="<%=utilisateur.getVille()%>"
+                            value="${sessionScope.utilisateurConnecte.ville}"
                     />
                 </div>
                 <div class="mb-3">
@@ -140,7 +139,7 @@
                     />
                 </div>
                 <div class="mb-3" style="margin-right: 300px">
-                    <%="Crédit"%>
+                    ${sessionScope.utilisateurConnecte.credit}
                 </div>
             </div>
         </div>

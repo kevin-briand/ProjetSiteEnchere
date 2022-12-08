@@ -43,9 +43,9 @@ public class Inscription extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String pseudo = null;
+		String pseudo;
 		String nom, prenom, email, telephone, codePostal, rue, ville, mdp;
-		Integer credit;
+		int credit;
 		try {
 			pseudo = request.getParameter("pseudo");
 			nom = request.getParameter("nom");
@@ -57,7 +57,7 @@ public class Inscription extends HttpServlet {
 			ville = request.getParameter("ville");
 			mdp = request.getParameter("password");
 			credit = 0;
-			Utilisateur u = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, credit, false);
+			Utilisateur u = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, credit);
 			try {
 				UtilisateurManager userManager = new UtilisateurManager();
 				userManager.addUtilisateur(u);
