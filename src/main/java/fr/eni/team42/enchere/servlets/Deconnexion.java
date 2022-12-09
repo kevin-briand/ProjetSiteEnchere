@@ -17,11 +17,13 @@ public class Deconnexion extends HttpServlet {
         HttpSession session = request.getSession(false);
         if(session != null)
             session.invalidate();
+        //retour info deconnection
+        request.setAttribute("info","Déconnexion réussie !");
         request.getRequestDispatcher("/index.jsp").forward(request,response);
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
     }
 }

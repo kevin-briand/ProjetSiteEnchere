@@ -65,15 +65,18 @@ public class Inscription extends HttpServlet {
 				userManager.addUtilisateur(u);
 				HttpSession session = request.getSession(false);
 				session.setAttribute("utilisateurConnecte", u);
+				//retour info connection
+				request.setAttribute("info","Connexion réussie !");
+
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);		
 			}catch (BusinessException e) {
 				request.setAttribute("user", u);
-				if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_EMAIL) {
+			if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_EMAIL) {
 					request.setAttribute("erreurInscription", LecteurMessage.getMessageErreur(e.getCodeErreur()));
-				}else if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_PSEUDO) {
+			}else if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_PSEUDO) {
 					request.setAttribute("erreurInscription", LecteurMessage.getMessageErreur(e.getCodeErreur()));
-				}
+			}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 				rd.forward(request, response);		
 			}

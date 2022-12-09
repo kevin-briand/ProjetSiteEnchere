@@ -22,6 +22,7 @@ public class FilterActiveSession implements Filter {
         SERVLET_AUTORISEES_HORS_CONNEXION.add("/index.jsp");
         SERVLET_AUTORISEES_HORS_CONNEXION.add("/Connexion");
         SERVLET_AUTORISEES_HORS_CONNEXION.add("/Inscription");
+        SERVLET_AUTORISEES_HORS_CONNEXION.add("/scripts/alert.js");
     }
 
     @Override

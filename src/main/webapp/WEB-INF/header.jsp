@@ -41,3 +41,6 @@
         </c:choose>
     </div>
 </nav>
+<%-- Affichage erreurs --%>
+<div id="alertErreur">${requestScope["erreur"]}</div>
+<div id="alertInfo">${requestScope["info"]}</div>

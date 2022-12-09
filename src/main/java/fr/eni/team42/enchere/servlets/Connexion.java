@@ -59,11 +59,13 @@ public class Connexion extends HttpServlet {
 
 			//Retour sur la page d'accueil
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+			//retour info connection
+			request.setAttribute("info","Connexion réussie !");
 			rd.forward(request, response);
 
 		} catch(BusinessException e){
 			request.setAttribute("email", identifiant); //renvoie du champ mail
-			request.setAttribute("erreurConnexion", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+			request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
 
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
 			rd.forward(request, response);
