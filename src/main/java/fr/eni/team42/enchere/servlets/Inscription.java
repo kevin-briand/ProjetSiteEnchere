@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.team42.enchere.bo.Utilisateur;
+import fr.eni.team42.enchere.dal.DALExceptionCode;
+import fr.eni.team42.enchere.messages.LecteurMessage;
 import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bll.UtilisateurManager;
 
@@ -67,10 +69,10 @@ public class Inscription extends HttpServlet {
 				rd.forward(request, response);		
 			}catch (BusinessException e) {
 				request.setAttribute("user", u);
-				if(e.getCodeErreur() == 6) {
-					request.setAttribute("erreurInscription", "Erreur : l'email est déjà associé à un compte.");
-				}else if(e.getCodeErreur() == 5) {
-					request.setAttribute("erreurInscription", "Erreur : le pseudo est déjà associé à un compte.");
+				if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_EMAIL) {
+					request.setAttribute("erreurInscription", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+				}else if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_PSEUDO) {
+					request.setAttribute("erreurInscription", LecteurMessage.getMessageErreur(e.getCodeErreur()));
 				}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 				rd.forward(request, response);		
