@@ -43,7 +43,7 @@
 	                Email :
 	            </div>
 	           <div class="col mb-1">
-	                <p>${utilisateur.pseudo}</p>
+	                <p>${utilisateur.email}</p>
 	            </div>
             </div>
             <div class="row md-around mb-1">
