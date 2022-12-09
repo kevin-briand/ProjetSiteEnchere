@@ -10,7 +10,7 @@
 <html>
 <head>
     <%@ include file="../bootstrapHeader.html" %>
-    <title>Connexion JSP</title>
+    <title>Connexion</title>
 </head>
 <body>
 <%@ include file="../header.jsp" %>

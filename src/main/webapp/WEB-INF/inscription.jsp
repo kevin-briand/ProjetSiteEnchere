@@ -9,7 +9,7 @@
 <body>
 <%@ include file="/WEB-INF/header.jsp" %>
 <div class="container text-center">
-    <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
+    <h1 style="margin-bottom: 75px; margin-top: 50px;">Inscription</h1>
 
 	<p style="margin-bottom: 50px; color:red;">${requestScope["erreurInscription"]}</p>
 		
