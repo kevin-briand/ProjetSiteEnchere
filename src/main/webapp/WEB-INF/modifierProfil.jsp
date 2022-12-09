@@ -2,9 +2,11 @@
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <%@ include file="bootstrapHeader.html" %>
     <title>Mon profil</title>
 </head>
 <body>
+<%@ include file="header.jsp" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
     <p>${requestScope["erreur"]}</p>
@@ -150,6 +152,8 @@
         </div>
     </form>
 </div>
+<%@ include file="footer.html" %>
+<%@ include file="bootstrapScripts.html" %>
 </body>
 </html>
 

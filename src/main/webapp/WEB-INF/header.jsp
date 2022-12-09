@@ -18,7 +18,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="#">Encheres</a></li>
-                        <li><a class="dropdown-item" href="/ProjetSiteEnchere/AfficherProfil">Profil</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/AfficherProfil">Profil</a></li>
                         <li><a class="dropdown-item" href="#">Parametres</a></li>
                     </ul>
                 </li>
@@ -28,9 +28,9 @@
         <c:choose>
             <c:when test="${utilisateurConnecte == null}">
                 <div class="text-end">
-                    <a href="/ProjetSiteEnchere/Connexion" type="button" class="btn btn-light text-dark me-2">Se
+                    <a href="<%=request.getContextPath()%>/Connexion" type="button" class="btn btn-light text-dark me-2">Se
                         connecter</a>
-                    <a href="/ProjetSiteEnchere/Inscription" type="button" class="btn btn-primary">S'inscrire</a>
+                    <a href="<%=request.getContextPath()%>/Inscription" type="button" class="btn btn-primary">S'inscrire</a>
                 </div>
             </c:when>
             <c:otherwise>

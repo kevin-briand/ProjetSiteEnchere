@@ -3,9 +3,11 @@
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+	<%@ include file="bootstrapHeader.html" %>
     <title>Voir profil</title>
 </head>
 <body>
+	<%@ include file="header.jsp" %>
 	<div class="container">
     <h1 class="text-center"style="margin-bottom: 100px; margin-top: 50px;">Profil de ${utilisateur.pseudo}</h1>
     <div class="row justify-content-md-around mb-3">
@@ -77,5 +79,7 @@
         </div>
     </div>
 	</div>
+	<%@ include file="footer.html" %>
+	<%@ include file="bootstrapScripts.html" %>
 </body>
 </html>
