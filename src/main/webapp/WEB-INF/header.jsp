@@ -1,4 +1,3 @@
-<%@ page import="javax.swing.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -36,7 +35,7 @@
             <c:otherwise>
                 <div class="text-end">
                         ${utilisateurConnecte.pseudo}
-                    <a href="index.jsp" type="button" class="btn btn-primary">Se déconnecter</a>
+                    <a href="<%=request.getContextPath()%>/Deconnexion" type="button" class="btn btn-primary">Se déconnecter</a>
                 </div>
             </c:otherwise>
         </c:choose>
