@@ -10,7 +10,7 @@
 <body>
 <%@ include file="header.jsp" %>
 <div class="container text-center">
-    <img src="<%=request.getContextPath()%>/500.png" alt="Erreur 500"/>
+    <img src="<%=request.getContextPath()%>/img/500.png" alt="Erreur 500" style="width: 500px; height: 210px;"/>
     <p>${requestScope["erreur"]}</p>
 </div>
 <%@ include file="footer.html" %>

@@ -4,16 +4,16 @@
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <%@ include file="WEB-INF/bootstrapHeader.html" %>
+    <%@ include file="bootstrapHeader.html" %>
     <title>ERROR</title>
 </head>
 <body>
-<%@ include file="WEB-INF/header.jsp" %>
+<%@ include file="header.jsp" %>
 <div class="container text-center">
-    <img src="<%=request.getContextPath()%>/img/404.jpg" alt="Erreur 404"/>
+    <img src="<%=request.getContextPath()%>/img/404.jpg" alt="Erreur 404" style="width: 350px; height: 350px;"/>
     <p>${requestScope["erreur"]}</p>
 </div>
-<%@ include file="WEB-INF/footer.html" %>
-<%@ include file="WEB-INF/bootstrapScripts.html" %>
+<%@ include file="footer.html" %>
+<%@ include file="bootstrapScripts.html" %>
 </body>
 </html>

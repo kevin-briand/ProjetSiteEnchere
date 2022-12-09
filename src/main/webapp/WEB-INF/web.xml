@@ -14,14 +14,10 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/erreur404.jsp</location>
+        <location>/WEB-INF/erreur404.jsp</location>
     </error-page>
     <error-page>
         <error-code>500</error-code>
         <location>/WEB-INF/erreur500.jsp</location>
     </error-page>
-
-
-
-
 </web-app>
