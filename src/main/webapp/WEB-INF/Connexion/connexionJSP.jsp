@@ -16,7 +16,7 @@
 <%@ include file="../header.jsp" %>
 <p>${requestScope["erreurConnexion"]}</p>
 <form method="post" action="<%=request.getContextPath()%>/Connexion">
-      <label for="email">email : </label> <input required id="email" type="email" name="email" value="${requestScope["email"]}"><br>
+      <label for="email">email : </label> <input required id="email" type="text" name="email" value="${requestScope["email"]}"><br>
 <label for="mdp">mot de passe : </label>  <input required id="mdp" type="password" name="password"><br>
 <input type="submit" name="valider" value="valider">
 </form>
