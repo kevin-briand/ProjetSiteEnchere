@@ -73,9 +73,9 @@ public class Inscription extends HttpServlet {
 			}catch (BusinessException e) {
 				request.setAttribute("user", u);
 			if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_EMAIL) {
-					request.setAttribute("erreurInscription", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+					request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
 			}else if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_PSEUDO) {
-					request.setAttribute("erreurInscription", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+					request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
 			}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 				rd.forward(request, response);		
