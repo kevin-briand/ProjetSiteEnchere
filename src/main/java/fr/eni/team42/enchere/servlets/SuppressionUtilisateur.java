@@ -23,7 +23,7 @@ public class SuppressionUtilisateur extends HttpServlet {
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
             } catch (BusinessException businessException) {
                 businessException.printStackTrace();
-                request.setAttribute("erreurSuppression", "Erreur dans la suppression, veuillez réessayer");
+                request.setAttribute("erreur", "Erreur dans la suppression, veuillez réessayer");
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp");
                 rd.forward(request, response);
             }

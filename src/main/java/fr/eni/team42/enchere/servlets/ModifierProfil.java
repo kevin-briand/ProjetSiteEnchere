@@ -53,6 +53,7 @@ public class ModifierProfil extends HttpServlet {
             um.updateUtilisateur(user);
             HttpSession session = request.getSession(false);
             session.setAttribute("utilisateurConnecte", user);
+            request.setAttribute("utilisateur", user);
 
             rd = request.getRequestDispatcher("/WEB-INF/afficherProfil.jsp");
         } catch (Exception e) {

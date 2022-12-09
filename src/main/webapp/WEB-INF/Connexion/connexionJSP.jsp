@@ -1,4 +1,3 @@
-<%@ page import="javax.swing.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -11,7 +10,6 @@
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Connexion</h1>
 
-    <p style="margin-bottom: 50px; color:red;">${requestScope["erreurConnexion"]}</p>
 
     <form method="post" action="<%=request.getContextPath()%>/Connexion">
         <div class="row justify-content-md-around mb-3">
@@ -57,6 +55,7 @@
     </form>
 
 </div>
+
 <%@ include file="../footer.html" %>
 <%@ include file="../bootstrapScripts.html" %>
 </body>

@@ -63,14 +63,17 @@ public class Inscription extends HttpServlet {
 				userManager.addUtilisateur(u);
 				HttpSession session = request.getSession(false);
 				session.setAttribute("utilisateurConnecte", u);
+				//retour info connection
+				request.setAttribute("info","Connexion réussis !");
+
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);		
 			}catch (BusinessException e) {
 				request.setAttribute("user", u);
 				if(e.getCodeErreur() == 6) {
-					request.setAttribute("erreurInscription", "Erreur : l'email est déjà associé à un compte.");
+					request.setAttribute("erreur", "l'email est déjà associé à un compte.");
 				}else if(e.getCodeErreur() == 5) {
-					request.setAttribute("erreurInscription", "Erreur : le pseudo est déjà associé à un compte.");
+					request.setAttribute("erreur", "le pseudo est déjà associé à un compte.");
 				}
 				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
 				rd.forward(request, response);		
