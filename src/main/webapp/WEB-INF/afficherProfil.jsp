@@ -11,7 +11,7 @@
 <body>
 	<%@ include file="header.jsp" %>
 	<div class="container">
-    <h1 class="text-center"style="margin-bottom: 100px; margin-top: 50px;">Profil de ${utilisateur.pseudo}</h1>
+    <h1 class="text-center"style="margin-bottom: 75px; margin-top: 50px;">Profil de ${utilisateur.pseudo}</h1>
     <div class="row justify-content-md-around mb-3">
         <div class="col md-4">
         	<div class="row md-around mb-1">
@@ -79,6 +79,12 @@
 	            </div>
             </div>
         </div>
+    <c:if test="${utilisateur.pseudo == sessionScope.utilisateurConnecte.pseudo}" >
+	    <div class="text-center" style="margin-bottom: 75px; margin-top: 50px">
+			<a type="button" class="btn btn-primary btn-lg"
+			 href="<%=request.getContextPath()%>/modifierProfil">Modifier mon profil</a>
+		</div>
+	</c:if>
     </div>
 	</div>
 	<%@ include file="footer.html" %>
