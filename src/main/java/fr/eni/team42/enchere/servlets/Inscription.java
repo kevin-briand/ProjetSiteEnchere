@@ -66,7 +66,7 @@ public class Inscription extends HttpServlet {
 				HttpSession session = request.getSession(false);
 				session.setAttribute("utilisateurConnecte", u);
 				//retour info connection
-				request.setAttribute("info","Connexion réussis !");
+				request.setAttribute("info","Connexion réussie !");
 
 				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 				rd.forward(request, response);		

@@ -18,7 +18,7 @@ public class Deconnexion extends HttpServlet {
         if(session != null)
             session.invalidate();
         //retour info deconnection
-        request.setAttribute("info","Déconnexion réussis !");
+        request.setAttribute("info","Déconnexion réussie !");
         request.getRequestDispatcher("/index.jsp").forward(request,response);
     }
 

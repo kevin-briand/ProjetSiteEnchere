@@ -60,7 +60,7 @@ public class Connexion extends HttpServlet {
 			//Retour sur la page d'accueil
 			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
 			//retour info connection
-			request.setAttribute("info","Connexion réussis !");
+			request.setAttribute("info","Connexion réussie !");
 			rd.forward(request, response);
 
 		} catch(BusinessException e){
