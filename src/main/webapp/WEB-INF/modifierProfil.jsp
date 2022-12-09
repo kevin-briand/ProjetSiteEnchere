@@ -147,13 +147,45 @@
         </div>
         <div class="buttons">
             <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
-            <a type="button" class="btn btn-secondary btn-lg"
-               href="<%=request.getContextPath()%>/SuppressionUtilisateur">Supprimer mon compte</a>
+            <button type="button" class="btn btn-secondary btn-lg" onclick="openModal()">Supprimer mon compte</button>
         </div>
     </form>
 </div>
+
+
+<!-- Modal HTML -->
+<div id="confirmDelete" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Suppression de compte</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Cette action est irréversible !<br>
+                    Vous perdrez tout vos points restant.<br>
+                    Voulez-vous vraiment supprimer votre compte ?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <a type="button" class="btn btn-primary" href="<%=request.getContextPath()%>/SuppressionUtilisateur" >Confirmer</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 <%@ include file="footer.html" %>
 <%@ include file="bootstrapScripts.html" %>
+<script>
+    function openModal() {
+        var myModal = new bootstrap.Modal(document.getElementById("confirmDelete"));
+        myModal.show();
+    }
+</script>
 </body>
 </html>
 
