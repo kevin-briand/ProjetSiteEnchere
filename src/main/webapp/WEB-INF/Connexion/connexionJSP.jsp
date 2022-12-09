@@ -9,15 +9,18 @@
 
 <html>
 <head>
+    <%@ include file="../bootstrapHeader.html" %>
     <title>Connexion JSP</title>
 </head>
 <body>
+<%@ include file="../header.jsp" %>
 <p>${requestScope["erreurConnexion"]}</p>
 <form method="post" action="<%=request.getContextPath()%>/Connexion">
       <label for="email">email : </label> <input required id="email" type="email" name="email" value="${requestScope["email"]}"><br>
 <label for="mdp">mot de passe : </label>  <input required id="mdp" type="password" name="password"><br>
 <input type="submit" name="valider" value="valider">
 </form>
-
+<%@ include file="../footer.html" %>
+<%@ include file="../bootstrapScripts.html" %>
 </body>
 </html>

@@ -4,10 +4,11 @@
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <%@ include file="bootstrapHeader.html" %>
     <title>Mon profil</title>
 </head>
 <body>
-<%@ include file="/WEB-INF/header.jsp" %>
+<%@ include file="header.jsp" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
     <p>${requestScope["erreur"]}</p>
@@ -153,13 +154,8 @@
         </div>
     </form>
 </div>
-<%@include file="/WEB-INF/footer.html" %>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-        integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-        crossorigin="anonymous"></script>
+<%@ include file="footer.html" %>
+<%@ include file="bootstrapScripts.html" %>
 </body>
 </html>
 
