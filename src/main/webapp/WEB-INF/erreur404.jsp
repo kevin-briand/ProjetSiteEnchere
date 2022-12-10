@@ -8,12 +8,12 @@
     <title>ERROR</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="header.jspf" %>
 <div class="container text-center">
     <img src="<%=request.getContextPath()%>/img/404.jpg" alt="Erreur 404" style="width: 350px; height: 350px;"/>
     <p>${requestScope["erreur"]}</p>
 </div>
-<%@ include file="footer.html" %>
+<%@ include file="footer.jspf" %>
 <%@ include file="bootstrapScripts.html" %>
 </body>
 </html>
