@@ -17,7 +17,7 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="#">Encheres</a></li>
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/AfficherProfil">Profil</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/user/AfficherProfil">Profil</a></li>
                         <li><a class="dropdown-item" href="#">Parametres</a></li>
                     </ul>
                 </li>
@@ -35,7 +35,7 @@
             <c:otherwise>
                 <div class="text-end">
                         ${utilisateurConnecte.pseudo}
-                    <a href="<%=request.getContextPath()%>/Deconnexion" type="button" class="btn btn-primary">Se déconnecter</a>
+                    <a href="<%=request.getContextPath()%>/user/Deconnexion" type="button" class="btn btn-primary">Se déconnecter</a>
                 </div>
             </c:otherwise>
         </c:choose>

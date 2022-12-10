@@ -7,7 +7,7 @@
     <title>Mon profil</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+<%@ include file="header.jspf" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
     <form method="post" action="<%=request.getContextPath()%>/modifierProfil">
@@ -178,7 +178,7 @@
 
 
 
-<%@ include file="footer.html" %>
+<%@ include file="footer.jspf" %>
 <%@ include file="bootstrapScripts.html" %>
 <script>
     function openModal() {

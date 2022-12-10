@@ -6,7 +6,7 @@
     <title>Connexion</title>
 </head>
 <body>
-<%@ include file="../header.jsp" %>
+<%@ include file="../header.jspf" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Connexion</h1>
 
@@ -56,7 +56,7 @@
 
 </div>
 
-<%@ include file="../footer.html" %>
+<%@ include file="../footer.jspf" %>
 <%@ include file="../bootstrapScripts.html" %>
 </body>
 </html>

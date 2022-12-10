@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet("/Deconnexion")
+@WebServlet("/user/Deconnexion")
 public class Deconnexion extends HttpServlet {
 
     public Deconnexion() {

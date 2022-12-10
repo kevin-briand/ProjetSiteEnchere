@@ -7,7 +7,7 @@
     <title>Inscription</title>
 </head>
 <body>
-<%@ include file="/WEB-INF/header.jsp" %>
+<%@ include file="/WEB-INF/header.jspf" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 75px; margin-top: 50px;">Inscription</h1>
 
@@ -145,7 +145,7 @@
         </div>
     </form>
 </div>
-<%@include file="/WEB-INF/footer.html" %>
+<%@include file="/WEB-INF/footer.jspf" %>
 <script>
     function testPassword() {
         const pwd = document.getElementById("inputPassword");
