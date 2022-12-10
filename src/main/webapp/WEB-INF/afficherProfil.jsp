@@ -1,4 +1,3 @@
-<%@ page import="javax.swing.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -9,7 +8,7 @@
     <title>Voir profil</title>
 </head>
 <body>
-	<%@ include file="header.jsp" %>
+	<%@ include file="header.jspf" %>
 	<div class="container">
     <h1 class="text-center"style="margin-bottom: 75px; margin-top: 50px;">Profil de ${utilisateur.pseudo}</h1>
     <div class="row justify-content-md-around mb-3">
@@ -82,12 +81,12 @@
     <c:if test="${utilisateur.pseudo == sessionScope.utilisateurConnecte.pseudo}" >
 	    <div class="text-center" style="margin-bottom: 75px; margin-top: 50px">
 			<a type="button" class="btn btn-primary btn-lg"
-			 href="<%=request.getContextPath()%>/modifierProfil">Modifier mon profil</a>
+			 href="<%=request.getContextPath()%>/user/modifierProfil">Modifier mon profil</a>
 		</div>
 	</c:if>
     </div>
 	</div>
-	<%@ include file="footer.html" %>
+	<%@ include file="footer.jspf" %>
 	<%@ include file="bootstrapScripts.html" %>
 </body>
 </html>
