@@ -1,6 +1,7 @@
 package fr.eni.team42.enchere.bo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class ArticleVendu {
 
@@ -13,11 +14,14 @@ public class ArticleVendu {
     private Integer prixVente;
     private Utilisateur utilisateur;
     private Categorie categorie;
+    private List<Enchere> encheres;
+    private Retrait lieuRetrait;
+    private EtatVenteArticle etatVenteArticle;
 
     public ArticleVendu() {
     }
 
-    public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur, Categorie categorie) {
+    public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur, Categorie categorie, List<Enchere> encheres, Retrait lieuRetrait, EtatVenteArticle etatVenteArticle) {
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEnchere = dateDebutEnchere;
@@ -26,6 +30,9 @@ public class ArticleVendu {
         setPrixVente(prixVente);
         this.utilisateur = utilisateur;
         this.categorie = categorie;
+        this.encheres = encheres;
+        this.lieuRetrait = lieuRetrait;
+        this.etatVenteArticle = etatVenteArticle;
     }
 
     public int getIdArticle() {
@@ -112,5 +119,29 @@ public class ArticleVendu {
 
     public void setCategorie(Categorie categorie) {
         this.categorie = categorie;
+    }
+
+    public List<Enchere> getEncheres() {
+        return encheres;
+    }
+
+    public void setEncheres(List<Enchere> encheres) {
+        this.encheres = encheres;
+    }
+
+    public Retrait getLieuRetrait() {
+        return lieuRetrait;
+    }
+
+    public void setLieuRetrait(Retrait lieuRetrait) {
+        this.lieuRetrait = lieuRetrait;
+    }
+
+    public EtatVenteArticle getEtatVenteArticle() {
+        return etatVenteArticle;
+    }
+
+    public void setEtatVenteArticle(EtatVenteArticle etatVenteArticle) {
+        this.etatVenteArticle = etatVenteArticle;
     }
 }

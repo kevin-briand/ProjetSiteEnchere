@@ -47,6 +47,7 @@ CREATE TABLE ARTICLES_VENDUS (
     prix_vente                    INTEGER,
     no_utilisateur                INTEGER NOT NULL,
     no_categorie                  INTEGER NOT NULL,
+    etat_vente                    VARCHAR(30) NOT NULL,
     CONSTRAINT articles_vendus_pk PRIMARY KEY (no_article)
 );
 
