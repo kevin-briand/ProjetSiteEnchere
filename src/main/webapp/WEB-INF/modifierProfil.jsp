@@ -10,7 +10,7 @@
 <%@ include file="header.jspf" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Mon profil</h1>
-    <form method="post" action="<%=request.getContextPath()%>/modifierProfil">
+    <form method="post" action="<%=request.getContextPath()%>/user/modifierProfil">
         <div class="row justify-content-md-around mb-3">
             <div class="col-md-4">
                 <div class="mb-3">
@@ -170,7 +170,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                <a type="button" class="btn btn-primary" href="<%=request.getContextPath()%>/SuppressionUtilisateur" >Confirmer</a>
+                <a type="button" class="btn btn-primary" href="<%=request.getContextPath()%>/user/SuppressionUtilisateur" >Confirmer</a>
             </div>
         </div>
     </div>
