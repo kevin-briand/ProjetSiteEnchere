@@ -10,7 +10,7 @@
 <body>
 <%@ include file="header.jspf" %>
 <div class="container text-center">
-    <img src="<%=request.getContextPath()%>/img/500.png" alt="Erreur 500" style="width: 500px; height: 210px;"/>
+    <img src="<%=request.getContextPath()%>/img/500.png" alt="Erreur 500" style="width: 50%;"/>
     <p>${requestScope["erreur"]}</p>
 </div>
 <%@ include file="footer.jspf" %>
