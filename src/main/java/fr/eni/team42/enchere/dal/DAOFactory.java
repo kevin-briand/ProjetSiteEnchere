@@ -1,5 +1,6 @@
 package fr.eni.team42.enchere.dal;
 
+import fr.eni.team42.enchere.dal.jdbc.ArticleJdbcImpl;
 import fr.eni.team42.enchere.dal.jdbc.EnchereJdbcImpl;
 import fr.eni.team42.enchere.dal.jdbc.UtilisateurJdbcImpl;
 
@@ -11,5 +12,10 @@ public class DAOFactory {
     
     public static EnchereDAO getEnchereDAO() {
     	return new EnchereJdbcImpl();
+    }
+
+    public static ArticleDAO getArticleDAO() {
+        // utilisation méthode Singleton
+        return ArticleJdbcImpl.getInstance();
     }
 }
