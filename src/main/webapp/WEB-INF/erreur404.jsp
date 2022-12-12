@@ -10,7 +10,7 @@
 <body>
 <%@ include file="header.jspf" %>
 <div class="container text-center">
-    <img src="<%=request.getContextPath()%>/img/404.jpg" alt="Erreur 404" style="width: 350px; height: 350px;"/>
+    <img src="<%=request.getContextPath()%>/img/404.jpg" alt="Erreur 404" class="img-fluid"/>
     <p>${requestScope["erreur"]}</p>
 </div>
 <%@ include file="footer.jspf" %>
