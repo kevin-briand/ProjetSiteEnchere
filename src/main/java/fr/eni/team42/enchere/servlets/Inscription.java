@@ -48,47 +48,35 @@ public class Inscription extends HttpServlet {
 		String pseudo;
 		String nom, prenom, email, telephone, codePostal, rue, ville, mdp;
 		int credit;
+		pseudo = request.getParameter("pseudo");
+		nom = request.getParameter("nom");
+		prenom = request.getParameter("prenom");
+		email = request.getParameter("email");
+		telephone = request.getParameter("telephone");
+		rue = request.getParameter("rue");
+		codePostal = request.getParameter("cp");
+		ville = request.getParameter("ville");
+		mdp = request.getParameter("password");
+		credit = 0;
+		Utilisateur u = new Utilisateur();
 		try {
-			pseudo = request.getParameter("pseudo");
-			nom = request.getParameter("nom");
-			prenom = request.getParameter("prenom");
-			email = request.getParameter("email");
-			telephone = request.getParameter("telephone");
-			rue = request.getParameter("rue");
-			codePostal = request.getParameter("cp");
-			ville = request.getParameter("ville");
-			mdp = request.getParameter("password");
-			credit = 0;
-			Utilisateur u = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, credit);
-			try {
-				UtilisateurManager userManager = new UtilisateurManager();
-				userManager.addUtilisateur(u);
-				HttpSession session = request.getSession(false);
-				session.setAttribute("utilisateurConnecte", u);
-				//retour info connection
-				request.setAttribute("info","Connexion réussie !");
+			u = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp, credit);
+			UtilisateurManager userManager = new UtilisateurManager();
+			userManager.addUtilisateur(u);
+			HttpSession session = request.getSession(false);
+			session.setAttribute("utilisateurConnecte", u);
+			//retour info connection
+			request.setAttribute("info","Connexion réussie !");
 
-				RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-				rd.forward(request, response);		
-			}catch (BusinessException e) {
-				request.setAttribute("user", u);
-			if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_EMAIL) {
-					request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
-			}else if(e.getCodeErreur() == DALExceptionCode.DUPLICATION_PSEUDO) {
-					request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
-			}
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
-				rd.forward(request, response);		
-			}
-		
+			RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+			rd.forward(request, response);
+		} catch (BusinessException e) {
+			request.setAttribute("user", u);
+			request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/inscription.jsp");
+			rd.forward(request, response);
 		}
-		catch(Exception e){
-			e.printStackTrace();
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion/connexionJSP.jsp");
-			//request.getParameter("login") dans la jsp pour remettre la valeur saisie
-			rd.forward(request, response);		
-		}	
-		
 	}
 
 }

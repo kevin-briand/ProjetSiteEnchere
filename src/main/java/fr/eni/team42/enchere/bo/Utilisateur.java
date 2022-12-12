@@ -2,6 +2,7 @@ package fr.eni.team42.enchere.bo;
 
 import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bll.PasswordHashManager;
+import fr.eni.team42.enchere.outils.Outils;
 
 public class Utilisateur {
 
@@ -23,7 +24,7 @@ public class Utilisateur {
 
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
                        String codePostal, String ville, String mdp, int credit) throws BusinessException {
-        this.pseudo = pseudo;
+        setPseudo(pseudo);
         this.nom = nom;
         this.prenom = prenom;
         setEmail(email);
@@ -36,9 +37,9 @@ public class Utilisateur {
     }
 
     public Utilisateur(int idUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-                       String rue, String codePostal, String ville, String mdp, int credit, boolean admin) {
+                       String rue, String codePostal, String ville, String mdp, int credit, boolean admin) throws BusinessException {
         this.idUtilisateur = idUtilisateur;
-        this.pseudo = pseudo;
+        setPseudo(pseudo);
         this.nom = nom;
         this.prenom = prenom;
         setEmail(email);
@@ -49,9 +50,6 @@ public class Utilisateur {
         this.mdp = mdp;
         this.credit = credit;
         this.admin = admin;
-    }
-
-    public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue, String codePostal, String ville, String mdp, Integer credit, boolean b) {
     }
 
     public int getIdUtilisateur() {
@@ -66,7 +64,9 @@ public class Utilisateur {
         return pseudo;
     }
 
-    public void setPseudo(String pseudo) {
+    public void setPseudo(String pseudo) throws BusinessException {
+        if(!Outils.isAlphaNumeric(pseudo))
+            throw new BusinessException(BOExceptionCode.ERREUR_ILLEGAL_CHAR_PSEUDO);
         this.pseudo = pseudo;
     }
 
@@ -90,9 +90,9 @@ public class Utilisateur {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(String email) throws BusinessException {
         if (!email.matches(".+@.+\\.[a-z]+")) {
-            throw new RuntimeException();
+            throw new BusinessException(BOExceptionCode.ERREUR_ILLEGAL_FORMAT_EMAIL);
         }
         this.email = email;
     }
