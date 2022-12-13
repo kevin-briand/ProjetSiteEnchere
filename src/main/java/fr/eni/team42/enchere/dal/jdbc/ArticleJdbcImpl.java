@@ -217,6 +217,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
             ps.setInt(8, article.getCategorie().getIdCategorie());
             ps.setString(9, article.getEtatVenteArticle().name());
             ps.setInt(10, article.getIdArticle());
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
@@ -232,6 +233,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
         try (Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement ps = cnx.prepareStatement(DELETE);
             ps.setInt(1, article.getIdArticle());
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
