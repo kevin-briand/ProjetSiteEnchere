@@ -9,7 +9,7 @@
 <body class="d-flex flex-column min-vh-100">
 <%@ include file="header.jspf" %>
 
-<div class="container text-center" style="margin-bottom: 100px;">
+<div class="container text-center" style="margin-bottom: 25px;">
 	<div class="row">
 	<div class="col-1">
 		<img alt="" src="#">
@@ -51,7 +51,11 @@
                             name="descriptionArticle"
                             class="form-control"
                             id="descriptionArticle"
+                            placeholder="Description de l'article à vendre"
                             aria-label="Description de l'article"
+                            rows="5"
+                            cols="33"
+                            maxlength="300"
 		                >
 		                ${article.description}
 		                </textarea>
@@ -70,16 +74,16 @@
                             id="categorieArticle"
                             aria-label="Catégorie de l'article"
 		                >
-		                <%-- Dans la servlet : fetch une liste des catégories depuis la base de données avec leur i?--%>
+		                
 		                	<c:if test="${!empty categories}">
 		                		<c:forEach var="cat" items="${categories}">
 									<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
 								</c:forEach>
 		                	</c:if>
 		                	
-						<%-- Et une option de secours s'il n'existe aucune catégorie ?--%>
+						<%-- Option de secours s'il n'existe aucune catégorie en base--%>
 		                	<c:if test="${empty categories}">
-								<option value="1">Sans catégorie</option>
+								<option value="1">Pas de catégorie</option>
 		                	</c:if>
 		                	
 		                </select>
@@ -219,7 +223,7 @@
 		            </fieldset>
 		         </div>
 			</div>
-        <div class="buttons">
+        <div class="buttons" style="margin-top: 50px;">
             <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
             <button type="button" class="btn btn-secondary btn-lg">Annuler</button>
     	</div>
