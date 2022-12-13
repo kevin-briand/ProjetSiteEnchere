@@ -70,8 +70,18 @@
                             id="categorieArticle"
                             aria-label="Catégorie de l'article"
 		                >
-		                <%-- À rajouter :  une boucle permettant de générer les catégories selon les objets catégories--%>
-		                	<option value="1">Catégorie 1</option>
+		                <%-- Dans la servlet : fetch une liste des catégories depuis la base de données avec leur i?--%>
+		                	<c:if test="${!empty categories}">
+		                		<c:forEach var="cat" items="${categories}">
+									<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
+								</c:forEach>
+		                	</c:if>
+		                	
+						<%-- Et une option de secours s'il n'existe aucune catégorie ?--%>
+		                	<c:if test="${empty categories}">
+								<option value="1">Sans catégorie</option>
+		                	</c:if>
+		                	
 		                </select>
 		            </div>
 		         </div>
