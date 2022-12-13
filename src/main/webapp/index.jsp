@@ -4,7 +4,7 @@
     <%@ include file="/WEB-INF/bootstrapHeader.html" %>
     <title>Accueil</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <%@ include file="/WEB-INF/header.jspf" %>
 
 <%@include file="/WEB-INF/footer.jspf" %>
