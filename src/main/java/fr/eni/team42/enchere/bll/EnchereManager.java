@@ -14,28 +14,16 @@ public class EnchereManager {
 	}
 	
 	//selectById complet : articleID innerjoin catégorie id +retrait + encheres + userID
-	public Enchere selectById(ArticleVendu article, Categorie categories, Retrait retrait, Enchere enchere, Utilisateur utilisateur) throws BusinessException {
-		return DAOFactory.getEnchereDAO().selectById(article, categories, retrait, enchere, utilisateur);
+	public Enchere selectById(int idArticle) throws BusinessException {
+		return DAOFactory.getEnchereDAO().selectById(idArticle);
 	}
 	
-	//selectByCatName : articleID innerjoin userID
-	public Enchere selectByCatName(ArticleVendu article, Utilisateur utilisateur) throws BusinessException {
-		return DAOFactory.getEnchereDAO().selectByCatName(article, utilisateur);
+	public Enchere selectById(int idArticle, Utilisateur user) throws BusinessException {
+		return DAOFactory.getEnchereDAO().selectById(idArticle, user.getIdUtilisateur());
 	}
 	
-	//selectByAchatVente : articleID innerjoin userID + encheres
-	public Enchere selectByAchatVente(ArticleVendu article, Utilisateur utilisateur, Enchere enchere) {
-		return DAOFactory.getEnchereDAO().selectByAchatVente(article, utilisateur, enchere);
-	}
-	
-	//insert "standard", objet enchere solo
 	public void addEnchere(Enchere enchere) throws BusinessException{
 		DAOFactory.getEnchereDAO().insert(enchere);
-	}
-	
-	//insert "complet" : objet enchere avec article vendu & retrait
-	public void addEnchere(Enchere enchere, ArticleVendu article, Retrait retrait) throws BusinessException{
-		DAOFactory.getEnchereDAO().insert(enchere, article, retrait);
 	}
 	
 	public void updateEnchere(Enchere enchere) throws BusinessException{

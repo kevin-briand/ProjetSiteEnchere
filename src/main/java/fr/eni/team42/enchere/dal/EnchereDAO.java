@@ -7,6 +7,6 @@ import fr.eni.team42.enchere.bo.Utilisateur;
 
 public interface EnchereDAO extends DAO<Enchere, Integer>{
 
-	Enchere selectById(Utilisateur utilisateur, ArticleVendu articleVendu) throws BusinessException;
+	Enchere selectById(int idArticle, int idUser) throws BusinessException;
 
 }
