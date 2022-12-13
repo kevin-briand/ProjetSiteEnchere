@@ -15,7 +15,6 @@ public class DAOFactory {
     }
 
     public static ArticleDAO getArticleDAO() {
-        // utilisation méthode Singleton
-        return ArticleJdbcImpl.getInstance();
+        return new ArticleJdbcImpl();
     }
 }

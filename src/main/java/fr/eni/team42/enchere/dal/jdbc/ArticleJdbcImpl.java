@@ -12,8 +12,6 @@ import java.util.List;
 
 public class ArticleJdbcImpl implements ArticleDAO {
 
-    private static ArticleJdbcImpl INSTANCE;
-
     private final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie, etat_vente)" +
             "VALUES(?,?,?,?,?,?,?,?,?)";
     private final String UPDATE = "UPDATE ARTICLES_VENDUS SET nom_article=?, description=?, date_debut_encheres=?, date_fin_encheres=?, prix_initial=?, prix_vente=?, no_utilisateur=?, no_categorie=?, etat_vente=? " +
@@ -238,13 +236,5 @@ public class ArticleJdbcImpl implements ArticleDAO {
             e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
-    }
-
-    public static ArticleJdbcImpl getInstance() {
-        // création méthode Singleton
-        if (INSTANCE == null) {
-            INSTANCE = new ArticleJdbcImpl();
-        }
-        return INSTANCE;
     }
 }

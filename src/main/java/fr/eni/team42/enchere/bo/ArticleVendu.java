@@ -24,7 +24,7 @@ public class ArticleVendu {
         this.idArticle = idArticle;
         this.nomArticle = nomArticle;
         this.dateFinEnchere = dateFinEnchere;
-        this.prixVente = prixVente;
+        setPrixVente(prixVente);
         this.utilisateur = utilisateur;
         this.etatVenteArticle = etatVenteArticle;
     }
@@ -35,8 +35,8 @@ public class ArticleVendu {
         this.description = description;
         this.dateDebutEnchere = dateDebutEnchere;
         this.dateFinEnchere = dateFinEnchere;
-        this.prixInitial = prixInitial;
-        this.prixVente = prixVente;
+        setPrixInitial(prixInitial);
+        setPrixVente(prixVente);
         this.utilisateur = utilisateur;
         this.categorie = categorie;
         this.lieuRetrait = lieuRetrait;
