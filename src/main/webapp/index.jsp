@@ -107,42 +107,39 @@
 
     <!-- affichage enchères -->
 
-    <c:forEach begin="0" end="10">
+
     <!-- ROW 2 CARDS -->
     <div class="row mb-2">
-        <!-- CARD -->
-        <div class="col-md-5">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col-auto d-none d-lg-block">
-                    <img src="img/no-img.svg" alt="pas d'image disponible"/>
+        <c:choose>
+            <c:when test="${articles != null}">
+            <c:forEach var="article" items="articles">
+                <!-- CARD -->
+                <div class="col-md-5">
+                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                        <div class="col-auto d-none d-lg-block">
+                            <img src="img/no-img.svg" alt="pas d'image disponible"/>
+                        </div>
+                        <div class="col p-4 d-flex flex-column">
+                            <h3><strong class="d-inline-block mb-2 text-success">
+                                <a href="/articles/info?id=${article.idArticle}">${article.nomArticle}</a>
+                            </strong></h3>
+                            <p>Prix : ${article.encheres[0].montantEnchere} points <br>
+                                Fin de l'enchère : ${article.dateFinEnchere} <br>
+                                Vendeur : <a href="/user/AfficherProfil?user=${article.utilisateur.idUtilisateur}">
+                                        ${article.utilisateur.pseudo}
+                                </a>
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div class="col p-4 d-flex flex-column">
-                    <h3><strong class="d-inline-block mb-2 text-success"><a href="#">Article 1</a></strong></h3>
-                    <p>Prix : 10 points <br>
-                        Fin de l'enchère : 01/01/2022 <br>
-                        Vendeur : <a href="#">Kéké</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- CARD -->
-        <div class="col-md-5">
-            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                <div class="col-auto d-none d-lg-block">
-                    <img src="img/no-img.svg" alt="pas d'image disponible"/>
-                </div>
-                <div class="col p-4 d-flex flex-column">
-                    <h3><strong class="d-inline-block mb-2 text-success"><a href="#">Article 1</a></strong></h3>
-                    <p>Prix : 10 points <br>
-                        Fin de l'enchère : 01/01/2022 <br>
-                        Vendeur : <a href="#">Kéké</a>
-                    </p>
-                </div>
-            </div>
-        </div>
+            </c:forEach>
+            </c:when>
+            <c:otherwise>
+                <p class="text-center">Aucune enchères</p>
+            </c:otherwise>
+        </c:choose>
     </div>
-    </c:forEach>
+
 
 </div>
 
