@@ -14,9 +14,9 @@
 
     <!-- Filtres -->
     <form method="post" action="<%=request.getContextPath()%>/encheres/accueil">
-        <div class="row flex-row text-left">
+        <div class="row flex-row text-left mb-5">
             <p class="text-left">Filtres : </p>
-            <div class="col-md-6">
+            <div class="col-md-6 col-lg-7">
                 <div class="form-group row mb-3">
                     <div class="col-md-12">
                         <input
@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="form-group row mb-3">
-                    <label for="categorie" class="col-sm-2 col-form-label">Catégories : </label>
+                    <label for="categorie" class="col-lg-2 col-md-4 col-form-label">Catégories : </label>
                     <div class="col-md-10 ">
                         <select name="categorie" id="categorie" class="px-5">
                             <option value="-1">Toutes</option>
@@ -107,6 +107,42 @@
 
     <!-- affichage enchères -->
 
+    <c:forEach begin="0" end="10">
+    <!-- ROW 2 CARDS -->
+    <div class="row mb-2">
+        <!-- CARD -->
+        <div class="col-md-5">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col-auto d-none d-lg-block">
+                    <img src="img/no-img.svg" alt="pas d'image disponible"/>
+                </div>
+                <div class="col p-4 d-flex flex-column">
+                    <h3><strong class="d-inline-block mb-2 text-success"><a href="#">Article 1</a></strong></h3>
+                    <p>Prix : 10 points <br>
+                        Fin de l'enchère : 01/01/2022 <br>
+                        Vendeur : <a href="#">Kéké</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="col-md-5">
+            <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col-auto d-none d-lg-block">
+                    <img src="img/no-img.svg" alt="pas d'image disponible"/>
+                </div>
+                <div class="col p-4 d-flex flex-column">
+                    <h3><strong class="d-inline-block mb-2 text-success"><a href="#">Article 1</a></strong></h3>
+                    <p>Prix : 10 points <br>
+                        Fin de l'enchère : 01/01/2022 <br>
+                        Vendeur : <a href="#">Kéké</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </c:forEach>
 
 </div>
 
