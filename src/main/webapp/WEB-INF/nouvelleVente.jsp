@@ -6,7 +6,7 @@
     <%@ include file="bootstrapHeader.html" %>
     <title>Nouvelle vente</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <%@ include file="header.jspf" %>
 
 <div class="container text-center" style="margin-bottom: 100px;">

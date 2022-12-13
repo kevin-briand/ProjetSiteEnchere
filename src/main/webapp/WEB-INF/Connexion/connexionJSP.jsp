@@ -5,7 +5,7 @@
     <%@ include file="../bootstrapHeader.html" %>
     <title>Connexion</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <%@ include file="../header.jspf" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 100px; margin-top: 50px;">Connexion</h1>
