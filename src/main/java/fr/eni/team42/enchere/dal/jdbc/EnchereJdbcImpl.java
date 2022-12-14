@@ -53,7 +53,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
             Utilisateur user = DAOFactory.getUtilisateurDAO().selectById(idUser);
             ArticleVendu article = DAOFactory.getArticleDAO().selectById(idArticle);
             if(rs.next()) {
-                return new Enchere(utilisateur,article,rs.getTimestamp(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
+                return new Enchere(user,article,rs.getTimestamp(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
             } else {
                 throw new BusinessException(DALExceptionCode.ARTICLE_INCONNU);
             }
