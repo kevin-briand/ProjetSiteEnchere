@@ -19,6 +19,20 @@ public class ArticleVendu {
 
     public ArticleVendu() {
     }
+    
+    public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur, Categorie categorie, Retrait lieuRetrait, EtatVenteArticle etatVenteArticle) {
+        this.nomArticle = nomArticle;
+        this.description = description;
+        this.dateDebutEnchere = dateDebutEnchere;
+        this.dateFinEnchere = dateFinEnchere;
+        setPrixInitial(prixInitial);
+        setPrixVente(prixVente);
+        this.utilisateur = utilisateur;
+        this.categorie = categorie;
+        this.lieuRetrait = lieuRetrait;
+        this.etatVenteArticle = etatVenteArticle;
+    }
+
 
     public ArticleVendu(int idArticle, String nomArticle, LocalDateTime dateFinEnchere, Integer prixVente, Utilisateur utilisateur, EtatVenteArticle etatVenteArticle) {
         this.idArticle = idArticle;
