@@ -1,10 +1,6 @@
 package fr.eni.team42.enchere.dal.jdbc;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +53,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
             Utilisateur user = DAOFactory.getUtilisateurDAO().selectById(idUser);
             ArticleVendu article = DAOFactory.getArticleDAO().selectById(idArticle);
             if(rs.next()) {
-                return new Enchere(user,article,rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
+                return new Enchere(utilisateur,article,rs.getTimestamp(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
             } else {
                 throw new BusinessException(DALExceptionCode.ARTICLE_INCONNU);
             }
@@ -76,7 +72,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
         	PreparedStatement pstmt = cnx.prepareStatement(INSERT);
         	pstmt.setInt(1, enchere.getUtilisateur().getIdUtilisateur());
             pstmt.setInt(2, enchere.getArticleVendu().getIdArticle());
-            pstmt.setDate(3, Date.valueOf(enchere.getDateEnchere().toLocalDate()));
+            pstmt.setTimestamp(3, Timestamp.valueOf(enchere.getDateEnchere()));
             pstmt.setInt(4, enchere.getMontantEnchere());
             pstmt.executeUpdate();
         }catch(SQLException e) {
@@ -91,7 +87,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
 		 
 		 try(Connection cnx = ConnectionProvider.getConnection()) {
 	            PreparedStatement pstmt = cnx.prepareStatement(UPDATE);
-	            pstmt.setDate(1, Date.valueOf(enchere.getDateEnchere().toLocalDate()));
+	            pstmt.setTimestamp(1, Timestamp.valueOf(enchere.getDateEnchere()));
 	            pstmt.setInt(2, enchere.getMontantEnchere());
 	            pstmt.setInt(3, enchere.getUtilisateur().getIdUtilisateur());
 	            pstmt.setInt(4, enchere.getArticleVendu().getIdArticle());

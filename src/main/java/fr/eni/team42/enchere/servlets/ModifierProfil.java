@@ -1,8 +1,10 @@
 package fr.eni.team42.enchere.servlets;
 
+import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bll.PasswordHashManager;
 import fr.eni.team42.enchere.bll.UtilisateurManager;
 import fr.eni.team42.enchere.bo.Utilisateur;
+import fr.eni.team42.enchere.messages.LecteurMessage;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -56,9 +58,9 @@ public class ModifierProfil extends HttpServlet {
             request.setAttribute("utilisateur", user);
 
             rd = request.getRequestDispatcher("/WEB-INF/afficherProfil.jsp");
-        } catch (Exception e) {
+        } catch (BusinessException e) {
             e.printStackTrace();
-            request.setAttribute("erreur","Un champ n'a pas correctement été rempli");
+            request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
             rd = request.getRequestDispatcher("/WEB-INF/modifierProfil.jsp");
         }
 
