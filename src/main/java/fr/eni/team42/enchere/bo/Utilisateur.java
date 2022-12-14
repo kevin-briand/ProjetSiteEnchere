@@ -22,6 +22,19 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
+    public Utilisateur(int idUtilisateur, String pseudo) {
+        this.idUtilisateur = idUtilisateur;
+        this.pseudo = pseudo;
+    }
+
+    public Utilisateur(int idUtilisateur, String pseudo, String rue, String codePostal, String ville) {
+        this.idUtilisateur = idUtilisateur;
+        this.pseudo = pseudo;
+        this.rue = rue;
+        this.codePostal = codePostal;
+        this.ville = ville;
+    }
+
     public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
                        String codePostal, String ville, String mdp, int credit) throws BusinessException {
         setPseudo(pseudo);

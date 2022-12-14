@@ -32,4 +32,15 @@ public class DALExceptionCode {
      * L'email existe déjà
      */
     public static final int DUPLICATION_EMAIL = 6;
+
+    /**
+     * L'article n'existe pas
+     */
+    public static final int ARTICLE_INCONNU = 7;
+
+    /**
+     * La catégorie n'existe pas
+     */
+    public static final int CATEGORIE_INCONNUE = 8;
+
 }
