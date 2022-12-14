@@ -6,7 +6,7 @@
     <%@ include file="bootstrapHeader.html" %>
     <title>Inscription</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <%@ include file="/WEB-INF/header.jspf" %>
 <div class="container text-center">
     <h1 style="margin-bottom: 75px; margin-top: 50px;">Inscription</h1>

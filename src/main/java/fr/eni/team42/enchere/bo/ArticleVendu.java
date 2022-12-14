@@ -1,7 +1,6 @@
 package fr.eni.team42.enchere.bo;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class ArticleVendu {
 
@@ -14,14 +13,24 @@ public class ArticleVendu {
     private Integer prixVente;
     private Utilisateur utilisateur;
     private Categorie categorie;
-    private List<Enchere> encheres;
+    private Enchere enchere;
     private Retrait lieuRetrait;
     private EtatVenteArticle etatVenteArticle;
 
     public ArticleVendu() {
     }
 
-    public ArticleVendu(String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur, Categorie categorie, List<Enchere> encheres, Retrait lieuRetrait, EtatVenteArticle etatVenteArticle) {
+    public ArticleVendu(int idArticle, String nomArticle, LocalDateTime dateFinEnchere, Integer prixVente, Utilisateur utilisateur, EtatVenteArticle etatVenteArticle) {
+        this.idArticle = idArticle;
+        this.nomArticle = nomArticle;
+        this.dateFinEnchere = dateFinEnchere;
+        setPrixVente(prixVente);
+        this.utilisateur = utilisateur;
+        this.etatVenteArticle = etatVenteArticle;
+    }
+
+    public ArticleVendu(int idArticle, String nomArticle, String description, LocalDateTime dateDebutEnchere, LocalDateTime dateFinEnchere, Integer prixInitial, Integer prixVente, Utilisateur utilisateur, Categorie categorie, Retrait lieuRetrait, EtatVenteArticle etatVenteArticle) {
+        this.idArticle = idArticle;
         this.nomArticle = nomArticle;
         this.description = description;
         this.dateDebutEnchere = dateDebutEnchere;
@@ -30,7 +39,6 @@ public class ArticleVendu {
         setPrixVente(prixVente);
         this.utilisateur = utilisateur;
         this.categorie = categorie;
-        this.encheres = encheres;
         this.lieuRetrait = lieuRetrait;
         this.etatVenteArticle = etatVenteArticle;
     }
@@ -121,12 +129,12 @@ public class ArticleVendu {
         this.categorie = categorie;
     }
 
-    public List<Enchere> getEncheres() {
-        return encheres;
+    public Enchere getEnchere() {
+        return enchere;
     }
 
-    public void setEncheres(List<Enchere> encheres) {
-        this.encheres = encheres;
+    public void setEnchere(Enchere enchere) {
+        this.enchere = enchere;
     }
 
     public Retrait getLieuRetrait() {

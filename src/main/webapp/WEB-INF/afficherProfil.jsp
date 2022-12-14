@@ -7,7 +7,7 @@
 	<%@ include file="bootstrapHeader.html" %>
     <title>Voir profil</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 	<%@ include file="header.jspf" %>
 	<div class="container">
     <h1 class="text-center"style="margin-bottom: 75px; margin-top: 50px;">Profil de ${utilisateur.pseudo}</h1>

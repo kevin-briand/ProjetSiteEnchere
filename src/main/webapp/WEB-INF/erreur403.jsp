@@ -7,7 +7,7 @@
     <%@ include file="bootstrapHeader.html" %>
     <title>ERROR</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 <%@ include file="header.jspf" %>
 <div class="container text-center">
     <img src="<%=request.getContextPath()%>/img/403.png" alt="Erreur 403" class="img-fluid"/>
