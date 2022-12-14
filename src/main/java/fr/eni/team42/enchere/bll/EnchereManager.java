@@ -1,10 +1,9 @@
 package fr.eni.team42.enchere.bll;
 
+import java.util.List;
+
 import fr.eni.team42.enchere.BusinessException;
-import fr.eni.team42.enchere.bo.ArticleVendu;
-import fr.eni.team42.enchere.bo.Categorie;
 import fr.eni.team42.enchere.bo.Enchere;
-import fr.eni.team42.enchere.bo.Retrait;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
@@ -14,7 +13,7 @@ public class EnchereManager {
 	}
 	
 	//selectById complet : articleID innerjoin catégorie id +retrait + encheres + userID
-	public Enchere selectById(int idArticle) throws BusinessException {
+	public List<Enchere> selectById(int idArticle) throws BusinessException {
 		return DAOFactory.getEnchereDAO().selectById(idArticle);
 	}
 	

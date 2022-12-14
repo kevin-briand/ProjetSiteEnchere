@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.ArticleVendu;
 import fr.eni.team42.enchere.bo.Categorie;
+import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.EtatVenteArticle;
 import fr.eni.team42.enchere.bo.Retrait;
 import fr.eni.team42.enchere.bo.Utilisateur;
@@ -95,9 +96,14 @@ public class NouvelleVente extends HttpServlet {
 		
 		article = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, prixVente, 
 				utilisateur, categorie, lieuRetrait, etatVenteArticle);
-		
 		DAOFactory.getArticleDAO().insert(article);
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		
+		//créé automatiquement une  instance dans la table enchère (permettre ensuite d'afficher une vente, même sans enchère)
+		Enchere enchere = new Enchere(utilisateur, article, dateDebutEnchere, prixInitial);
+		DAOFactory.getEnchereDAO().insert(enchere);
+		
+		request.setAttribute("article", article);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
 		rd.forward(request, response);
 
 		} catch (BusinessException e) {

@@ -31,7 +31,6 @@ public class AfficherProfil extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/afficherProfil.jsp");
-		System.out.println("Afficher");
 		String idUser = request.getParameter("user");
 		try {
 			Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
