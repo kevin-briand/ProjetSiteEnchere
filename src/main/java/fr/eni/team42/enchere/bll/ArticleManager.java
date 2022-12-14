@@ -2,6 +2,7 @@ package fr.eni.team42.enchere.bll;
 
 import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.ArticleVendu;
+import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.EtatVenteArticle;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
@@ -62,33 +63,44 @@ public class ArticleManager {
             articles = DAOFactory.getArticleDAO().selectAll();
         }
 
-        List<ArticleVendu> articlesFiltres = new ArrayList<>();
+        //Filtre
+        List<ArticleVendu> listeFiltree = new ArrayList<>();
+        List<EtatVenteArticle> filtreEtat = new ArrayList<>();
+        if (ventesNonDebutees) {
+            filtreEtat.add(EtatVenteArticle.NON_DEBUTEE);
+        }
+        if (encheresOuvertes || encheresEnCours || ventesEnCours) {
+            if(!filtreEtat.contains(EtatVenteArticle.EN_COURS))
+                filtreEtat.add(EtatVenteArticle.EN_COURS);
+        }
+        if (encheresRemportees || ventesTerminees) {
+            filtreEtat.add(EtatVenteArticle.TERMINEE);
+        }
 
-        for (ArticleVendu article : articles) {
-            if (encheresOuvertes && article.getEtatVenteArticle().equals(EtatVenteArticle.EN_COURS)) {
-                articlesFiltres.add(article);
+
+        if(encheresOuvertes || encheresEnCours || encheresRemportees) { //Filtre Achat
+            //récupération des enchères faites par l'utilisateur
+            EnchereManager em = new EnchereManager();
+            List<Enchere> listE = em.selectByUser(utilisateurId);
+
+            for (ArticleVendu art : articles) {
+                //on boucle uniquement si l'état est dans le filtre, pour gagner du temps
+                if (filtreEtat.contains(art.getEtatVenteArticle())) {
+                    for(Enchere e : listE) {
+                        //Si l'utilisateur à fait une enchère sur l'article, alors on l'ajoute
+                        if(e.getArticleVendu().getIdArticle() == art.getIdArticle())
+                            listeFiltree.add(art);
+                    }
+                }
             }
-            if (encheresEnCours && article.getEtatVenteArticle().equals(EtatVenteArticle.EN_COURS)
-                    && article.getEnchere().getUtilisateur().getIdUtilisateur() == utilisateurId) {
-                articlesFiltres.add(article);
-            }
-            if (encheresRemportees && article.getEtatVenteArticle().equals(EtatVenteArticle.TERMINEE)
-                    && article.getEnchere().getUtilisateur().getIdUtilisateur() == utilisateurId) {
-                articlesFiltres.add(article);
-            }
-            if (ventesEnCours && article.getEtatVenteArticle().equals(EtatVenteArticle.EN_COURS)
-                    && article.getUtilisateur().getIdUtilisateur() == utilisateurId) {
-                articles.add(article);
-            }
-            if (ventesNonDebutees && article.getEtatVenteArticle().equals(EtatVenteArticle.NON_DEBUTEE)
-                    && article.getUtilisateur().getIdUtilisateur() == utilisateurId) {
-                articles.add(article);
-            }
-            if (ventesTerminees && article.getEtatVenteArticle().equals(EtatVenteArticle.TERMINEE)
-                    && article.getUtilisateur().getIdUtilisateur() == utilisateurId) {
-                articles.add(article);
+        } else if (ventesNonDebutees || ventesEnCours || ventesTerminees) { //Filtre Vente
+            for (ArticleVendu art : articles) {
+                if (filtreEtat.contains(art.getEtatVenteArticle())
+                        && art.getUtilisateur().getIdUtilisateur() == utilisateurId) {
+                    listeFiltree.add(art);
+                }
             }
         }
-        return articlesFiltres;
+        return listeFiltree;
     }
 }
