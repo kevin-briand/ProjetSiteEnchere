@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface ArticleDAO extends DAO<ArticleVendu, Integer> {
 
+    List<ArticleVendu> selectAll() throws BusinessException;
     List<ArticleVendu> selectByCategorie(String libelle) throws BusinessException;
 
     List<ArticleVendu> selectByNomArticle(String nomArticle) throws BusinessException;

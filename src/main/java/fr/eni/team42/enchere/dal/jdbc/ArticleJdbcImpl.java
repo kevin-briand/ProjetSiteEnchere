@@ -43,6 +43,35 @@ public class ArticleJdbcImpl implements ArticleDAO {
             "LEFT JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur " +
             "WHERE C.libelle = ? AND A.nom_article LIKE ?";
 
+    private final String SELECT_ALL = "SELECT A.no_article, A.nom_article, A.date_fin_encheres, " +
+            "U.pseudo, U.no_utilisateur, prix_vente " +
+            "FROM articles_vendus A INNER JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur;";
+
+    public List<ArticleVendu> selectAll() throws BusinessException {
+        List<ArticleVendu> listAV = new ArrayList<>();
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+            PreparedStatement ps = cnx.prepareStatement(SELECT_ALL);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                //Utilisateur
+                Utilisateur u = new Utilisateur();
+                u.setPseudo(rs.getString("U.pseudo"));
+                u.setIdUtilisateur(rs.getInt("U.no_utilisateur"));
+                //Article
+                listAV.add(new ArticleVendu(
+                        rs.getInt("A.no_article"),
+                        rs.getString("nom_article"),
+                        rs.getTimestamp("date_fin_encheres").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
+                        rs.getInt("prix_vente"),
+                        u, EtatVenteArticle.valueOf(rs.getString("etat_vente"))));
+                }
+                return listAV;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
+        }
+    }
+
     @Override
     public ArticleVendu selectById(Integer id) throws BusinessException {
         try (Connection cnx = ConnectionProvider.getConnection()) {
