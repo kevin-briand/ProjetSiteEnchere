@@ -8,13 +8,15 @@ import fr.eni.team42.enchere.bo.Retrait;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
+import java.util.List;
+
 public class EnchereManager {
 
 	public EnchereManager() {
 	}
 	
 	//selectById complet : articleID innerjoin catégorie id +retrait + encheres + userID
-	public Enchere selectById(int idArticle) throws BusinessException {
+	public List<Enchere> selectById(int idArticle) throws BusinessException {
 		return DAOFactory.getEnchereDAO().selectById(idArticle);
 	}
 	
