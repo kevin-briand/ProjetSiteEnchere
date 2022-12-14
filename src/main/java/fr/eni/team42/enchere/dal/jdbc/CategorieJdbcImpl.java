@@ -33,7 +33,7 @@ public class CategorieJdbcImpl implements CategorieDAO {
             return categories;
         } catch (Exception e) {
             e.printStackTrace();
-            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
+            throw new BusinessException(DALExceptionCode.CATEGORIE_INCONNUE);
         }
 
 	}
@@ -49,7 +49,7 @@ public class CategorieJdbcImpl implements CategorieDAO {
                         rs.getInt(1),
                         rs.getString(2));
             }else {
-            	throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
+            	throw new BusinessException(DALExceptionCode.CATEGORIE_INCONNUE);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -18,7 +18,7 @@
 	<div class="col">
 	
     <h1 style="margin-bottom: 50px; margin-top: 50px;">Nouvelle vente</h1>
-    <form method="post" action="<%=request.getContextPath()%>/NouvelleVente">
+    <form method="post" action="<%=request.getContextPath()%>/encheres/NouvelleVente">
     
     	<div class="row justify-content-md-around mb-3">
     		<div class="col md-4">
@@ -75,17 +75,18 @@
                             aria-label="Catégorie de l'article"
 		                >
 		                
-		                	<c:if test="${!empty categories}">
+		                <c:choose>
+		                	<c:when test="${!empty categories}">
 		                		<c:forEach var="cat" items="${categories}">
 									<option value="${cat.getIdCategorie()}">${cat.getLibelle()}</option>
 								</c:forEach>
-		                	</c:if>
+		                	</c:when>
 		                	
 						<%-- Option de secours s'il n'existe aucune catégorie en base--%>
-		                	<c:if test="${empty categories}">
+		                	<c:when test="${empty categories}">
 								<option value="1">Pas de catégorie</option>
-		                	</c:if>
-		                	
+		                	</c:when>
+		                </c:choose>	
 		                </select>
 		            </div>
 		         </div>
