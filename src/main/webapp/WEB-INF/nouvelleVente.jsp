@@ -19,7 +19,6 @@
 	
     <h1 style="margin-bottom: 50px; margin-top: 50px;">Nouvelle vente</h1>
     
-    <p style="margin-bottom: 50px; color:red;">${requestScope["erreurVente"]}</p>
     
     <form method="post" action="<%=request.getContextPath()%>/encheres/NouvelleVente">
     

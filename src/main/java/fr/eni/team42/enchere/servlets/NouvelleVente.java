@@ -102,8 +102,6 @@ public class NouvelleVente extends HttpServlet {
 
 		} catch (BusinessException e) {
 			e.printStackTrace();
-			request.setAttribute("article", article);
-			request.setAttribute("erreurVente", LecteurMessage.getMessageErreur(e.getCodeErreur()));
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp");
 			rd.forward(request, response);
 		}
