@@ -21,6 +21,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
     private final String DELETE = "DELETE FROM encheres WHERE no_utilisateur=? AND no_article=?";
     private final String SELECT_BY_ARTICLE_ID = "SELECT * FROM encheres WHERE no_article=?";
     private final String SELECT_BY_USER_ID_AND_ARTICLE_ID = "SELECT * FROM encheres WHERE no_utilisateur=? AND no_article=?";
+    private final String SELECT_BY_USER = "SELECT * FROM encheres WHERE no_utilisateur=?";
 
     
 	@Override
@@ -61,6 +62,23 @@ public class EnchereJdbcImpl implements EnchereDAO {
         } catch (Exception e) {
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
+	}
+
+	@Override
+	public List<Enchere> selectByUser(int idUser) throws BusinessException {
+		try(Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_USER);
+			pstmt.setInt(1, idUser);
+			ResultSet rs = pstmt.executeQuery();
+			Utilisateur user = DAOFactory.getUtilisateurDAO().selectById(idUser);
+			List<Enchere> listE = new ArrayList<>();
+			while(rs.next()) {
+				listE.add(new Enchere(user, null, rs.getTimestamp(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4)));
+			}
+			return listE;
+		} catch (Exception e) {
+			throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
+		}
 	}
 
 	@Override
