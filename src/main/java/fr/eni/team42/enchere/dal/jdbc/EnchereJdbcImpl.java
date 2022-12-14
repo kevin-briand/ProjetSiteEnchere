@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.ArticleVendu;
@@ -26,19 +28,19 @@ public class EnchereJdbcImpl implements EnchereDAO {
 
     
 	@Override
-	public Enchere selectById(Integer idArticle) throws BusinessException {
+	public List<Enchere> selectById(int idArticle) throws BusinessException {
 		try(Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ARTICLE_ID);
             pstmt.setInt(1, idArticle);
             ResultSet rs = pstmt.executeQuery();
+            List<Enchere> encheres =  new ArrayList<>();
             ArticleVendu article = DAOFactory.getArticleDAO().selectById(idArticle);
-            if(rs.next()) {
+            while(rs.next()) {
             	Utilisateur u = (Utilisateur) rs.getObject(1);
-                return new Enchere(u, article,rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
-            } else {
-                throw new BusinessException(DALExceptionCode.UTILISATEUR_INCONNU);
+                Enchere enchere = new Enchere (u, article,rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
+                encheres.add(enchere);
             }
-
+            return encheres;
         } catch (Exception e) {
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
@@ -57,7 +59,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
             if(rs.next()) {
                 return new Enchere(user,article,rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
             } else {
-                throw new BusinessException(DALExceptionCode.UTILISATEUR_INCONNU);
+                throw new BusinessException(DALExceptionCode.ARTICLE_INCONNU);
             }
 
         } catch (Exception e) {
@@ -110,6 +112,12 @@ public class EnchereJdbcImpl implements EnchereDAO {
 		 }catch(SQLException e) {
 			 throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
 		 }
+	}
+
+	@Override
+	public Enchere selectById(Integer id) throws BusinessException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
