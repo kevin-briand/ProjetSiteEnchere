@@ -22,7 +22,8 @@ public class DAOFactory {
     
     public static CategorieDAO getCategorieDAO() {
     	return new CategorieJdbcImpl();
-
+    }
+    	
     public static RetraitDAO getRetraitDAO() {
         return new RetraitJdbcImpl();
     }

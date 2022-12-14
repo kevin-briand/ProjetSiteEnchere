@@ -18,6 +18,9 @@
 	<div class="col">
 	
     <h1 style="margin-bottom: 50px; margin-top: 50px;">Nouvelle vente</h1>
+    
+    <p style="margin-bottom: 50px; color:red;">${requestScope["erreurVente"]}</p>
+    
     <form method="post" action="<%=request.getContextPath()%>/encheres/NouvelleVente">
     
     	<div class="row justify-content-md-around mb-3">
@@ -83,9 +86,9 @@
 		                	</c:when>
 		                	
 						<%-- Option de secours s'il n'existe aucune catégorie en base--%>
-		                	<c:when test="${empty categories}">
+		                	<c:otherwise test="${empty categories}">
 								<option value="1">Pas de catégorie</option>
-		                	</c:when>
+		                	</c:otherwise>
 		                </c:choose>	
 		                </select>
 		            </div>
