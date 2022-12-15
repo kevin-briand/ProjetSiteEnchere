@@ -130,6 +130,8 @@ public class ArticleManager {
                 a.setEtatVenteArticle(EtatVenteArticle.TERMINEE);
                 //MAJ solde vendeur
                 a.getUtilisateur().setCredit(a.getUtilisateur().getCredit() + a.getPrixVente());
+                UtilisateurManager um = new UtilisateurManager();
+                um.updateUtilisateur(a.getUtilisateur());
             }
             DAOFactory.getArticleDAO().update(a);
         }
