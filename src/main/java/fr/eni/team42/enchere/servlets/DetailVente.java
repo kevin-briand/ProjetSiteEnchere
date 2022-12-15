@@ -50,6 +50,8 @@ public class DetailVente extends HttpServlet {
 			ArticleVendu article = new ArticleVendu();
 			if(idArticle > 0) {
 				article = DAOFactory.getArticleDAO().selectById(idArticle);
+				
+				Utilisateur u = new Utilisateur();
 				LocalDateTime dateFinEnch = article.getDateFinEnchere();
 				request.setAttribute("dateFinEnchere", updateDate(dateFinEnch));
 			}
@@ -77,12 +79,13 @@ public class DetailVente extends HttpServlet {
 	    articleVendu =  request.getParameter("idArticle");
 	    dateEnchere = LocalDateTime.now();
 	    montantEnchere = Integer.parseInt(request.getParameter("choixMontantEnchere"));
-
+	    int idArticle = Integer.parseInt(articleVendu);
+	    
 	    ArticleVendu article = new ArticleVendu();
 	    try {
-			article = DAOFactory.getArticleDAO().selectById(Integer.parseInt(articleVendu));
+			article = DAOFactory.getArticleDAO().selectById(idArticle);
 			Enchere enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
-			if(article.getEnchere() == null) {
+			if(DAOFactory.getEnchereDAO().selectById(idArticle, utilisateur.getIdUtilisateur()) == null) {
 				DAOFactory.getEnchereDAO().insert(enchere);
 			}else {
 				DAOFactory.getEnchereDAO().update(enchere);
