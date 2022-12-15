@@ -23,25 +23,25 @@ public class EnchereJdbcImpl implements EnchereDAO {
     private final String SELECT_BY_USER_ID_AND_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
     private final String SELECT_BY_USER = "SELECT * FROM ENCHERES WHERE no_utilisateur=?";
 
-    
+
 	@Override
 	public List<Enchere> selectById(int idArticle) throws BusinessException {
-		try(Connection cnx = ConnectionProvider.getConnection()) {
-            PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ARTICLE_ID);
-            pstmt.setInt(1, idArticle);
-            ResultSet rs = pstmt.executeQuery();
-            List<Enchere> encheres =  new ArrayList<>();
-            ArticleVendu article = DAOFactory.getArticleDAO().selectById(idArticle);
-            while(rs.next()) {
-            	Utilisateur u = (Utilisateur) rs.getObject(1);
-                Enchere enchere = new Enchere (u, article,rs.getDate(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
-                encheres.add(enchere);
-            }
-            return encheres;
-        } catch (Exception e) {
-            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
-        }
-
+		try (Connection cnx = ConnectionProvider.getConnection()) {
+			PreparedStatement pstmt = cnx.prepareStatement(SELECT_BY_ARTICLE_ID);
+			pstmt.setInt(1, idArticle);
+			ResultSet rs = pstmt.executeQuery();
+			List<Enchere> encheres = new ArrayList<>();
+			ArticleVendu article = DAOFactory.getArticleDAO().selectById(idArticle);
+			while (rs.next()) {
+				Utilisateur u = DAOFactory.getUtilisateurDAO().selectById(rs.getInt(1));
+				Enchere enchere = new Enchere(u, article, rs.getTimestamp(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
+				encheres.add(enchere);
+			}
+			return encheres;
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
+		}
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
             }
             return null;
         } catch (Exception e) {
-        	
+        	e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
 	}
@@ -76,6 +76,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
 			}
 			return listE;
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
 		}
 	}
@@ -93,8 +94,8 @@ public class EnchereJdbcImpl implements EnchereDAO {
             pstmt.setInt(4, enchere.getMontantEnchere());
             pstmt.executeUpdate();
             return enchere;
-           
         }catch(SQLException e) {
+			e.printStackTrace();
             throw new BusinessException(DALExceptionCode.INSERT_ERREUR);
         }
 	}
@@ -112,6 +113,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
 	            pstmt.setInt(4, enchere.getArticleVendu().getIdArticle());
 	            pstmt.executeUpdate();
 		 }catch(SQLException e) {
+			 e.printStackTrace();
 			 throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
 		 }
 	}
