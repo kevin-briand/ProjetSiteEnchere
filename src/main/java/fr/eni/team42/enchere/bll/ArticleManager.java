@@ -129,9 +129,10 @@ public class ArticleManager {
             } else if (LocalDateTime.now().isAfter(a.getDateFinEnchere())) {
                 a.setEtatVenteArticle(EtatVenteArticle.TERMINEE);
                 //MAJ solde vendeur
-                a.getUtilisateur().setCredit(a.getUtilisateur().getCredit() + a.getPrixVente());
                 UtilisateurManager um = new UtilisateurManager();
-                um.updateCreditUtilisateur(a.getUtilisateur(), a.getUtilisateur().getCredit());
+                Utilisateur u = um.selectById(a.getUtilisateur().getIdUtilisateur());
+                u.setCredit(u.getCredit() + a.getPrixVente());
+                um.updateUtilisateur(u);
             }
             DAOFactory.getArticleDAO().update(a);
         }
