@@ -45,7 +45,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
             "LEFT JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur " +
             "WHERE C.libelle = ? AND A.nom_article LIKE ?";
 
-    private final String SELECT_ALL = "SELECT A.no_article, A.nom_article, A.date_fin_encheres, " +
+    private final String SELECT_ALL = "SELECT A.no_article, A.nom_article, A.date_debut_encheres, A.date_fin_encheres, " +
             "U.pseudo, U.no_utilisateur, prix_vente, etat_vente " +
             "FROM ARTICLES_VENDUS A INNER JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur;";
 
@@ -60,12 +60,14 @@ public class ArticleJdbcImpl implements ArticleDAO {
                 u.setPseudo(rs.getString("U.pseudo"));
                 u.setIdUtilisateur(rs.getInt("U.no_utilisateur"));
                 //Article
-                listAV.add(new ArticleVendu(
+                ArticleVendu a = new ArticleVendu(
                         rs.getInt("A.no_article"),
                         rs.getString("nom_article"),
                         rs.getTimestamp("date_fin_encheres").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(),
                         rs.getInt("prix_vente"),
-                        u, EtatVenteArticle.valueOf(rs.getString("etat_vente"))));
+                        u, EtatVenteArticle.valueOf(rs.getString("etat_vente")));
+                a.setDateDebutEnchere(rs.getTimestamp("A.date_debut_encheres").toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
+                listAV.add(a);
                 }
                 return listAV;
         } catch (Exception e) {

@@ -19,7 +19,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
             "VALUES(?,?,?,?)";
     private final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
     private final String DELETE = "DELETE FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
-    private final String SELECT_BY_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_article=?";
+    private final String SELECT_BY_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_article=? ORDER BY montant_enchere DESC";
     private final String SELECT_BY_USER_ID_AND_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
     private final String SELECT_BY_USER = "SELECT * FROM ENCHERES WHERE no_utilisateur=?";
 

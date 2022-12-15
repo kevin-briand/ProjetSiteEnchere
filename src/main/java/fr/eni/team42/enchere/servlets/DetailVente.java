@@ -3,6 +3,7 @@ package fr.eni.team42.enchere.servlets;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.team42.enchere.BusinessException;
+import fr.eni.team42.enchere.bll.EnchereManager;
+import fr.eni.team42.enchere.bll.UtilisateurManager;
 import fr.eni.team42.enchere.bo.ArticleVendu;
 import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.Utilisateur;
@@ -33,12 +36,6 @@ public class DetailVente extends HttpServlet {
         super();
     }
     
-    public String updateDate(LocalDateTime dateFinEnch) {
-    	DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, à hh:mm");
-		String formattedDate = dateFinEnch.format(dateFormatter);
-		return formattedDate;
-    }
-    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -50,10 +47,6 @@ public class DetailVente extends HttpServlet {
 			ArticleVendu article = new ArticleVendu();
 			if(idArticle > 0) {
 				article = DAOFactory.getArticleDAO().selectById(idArticle);
-				
-				Utilisateur u = new Utilisateur();
-				LocalDateTime dateFinEnch = article.getDateFinEnchere();
-				request.setAttribute("dateFinEnchere", updateDate(dateFinEnch));
 			}
 			request.setAttribute("article", article);
 			rd.forward(request, response);
@@ -68,6 +61,9 @@ public class DetailVente extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		new DAOFactory();
+
+		EnchereManager em = new EnchereManager();
+		UtilisateurManager um = new UtilisateurManager();
 		
 		Utilisateur utilisateur;
 	    String articleVendu;
@@ -85,18 +81,26 @@ public class DetailVente extends HttpServlet {
 	    try {
 			article = DAOFactory.getArticleDAO().selectById(idArticle);
 			Enchere enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
+			List<Enchere> listEncheres = em.selectById(article.getIdArticle());
 			if(DAOFactory.getEnchereDAO().selectById(idArticle, utilisateur.getIdUtilisateur()) == null) {
 				DAOFactory.getEnchereDAO().insert(enchere);
 			}else {
 				DAOFactory.getEnchereDAO().update(enchere);
 			}
-			
+			//Retrait crédits enchérisseur
+			utilisateur.setCredit(utilisateur.getCredit() - enchere.getMontantEnchere());
+
+			//contrôle que la liste n'est pas vide
+			if(listEncheres.size() > 0) {
+				//récréditation de l'enchérisseur précédant
+				Enchere lastEnchere = listEncheres.get(0);
+				Utilisateur user = um.selectById(lastEnchere.getUtilisateur().getIdUtilisateur());
+				user.setCredit(user.getCredit() + article.getPrixVente());
+			}
 			DAOFactory.getArticleDAO().updatePrixVente(enchere);
 			
 			ArticleVendu updatedArticle = DAOFactory.getArticleDAO().selectById(Integer.parseInt(articleVendu));
 			request.setAttribute("article", updatedArticle);
-			LocalDateTime dateFinEnch = article.getDateFinEnchere();
-			request.setAttribute("dateFinEnchere", updateDate(dateFinEnch));
 			request.setAttribute("info","Votre enchère a bien enregistrée !");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
 			rd.forward(request, response);
@@ -106,7 +110,8 @@ public class DetailVente extends HttpServlet {
 			request.setAttribute("article", article);
 			request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
-			rd.forward(request, response);		}
+			rd.forward(request, response);
+		}
 	    
 	}
 
