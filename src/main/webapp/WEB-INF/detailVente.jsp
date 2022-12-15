@@ -100,6 +100,13 @@
                                             <c:when test="${sessionScope.utilisateurConnecte.pseudo == article.utilisateur.pseudo}">
                                                 Vous ne pouvez pas enchérir sur votre propre vente.
                                             </c:when>
+                                            <c:when test="${article.etatVenteArticle == 'NON_DEBUTEE'}">
+                                                Vous ne pouvez pas enchérir : la vente n'a pas commencée. Elle débutera le 
+                                                <p class="date">${article.dateDebutEnchere}</p>.
+                                            </c:when>
+                                             <c:when test="${article.etatVenteArticle == 'TERMINEE'}">
+                                                Vous ne pouvez plus enchérir : la vente est terminée depuis le <p class="date">${article.dateFinEnchere}.</p>
+                                            </c:when>
                                             <c:when test="${sessionScope.utilisateurConnecte.credit > article.enchere.montantEnchere ||
 										sessionScope.utilisateurConnecte.credit > article.prixInitial}">
                                                 <input style="width: 150px;"
