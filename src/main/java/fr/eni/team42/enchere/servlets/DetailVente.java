@@ -33,6 +33,12 @@ public class DetailVente extends HttpServlet {
         super();
     }
     
+    public String updateDate(LocalDateTime dateFinEnch) {
+    	DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, à hh:mm");
+		String formattedDate = dateFinEnch.format(dateFormatter);
+		return formattedDate;
+    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -44,10 +50,10 @@ public class DetailVente extends HttpServlet {
 			ArticleVendu article = new ArticleVendu();
 			if(idArticle > 0) {
 				article = DAOFactory.getArticleDAO().selectById(idArticle);
-				DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, à hh:mm");
+				
+				Utilisateur u = new Utilisateur();
 				LocalDateTime dateFinEnch = article.getDateFinEnchere();
-				String formattedDate = dateFinEnch.format(dateFormatter);
-				request.setAttribute("dateFinEnchere", formattedDate);
+				request.setAttribute("dateFinEnchere", updateDate(dateFinEnch));
 			}
 			request.setAttribute("article", article);
 			rd.forward(request, response);
@@ -73,14 +79,25 @@ public class DetailVente extends HttpServlet {
 	    articleVendu =  request.getParameter("idArticle");
 	    dateEnchere = LocalDateTime.now();
 	    montantEnchere = Integer.parseInt(request.getParameter("choixMontantEnchere"));
-
+	    int idArticle = Integer.parseInt(articleVendu);
+	    
 	    ArticleVendu article = new ArticleVendu();
 	    try {
-			article = DAOFactory.getArticleDAO().selectById(Integer.parseInt(articleVendu));
+			article = DAOFactory.getArticleDAO().selectById(idArticle);
 			Enchere enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
-			DAOFactory.getEnchereDAO().insert(enchere);
+			if(DAOFactory.getEnchereDAO().selectById(idArticle, utilisateur.getIdUtilisateur()) == null) {
+				DAOFactory.getEnchereDAO().insert(enchere);
+			}else {
+				DAOFactory.getEnchereDAO().update(enchere);
+			}
+			
 			DAOFactory.getArticleDAO().updatePrixVente(enchere);
-			request.setAttribute("article", article);
+			
+			ArticleVendu updatedArticle = DAOFactory.getArticleDAO().selectById(Integer.parseInt(articleVendu));
+			request.setAttribute("article", updatedArticle);
+			LocalDateTime dateFinEnch = article.getDateFinEnchere();
+			request.setAttribute("dateFinEnchere", updateDate(dateFinEnch));
+			request.setAttribute("info","Votre enchère a bien enregistrée !");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
 			rd.forward(request, response);
 

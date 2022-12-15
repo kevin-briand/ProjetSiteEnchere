@@ -15,9 +15,8 @@ import fr.eni.team42.enchere.dal.EnchereDAO;
 
 public class EnchereJdbcImpl implements EnchereDAO {
 
-	private final String INSERT = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere)" +
+	private final String INSERT = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere) " +
             "VALUES(?,?,?,?)";
-
     private final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
     private final String DELETE = "DELETE FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
     private final String SELECT_BY_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_article=?";
@@ -56,11 +55,10 @@ public class EnchereJdbcImpl implements EnchereDAO {
             ArticleVendu article = DAOFactory.getArticleDAO().selectById(idArticle);
             if(rs.next()) {
                 return new Enchere(user,article,rs.getTimestamp(3).toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime(), rs.getInt(4));
-            } else {
-                throw new BusinessException(DALExceptionCode.ARTICLE_INCONNU);
             }
-
+            return null;
         } catch (Exception e) {
+        	
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
 	}
@@ -94,7 +92,8 @@ public class EnchereJdbcImpl implements EnchereDAO {
             pstmt.setTimestamp(3, Timestamp.valueOf(enchere.getDateEnchere()));
             pstmt.setInt(4, enchere.getMontantEnchere());
             pstmt.executeUpdate();
-			return enchere;
+            return enchere;
+           
         }catch(SQLException e) {
             throw new BusinessException(DALExceptionCode.INSERT_ERREUR);
         }
@@ -111,6 +110,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
 	            pstmt.setInt(2, enchere.getMontantEnchere());
 	            pstmt.setInt(3, enchere.getUtilisateur().getIdUtilisateur());
 	            pstmt.setInt(4, enchere.getArticleVendu().getIdArticle());
+	            pstmt.executeUpdate();
 		 }catch(SQLException e) {
 			 throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
 		 }

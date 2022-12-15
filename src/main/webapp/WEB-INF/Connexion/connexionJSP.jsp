@@ -51,6 +51,7 @@
                 Se souvenir de moi
             </label>
             <a href="#" style="margin-left: 30px">Mot de passe oublié</a>
+            <a href="./Inscription" style="margin-left: 30px">Pas encore inscrit ?</a>
         </div>
     </form>
 
