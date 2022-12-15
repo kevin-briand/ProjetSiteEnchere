@@ -58,9 +58,7 @@
                             rows="5"
                             cols="33"
                             maxlength="300"
-		                >
-		                ${article.description}
-		                </textarea>
+		                >${article.description}</textarea>
 		            </div>
 		         </div>
 		         

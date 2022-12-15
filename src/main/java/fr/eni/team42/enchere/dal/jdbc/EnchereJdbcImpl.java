@@ -15,13 +15,14 @@ import fr.eni.team42.enchere.dal.EnchereDAO;
 
 public class EnchereJdbcImpl implements EnchereDAO {
 
-	private final String INSERT = "INSERT INTO encheres (no_utilisateur, no_article, date_enchere, montant_enchere)" +
+	private final String INSERT = "INSERT INTO ENCHERES (no_utilisateur, no_article, date_enchere, montant_enchere)" +
             "VALUES(?,?,?,?)";
-    private final String UPDATE = "UPDATE encheres SET date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
-    private final String DELETE = "DELETE FROM encheres WHERE no_utilisateur=? AND no_article=?";
-    private final String SELECT_BY_ARTICLE_ID = "SELECT * FROM encheres WHERE no_article=?";
-    private final String SELECT_BY_USER_ID_AND_ARTICLE_ID = "SELECT * FROM encheres WHERE no_utilisateur=? AND no_article=?";
-    private final String SELECT_BY_USER = "SELECT * FROM encheres WHERE no_utilisateur=?";
+
+    private final String UPDATE = "UPDATE ENCHERES SET date_enchere=?, montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
+    private final String DELETE = "DELETE FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
+    private final String SELECT_BY_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_article=?";
+    private final String SELECT_BY_USER_ID_AND_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
+    private final String SELECT_BY_USER = "SELECT * FROM ENCHERES WHERE no_utilisateur=?";
 
     
 	@Override

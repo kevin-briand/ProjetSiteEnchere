@@ -9,15 +9,15 @@ import fr.eni.team42.enchere.dal.UtilisateurDAO;
 import java.sql.*;
 
 public class UtilisateurJdbcImpl implements UtilisateurDAO {
-    private final String INSERT = "INSERT INTO utilisateurs (pseudo, nom, prenom, email, " +
+    private final String INSERT = "INSERT INTO UTILISATEURS (pseudo, nom, prenom, email, " +
             "telephone, rue, code_postal, ville, mot_de_passe, credit, administrateur) " +
             "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-    private final String UPDATE = "UPDATE utilisateurs SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, " +
+    private final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, " +
             "code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?";
-    private final String DELETE = "DELETE FROM utilisateurs WHERE no_utilisateur=?";
-    private final String SELECT_BY_ID = "SELECT * FROM utilisateurs WHERE no_utilisateur=?";
-    private final String SELECT_BY_PSEUDO = "SELECT * FROM utilisateurs WHERE pseudo=?";
-    private final String SELECT_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email=?";
+    private final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
+    private final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=?";
+    private final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
+    private final String SELECT_BY_EMAIL = "SELECT * FROM UTILISATEURS WHERE email=?";
 
     @Override
     public Utilisateur selectById(Integer id) throws BusinessException {

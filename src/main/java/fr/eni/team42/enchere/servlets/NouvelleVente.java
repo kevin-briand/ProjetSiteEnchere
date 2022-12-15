@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.ArticleVendu;
 import fr.eni.team42.enchere.bo.Categorie;
+import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.EtatVenteArticle;
 import fr.eni.team42.enchere.bo.Retrait;
 import fr.eni.team42.enchere.bo.Utilisateur;
@@ -63,7 +64,7 @@ public class NouvelleVente extends HttpServlet {
         
 		new DAOFactory();
 		
-		String nomArticle, description, rue, codePostal;
+		String nomArticle, description, rue, ville, codePostal;
 		LocalDateTime dateDebutEnchere, dateFinEnchere;
 		Integer prixInitial, prixVente, idCategorie;
 		Categorie categorie;
@@ -87,17 +88,24 @@ public class NouvelleVente extends HttpServlet {
 		prixVente = prixInitial;
 		categorie = DAOFactory.getCategorieDAO().selectById(idCategorie);
 		rue = request.getParameter("rueRetrait");
+		ville = request.getParameter("ville");
 		codePostal = request.getParameter("codePostalRetrait");
 		description = request.getParameter("descriptionArticle");
-		lieuRetrait = new Retrait(rue, codePostal, description);
+		lieuRetrait = new Retrait(rue, ville, codePostal);
 		etatVenteArticle = EtatVenteArticle.NON_DEBUTEE;
 		
 		
 		article = new ArticleVendu(nomArticle, description, dateDebutEnchere, dateFinEnchere, prixInitial, prixVente, 
 				utilisateur, categorie, lieuRetrait, etatVenteArticle);
+		article = DAOFactory.getArticleDAO().insert(article);
+			
+		//créé automatiquement une  instance dans la table retrait à partir de l'objet article retourné après insert
+		lieuRetrait.setArticle(article);
+		DAOFactory.getRetraitDAO().insert(lieuRetrait);
 		
-		DAOFactory.getArticleDAO().insert(article);
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+		
+		request.setAttribute("article", article);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
 		rd.forward(request, response);
 
 		} catch (BusinessException e) {
