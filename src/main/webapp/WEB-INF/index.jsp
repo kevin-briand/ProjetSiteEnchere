@@ -3,17 +3,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <%@ include file="/WEB-INF/bootstrapHeader.html" %>
+    <%@ include file="bootstrapHeader.html" %>
     <title>Accueil</title>
 </head>
 <body class="d-flex flex-column min-vh-100">
-<%@ include file="/WEB-INF/header.jspf" %>
+<%@ include file="header.jspf" %>
 
 <div class="container ">
     <h1 class="text-center">Liste des enchères</h1>
 
     <!-- Filtres -->
-    <form method="post" action="<%=request.getContextPath()%>/encheres/accueil">
+    <form method="post" action="<%=request.getContextPath()%>/encheres/">
         <div class="row flex-row text-left mb-5">
             <p class="text-left">Filtres : </p>
             <div class="col-md-6 col-lg-7">
@@ -36,7 +36,9 @@
                         <select name="categorie" id="categorie" class="px-5">
                             <option value="-1">Toutes</option>
                             <c:forEach var="categorie" items="${categories}">
-                                <option value="${categorie.idCategorie}">categorie.libelle</option>
+                                <option value="${categorie.idCategorie}
+                                        <c:if test="${categorie.libelle == catStr}">selected</c:if>">
+                                        categorie.libelle</option>
                             </c:forEach>
                         </select>
                     </div>
@@ -47,25 +49,25 @@
                         <div class="col-lg-6 py-1">
                             <div class="form-group row">
                                 <div class="col-1 my-auto">
-                                    <input type="radio" id="rAV" name="achat-vente" onclick="disableCheckBox()" value="0">
+                                    <input type="radio" id="rAV" name="achat-vente" onclick="disableCheckBox()" value="0" <c:if test="${radio == 0}">checked</c:if>>
                                 </div>
                                 <label for="rAV" class="py-1 col col-form-label">Achats</label>
                             </div>
                             <div class="form-group row mx-3">
                                 <div class="col-1 my-auto">
-                                    <input type="checkbox" name="aOuvertes" id="ouvertes" value="0">
+                                    <input type="checkbox" name="aOuvertes" id="ouvertes" <c:if test="${aOuvertes == true}">checked</c:if>>
                                 </div>
                                 <label for="ouvertes" class="py-1 col col-form-label">enchères ouvertes</label>
                             </div>
                             <div class="form-group row mx-3">
                                 <div class="col-1 my-auto">
-                                    <input type="checkbox" name="aEnCours" id="enCours" value="1">
+                                    <input type="checkbox" name="aEnCours" id="enCours" <c:if test="${aEnCours == true}">checked</c:if>>
                                 </div>
                                 <label for="enCours" class="py-1 col col-form-label">mes enchères en cours</label>
                             </div>
                             <div class="form-group row mb-3 mx-3">
                                 <div class="col-1 my-auto">
-                                    <input type="checkbox" name="aRemportees" id="remportees" value="2">
+                                    <input type="checkbox" name="aRemportees" id="remportees" <c:if test="${aRemportees == true}">checked</c:if>>
                                 </div>
                                 <label for="remportees" class="py-1 col col-form-label">mes enchères remportées</label>
                             </div>
@@ -73,25 +75,25 @@
                         <div class="col-lg-6">
                             <div class="form-group row mb-1">
                                 <div class="col-1 my-auto">
-                                    <input type="radio" id="rA" name="achat-vente" onclick="disableCheckBox()" value="1">
+                                    <input type="radio" id="rA" name="achat-vente" onclick="disableCheckBox()" value="1" <c:if test="${radio == 1}">checked</c:if>>
                                 </div>
                                 <label for="rA" class="py-1 col col-form-label">Mes ventes</label>
                             </div>
                             <div class="form-group row mx-3">
                                 <div class="col-1 my-auto">
-                                    <input type="checkbox" name="vEnCours" id="vEnCours" value="0">
+                                    <input type="checkbox" name="vEnCours" id="vEnCours" <c:if test="${vEnCours == true}">checked</c:if>>
                                 </div>
                                 <label for="vEnCours" class="py-1 col col-form-label">mes ventes en cours</label>
                             </div>
                             <div class="form-group row mx-3">
                                 <div class="col-1 my-auto">
-                                    <input type="checkbox" name="vNonDeb" id="vNonDeb" value="1">
+                                    <input type="checkbox" name="vNonDeb" id="vNonDeb" <c:if test="${vNonDeb == true}">checked</c:if>>
                                 </div>
                                 <label for="vNonDeb" class="py-1 col col-form-label">ventes non débutées</label>
                             </div>
                             <div class="form-group row mb-3 mx-3">
                                 <div class="col-1 my-auto">
-                                    <input type="checkbox" name="vTerminees" id="vTerminees" value="2">
+                                    <input type="checkbox" name="vTerminees" id="vTerminees" <c:if test="${vTerminees == true}">checked</c:if>>
                                 </div>
                                 <label for="vTerminees" class="py-1 col col-form-label">ventes terminées</label>
                             </div>
@@ -100,7 +102,7 @@
                 </c:if>
             </div>
             <div class="col-md-4 m-auto text-center">
-                <a type="submit" class="btn btn-primary py-5 px-5" href="#">Rechercher</a>
+                <button type="submit" class="btn btn-primary py-5 px-5">Rechercher</button>
             </div>
         </div>
     </form>
@@ -112,20 +114,20 @@
     <div class="row mb-2">
         <c:choose>
             <c:when test="${articles != null}">
-            <c:forEach var="article" items="articles">
+            <c:forEach var="article" items="${articles}">
                 <!-- CARD -->
                 <div class="col-md-5">
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col-auto d-none d-lg-block">
-                            <img src="img/no-img.svg" alt="pas d'image disponible"/>
+                            <img src="../img/no-img.svg" alt="pas d'image disponible"/>
                         </div>
                         <div class="col p-4 d-flex flex-column">
                             <h3><strong class="d-inline-block mb-2 text-success">
-                                <a href="/articles/info?id=${article.idArticle}">${article.nomArticle}</a>
+                                <a href="<%=request.getContextPath()%>/enchere/info?id=${article.idArticle}">${article.nomArticle}</a>
                             </strong></h3>
-                            <p>Prix : ${article.encheres[0].montantEnchere} points <br>
+                            <p>Prix : ${article.prixVente} points <br>
                                 Fin de l'enchère : ${article.dateFinEnchere} <br>
-                                Vendeur : <a href="/user/AfficherProfil?user=${article.utilisateur.idUtilisateur}">
+                                Vendeur : <a href="<%=request.getContextPath()%>/user/AfficherProfil?user=${article.utilisateur.idUtilisateur}">
                                         ${article.utilisateur.pseudo}
                                 </a>
                             </p>
@@ -143,9 +145,9 @@
 
 </div>
 
-<%@include file="/WEB-INF/footer.jspf" %>
+<%@include file="footer.jspf" %>
 
-<%@ include file="/WEB-INF/bootstrapScripts.html" %>
+<%@ include file="bootstrapScripts.html" %>
 
 <script>
     function toggleCheckBox(checkbox, enable) {
@@ -157,6 +159,9 @@
 
     function disableCheckBox() {
         let enable = document.getElementById("rAV").checked;
+        if(!document.getElementById("rA").checked && !enable) {
+            document.getElementById("rAV").checked = true;
+        }
 
         toggleCheckBox(document.getElementById("ouvertes"), !enable);
         toggleCheckBox(document.getElementById("enCours"), !enable);
