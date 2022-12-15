@@ -88,7 +88,7 @@ public class NouvelleVente extends HttpServlet {
 		prixVente = prixInitial;
 		categorie = DAOFactory.getCategorieDAO().selectById(idCategorie);
 		rue = request.getParameter("rueRetrait");
-		ville = request.getParameter("ville");
+		ville = request.getParameter("villeRetrait");
 		codePostal = request.getParameter("codePostalRetrait");
 		description = request.getParameter("descriptionArticle");
 		lieuRetrait = new Retrait(rue, ville, codePostal);
@@ -100,8 +100,17 @@ public class NouvelleVente extends HttpServlet {
 		article = DAOFactory.getArticleDAO().insert(article);
 			
 		//créé automatiquement une  instance dans la table retrait à partir de l'objet article retourné après insert
-		lieuRetrait.setArticle(article);
-		DAOFactory.getRetraitDAO().insert(lieuRetrait);
+		Retrait pickUpPlace = new Retrait(article,rue,codePostal, ville);
+		try {
+			DAOFactory.getRetraitDAO().insert(pickUpPlace);
+		}catch (BusinessException e){
+			e.printStackTrace();
+			DAOFactory.getArticleDAO().delete(article);
+			request.setAttribute("article", article);
+			request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp");
+			rd.forward(request, response);
+		}
 		
 		
 		request.setAttribute("article", article);
