@@ -88,7 +88,7 @@
 		            </div>
 		         </div>
 		         
-				<form method="post" action="<%=request.getContextPath()%>/encheres/NouvelleEnchere">
+				<form method="post" action="<%=request.getContextPath()%>/enchere/NouvelleEnchere">
 		        	<div class="row md-around mb-1">
 		            	<div class="col mb-1 text-end">
 		            		<label class="align-middle" for="choixMontantEnchere">Mise à prix :</label>

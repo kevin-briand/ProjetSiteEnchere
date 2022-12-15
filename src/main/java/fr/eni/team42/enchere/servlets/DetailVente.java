@@ -25,7 +25,7 @@ import fr.eni.team42.enchere.dal.DAOFactory;
 /**
  * Servlet implementation class DetailVente
  */
-@WebServlet("/encheres/DetailVente")
+@WebServlet("/enchere/info")
 public class DetailVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,8 +41,9 @@ public class DetailVente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
-		int idArticle = Integer.parseInt(request.getParameter("id") != null ? "0" : request.getParameter("id"));
+		String idArt = request.getParameter("id");
 		try {
+			int idArticle = Integer.parseInt(idArt);
 			ArticleVendu article = new ArticleVendu();
 			if(idArticle > 0) {
 				article = DAOFactory.getArticleDAO().selectById(idArticle);
