@@ -18,7 +18,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/enchere/NouvelleVente">Nouvelle
-                                enchère</a></li>
+                                vente</a></li>
                             <li><a class="dropdown-item"
                                    href="<%=request.getContextPath()%>/user/AfficherProfil">Profil</a></li>
                         </ul>
