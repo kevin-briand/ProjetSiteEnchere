@@ -124,9 +124,11 @@ public class ArticleManager {
         for (ArticleVendu articleVendu : articles) {
             ArticleVendu a = DAOFactory.getArticleDAO().selectById(articleVendu.getIdArticle());
             if (LocalDateTime.now().isBefore(a.getDateFinEnchere())
-                    && LocalDateTime.now().isAfter(a.getDateDebutEnchere())) {
+                    && LocalDateTime.now().isAfter(a.getDateDebutEnchere())
+                    && a.getEtatVenteArticle() == EtatVenteArticle.NON_DEBUTEE) {
                 a.setEtatVenteArticle(EtatVenteArticle.EN_COURS);
-            } else if (LocalDateTime.now().isAfter(a.getDateFinEnchere())) {
+            } else if (LocalDateTime.now().isAfter(a.getDateFinEnchere())
+                    && a.getEtatVenteArticle() == EtatVenteArticle.EN_COURS) {
                 a.setEtatVenteArticle(EtatVenteArticle.TERMINEE);
                 //MAJ solde vendeur
                 UtilisateurManager um = new UtilisateurManager();
