@@ -82,11 +82,8 @@ public class DetailVente extends HttpServlet {
 			article = DAOFactory.getArticleDAO().selectById(idArticle);
 			Enchere enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
 			List<Enchere> listEncheres = em.selectById(article.getIdArticle());
-			if(DAOFactory.getEnchereDAO().selectById(idArticle, utilisateur.getIdUtilisateur()) == null) {
-				DAOFactory.getEnchereDAO().insert(enchere);
-			}else {
-				DAOFactory.getEnchereDAO().update(enchere);
-			}
+
+			//Debit/Credit user
 			//Retrait crédits enchérisseur
 			utilisateur.setCredit(utilisateur.getCredit() - enchere.getMontantEnchere());
 			um.updateUtilisateur(utilisateur);
@@ -100,6 +97,13 @@ public class DetailVente extends HttpServlet {
 				um.updateUtilisateur(user);
 			}
 			DAOFactory.getArticleDAO().updatePrixVente(enchere);
+
+			if(DAOFactory.getEnchereDAO().selectById(idArticle, utilisateur.getIdUtilisateur()) == null) {
+				DAOFactory.getEnchereDAO().insert(enchere);
+			}else {
+				DAOFactory.getEnchereDAO().update(enchere);
+			}
+
 			
 			ArticleVendu updatedArticle = DAOFactory.getArticleDAO().selectById(Integer.parseInt(articleVendu));
 			request.setAttribute("article", updatedArticle);
