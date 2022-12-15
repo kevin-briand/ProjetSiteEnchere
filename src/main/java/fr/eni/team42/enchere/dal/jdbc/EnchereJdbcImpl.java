@@ -82,7 +82,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
 	}
 
 	@Override
-	public void insert(Enchere enchere) throws BusinessException {
+	public Enchere insert(Enchere enchere) throws BusinessException {
 		 if(enchere==null)
 	            throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
 		 
@@ -93,6 +93,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
             pstmt.setTimestamp(3, Timestamp.valueOf(enchere.getDateEnchere()));
             pstmt.setInt(4, enchere.getMontantEnchere());
             pstmt.executeUpdate();
+			return enchere;
         }catch(SQLException e) {
             throw new BusinessException(DALExceptionCode.INSERT_ERREUR);
         }

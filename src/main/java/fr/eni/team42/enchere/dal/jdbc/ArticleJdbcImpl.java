@@ -18,6 +18,8 @@ public class ArticleJdbcImpl implements ArticleDAO {
             "WHERE no_article=?";
     private final String DELETE = "DELETE FROM ARTICLES_VENDUS WHERE no_article=?";
 
+    private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=?";
+
     private final String ARTICLE_ENCHERE_MAX = "SELECT * FROM ENCHERES E " +
             "LEFT JOIN ARTICLES_VENDUS A on E.no_article = A.no_article " +
             "LEFT JOIN RETRAITS R on A.no_article = R.no_article " +
@@ -199,7 +201,22 @@ public class ArticleJdbcImpl implements ArticleDAO {
     }
 
     @Override
-    public void insert(ArticleVendu article) throws BusinessException {
+    public void updatePrixVente(Enchere enchere) throws BusinessException {
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+            PreparedStatement ps = cnx.prepareStatement(UPDATE_PRIX_VENTE);
+            ps.setInt(1, enchere.getMontantEnchere());
+            ps.setInt(2, enchere.getArticleVendu().getIdArticle());
+            if (ps.executeUpdate() != 1) {
+                throw new BusinessException(DALExceptionCode.UPDATE_PRIX_VENTE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
+        }
+    }
+
+    @Override
+    public ArticleVendu insert(ArticleVendu article) throws BusinessException {
         if (article == null) {
             throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
         }
@@ -219,6 +236,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 article.setIdArticle(rs.getInt(1));
+                return article;
             } else {
                 throw new BusinessException(DALExceptionCode.INSERT_ERREUR);
             }

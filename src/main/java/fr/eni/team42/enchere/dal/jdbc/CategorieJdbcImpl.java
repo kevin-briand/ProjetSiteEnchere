@@ -59,9 +59,9 @@ public class CategorieJdbcImpl implements CategorieDAO {
 	}
 
 	@Override
-	public void insert(Categorie obj) throws BusinessException {
+	public Categorie insert(Categorie obj) throws BusinessException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 	@Override
