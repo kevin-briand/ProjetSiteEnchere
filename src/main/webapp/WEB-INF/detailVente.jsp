@@ -117,12 +117,13 @@
                                                        id="choixMontantEnchere"
                                                        placeholder="Montant"
                                                        aria-label="Montant de l'enchere"
-                                                       value="${article.enchere.montantEnchere+1}"
                                                 <c:choose>
                                                 <c:when test="${article.enchere != null }">
+                                                	   value="${article.enchere.montantEnchere+1}"
                                                        min="${article.enchere.montantEnchere+1}"
                                                 </c:when>
                                                 <c:otherwise>
+                                             		   value="${article.prixInitial+1}"
                                                        min="${article.prixInitial+1}"
                                                 </c:otherwise>
                                                 </c:choose>
