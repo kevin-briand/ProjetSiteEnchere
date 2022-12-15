@@ -65,7 +65,7 @@
 		                <p>Fin de l'enchère :</p>
 		            </div>
 		           <div class="col mb-1 text-start">
-		                <p>${dateFinEnchere}</p>
+		                <p class="date">${article.dateFinEnchere}</p>
 		            </div>
 		         </div>
 		         
@@ -87,45 +87,55 @@
 		                <p>${article.utilisateur.pseudo}</p>
 		            </div>
 		         </div>
-		         
-		         <c:if test="${sessionScope.utilisateurConnecte != null}">
-				<form method="post" action="<%=request.getContextPath()%>/enchere/info">
-				<input type="hidden" value="${article.idArticle}" name="idArticle" id="idArticle">
-		        	<div class="row md-around mb-1">
-		            	<div class="col mb-1 text-end">
-		            		<label class="align-middle" for="choixMontantEnchere">Ma proposition :</label>
-		            	</div>
-		           <div class="col mb-1 text-start">
-		           		<div class="row mb-1">
-	                	<input style="width: 150px;"
-	                	required="required"
-	                          type="number"
-	                          name="choixMontantEnchere"
-	                          class="form-control"
-	                          id="choixMontantEnchere"
-	                          placeholder="Montant"
-	                          aria-label="Montant de l'enchere"
-	                          <c:choose>
-			                	<c:when test="${article.enchere != null }">
-									min="${article.enchere.montantEnchere+1}"
-			                	</c:when>
-			                	<c:otherwise>
-									min="${article.prixInitial+1}"
-			                	</c:otherwise>
-		                	  </c:choose>	
-	                          
-	                          max="${sessionScope.utilisateurConnecte.credit}"
-	                	>
-						<div class="col mb-1">
-			                <button type="submit" class="btn btn-primary btn-lg">Enchérir</button>
-			           	</div>
-		           		</div>
-		            </div>
-		            </div>
-	                </form>
-	                </c:if>
-				</div>
+
+				<c:if test="${sessionScope.utilisateurConnecte != null}">
+					<form method="post" action="<%=request.getContextPath()%>/enchere/info">
+						<input type="hidden" value="${article.idArticle}" name="idArticle" id="idArticle">
+						<div class="row md-around mb-1">
+							<div class="col mb-1 text-end">
+								<label class="align-middle" for="choixMontantEnchere">Ma proposition :</label>
+							</div>
+
+							<div class="col mb-1 text-start">
+								<div class="row mb-1">
+									<!-- test si l'utilisateur a assez de points pour enchérir -->
+									<c:choose>
+										<c:when test="${sessionScope.utilisateurConnecte.pseudo == article.utilisateur.pseudo}">
+											Vous ne pouvez pas enchérir sur votre propre vente.
+										</c:when>
+										<c:when test="${sessionScope.utilisateurConnecte.credit > article.enchere.montantEnchere}">
+											<input style="width: 150px;"
+												   required="required"
+												   type="number"
+												   name="choixMontantEnchere"
+												   class="form-control"
+												   id="choixMontantEnchere"
+												   placeholder="Montant"
+												   aria-label="Montant de l'enchere"
+												   value="${article.enchere.montantEnchere+1}"
+											<c:choose>
+											<c:when test="${article.enchere != null }">
+												   min="${article.enchere.montantEnchere+1}"
+											</c:when>
+											<c:otherwise>
+												   min="${article.prixInitial+1}"
+											</c:otherwise>
+											</c:choose>
+												   max="${sessionScope.utilisateurConnecte.credit}"
+											>
+											<div class="col mb-1">
+												<button type="submit" class="btn btn-primary btn-lg">Enchérir</button>
+											</div>
+										</c:when>
+										<c:otherwise>Vous n'avez pas assez de point.</c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</div>
+					</form>
+				</c:if>
 			</div>
+	</div>
 		</div>
 	</div>	
 </div>
