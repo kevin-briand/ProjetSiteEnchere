@@ -35,19 +35,13 @@ public class DetailVente extends HttpServlet {
     public DetailVente() {
         super();
     }
-
-    @GET
-    @Path("/encheres/DetailVente/{id}")
-    public int getID(@PathParam("id") int id) {
-		return id;
-    }
     
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
-		int idArticle = Integer.parseInt(request.getParameter("id")); //pas encore trouvé la bonne méthode pour récupérer l'id article
+		int idArticle = Integer.parseInt(request.getParameter("id") != null ? "0" : request.getParameter("id"));
 		try {
 			ArticleVendu article = new ArticleVendu();
 			if(idArticle > 0) {
