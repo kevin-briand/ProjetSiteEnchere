@@ -2,6 +2,7 @@ package fr.eni.team42.enchere.servlets;
 
 import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bll.ArticleManager;
+import fr.eni.team42.enchere.bll.CategorieManager;
 import fr.eni.team42.enchere.bo.ArticleVendu;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.messages.LecteurMessage;
@@ -21,8 +22,10 @@ public class AffichageEncheres extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArticleManager am = new ArticleManager();
+        CategorieManager cm = new CategorieManager();
         try {
             request.setAttribute("articles",am.selectAll());
+            request.setAttribute("categories", cm.selectAllCategories());
         } catch (BusinessException e) {
             request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
         }
@@ -33,6 +36,9 @@ public class AffichageEncheres extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //récupération des catégories
+        CategorieManager cm = new CategorieManager();
+
         //récupération des variables du filtre
         String nom = request.getParameter("nom").trim().isEmpty() ? null : request.getParameter("nom");
         String catStr = request.getParameter("categorie").equals("-1") ? null : request.getParameter("categorie");
@@ -46,9 +52,10 @@ public class AffichageEncheres extends HttpServlet {
         boolean vTerminees = request.getParameter("vTerminees") != null;
         int radio = request.getParameter("achat-vente") == null ? 0 : Integer.parseInt(request.getParameter("achat-vente"));
 
+        System.out.println(catStr);
         //Renvoie infos vers JSP
         request.setAttribute("nom",nom);
-        request.setAttribute("categorie",catStr);
+        request.setAttribute("catStr",catStr);
         request.setAttribute("aOuvertes",aOuvertes);
         request.setAttribute("aEnCours",aEnCours);
         request.setAttribute("aRemportees",aRemportees);
@@ -62,7 +69,10 @@ public class AffichageEncheres extends HttpServlet {
         ArticleManager am = new ArticleManager();
         List<ArticleVendu> listArt = new ArrayList<>();
         try {
+            //liste des enchères
             listArt = am.recherche(user == null ? null : user.getIdUtilisateur(), nom, catStr, aOuvertes, aEnCours, aRemportees, vNonDeb, vEnCours, vTerminees);
+            //liste des catégories
+            request.setAttribute("categories", cm.selectAllCategories());
         } catch (BusinessException e) {
             request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
         }
