@@ -107,10 +107,7 @@
         </div>
     </form>
 
-    <!-- affichage enchères -->
-
-
-    <!-- ROW 2 CARDS -->
+    <!-- CARDS -->
     <div class="row mb-2">
         <c:choose>
             <c:when test="${articles != null}">
@@ -126,7 +123,7 @@
                                 <a href="<%=request.getContextPath()%>/enchere/info?id=${article.idArticle}">${article.nomArticle}</a>
                             </strong></h3>
                             <p>Prix : ${article.prixVente} points <br>
-                                Fin de l'enchère : ${article.dateFinEnchere} <br>
+                                Fin de l'enchère : <span class="date">${article.dateFinEnchere}</span><br>
                                 Vendeur : <a href="<%=request.getContextPath()%>/user/AfficherProfil?user=${article.utilisateur.idUtilisateur}">
                                         ${article.utilisateur.pseudo}
                                 </a>
@@ -172,8 +169,15 @@
         toggleCheckBox(document.getElementById("vTerminees"), enable);
     }
 
-    //Désactivation à la fin du chargement de la page
-    disableCheckBox();
+
+
+    //execution des scripts à la fin du chargement de la page
+    document.addEventListener('DOMContentLoaded', function() {
+        if(document.getElementById("rAV") != null)
+            disableCheckBox();
+        formatDate();
+    }, false);
+
 </script>
 </body>
 </html>
