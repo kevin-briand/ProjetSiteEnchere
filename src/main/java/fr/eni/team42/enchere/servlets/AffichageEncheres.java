@@ -23,6 +23,14 @@ public class AffichageEncheres extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         ArticleManager am = new ArticleManager();
         CategorieManager cm = new CategorieManager();
+
+        //MAJ Status enchères
+        try {
+            am.majEtat();
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
+
         try {
             request.setAttribute("articles",am.selectAll());
             request.setAttribute("categories", cm.selectAllCategories());
@@ -38,6 +46,14 @@ public class AffichageEncheres extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //récupération des catégories
         CategorieManager cm = new CategorieManager();
+        ArticleManager am = new ArticleManager();
+
+        //MAJ Status enchères
+        try {
+            am.majEtat();
+        } catch (BusinessException e) {
+            e.printStackTrace();
+        }
 
         //récupération des variables du filtre
         String nom = request.getParameter("nom").trim().isEmpty() ? null : request.getParameter("nom");
@@ -52,7 +68,6 @@ public class AffichageEncheres extends HttpServlet {
         boolean vTerminees = request.getParameter("vTerminees") != null;
         int radio = request.getParameter("achat-vente") == null ? 0 : Integer.parseInt(request.getParameter("achat-vente"));
 
-        System.out.println(catStr);
         //Renvoie infos vers JSP
         request.setAttribute("nom",nom);
         request.setAttribute("catStr",catStr);
@@ -66,7 +81,6 @@ public class AffichageEncheres extends HttpServlet {
 
 
         Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
-        ArticleManager am = new ArticleManager();
         List<ArticleVendu> listArt = new ArrayList<>();
         try {
             //liste des enchères

@@ -120,13 +120,16 @@ public class ArticleManager {
     public void majEtat () throws BusinessException {
         List<ArticleVendu> articles = DAOFactory.getArticleDAO().selectAll();
         for (ArticleVendu articleVendu : articles) {
-            if (LocalDateTime.now().isBefore(articleVendu.getDateFinEnchere())
-                    && LocalDateTime.now().isAfter(articleVendu.getDateDebutEnchere())) {
-                articleVendu.setEtatVenteArticle(EtatVenteArticle.EN_COURS);
-            } else if (LocalDateTime.now().isAfter(articleVendu.getDateFinEnchere())) {
-                articleVendu.setEtatVenteArticle(EtatVenteArticle.TERMINEE);
+            ArticleVendu a = DAOFactory.getArticleDAO().selectById(articleVendu.getIdArticle());
+            if (LocalDateTime.now().isBefore(a.getDateFinEnchere())
+                    && LocalDateTime.now().isAfter(a.getDateDebutEnchere())) {
+                a.setEtatVenteArticle(EtatVenteArticle.EN_COURS);
+            } else if (LocalDateTime.now().isAfter(a.getDateFinEnchere())) {
+                a.setEtatVenteArticle(EtatVenteArticle.TERMINEE);
+                //MAJ solde vendeur
+                a.getUtilisateur().setCredit(a.getUtilisateur().getCredit() + a.getPrixVente());
             }
-            DAOFactory.getArticleDAO().update(articleVendu);
+            DAOFactory.getArticleDAO().update(a);
         }
     }
 }
