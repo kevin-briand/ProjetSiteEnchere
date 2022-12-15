@@ -43,4 +43,9 @@ public class DALExceptionCode {
      */
     public static final int CATEGORIE_INCONNUE = 8;
 
+    /**
+     * la mise à jour du prix de vente à échoué
+     */
+    public static final int UPDATE_PRIX_VENTE = 9;
+
 }

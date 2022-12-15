@@ -78,7 +78,7 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
     }
 
     @Override
-    public void insert(Utilisateur utilisateur) throws BusinessException {
+    public Utilisateur insert(Utilisateur utilisateur) throws BusinessException {
         if(utilisateur==null)
             throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
 
@@ -99,6 +99,7 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
             ResultSet rs = pstmt.getGeneratedKeys();
             if(rs.next()) {
                 utilisateur.setIdUtilisateur(rs.getInt(1));
+                return utilisateur;
             } else {
                 throw new BusinessException(DALExceptionCode.INSERT_ERREUR);
             }

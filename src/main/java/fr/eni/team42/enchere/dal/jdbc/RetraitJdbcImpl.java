@@ -33,7 +33,7 @@ public class RetraitJdbcImpl implements RetraitDAO {
         }
     }
 
-    public void insert(Retrait retrait) throws BusinessException {
+    public Retrait insert(Retrait retrait) throws BusinessException {
         if (retrait == null || retrait.getArticle() == null)
             throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
 
@@ -44,6 +44,7 @@ public class RetraitJdbcImpl implements RetraitDAO {
             ps.setString(3, retrait.getCodePostal());
             ps.setString(4, retrait.getVille());
             ps.executeUpdate();
+            return retrait;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new BusinessException(DALExceptionCode.INSERT_ERREUR);
