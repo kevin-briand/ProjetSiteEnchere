@@ -89,7 +89,8 @@
 		         </div>
 		         
 		         <c:if test="${sessionScope.utilisateurConnecte != null}">
-				<form method="post" action="<%=request.getContextPath()%>/enchere/NouvelleEnchere">
+				<form method="post" action="<%=request.getContextPath()%>/enchere/info">
+				<input type="hidden" value="${article.idArticle}" name="idArticle" id="idArticle">
 		        	<div class="row md-around mb-1">
 		            	<div class="col mb-1 text-end">
 		            		<label class="align-middle" for="choixMontantEnchere">Ma proposition :</label>
@@ -104,7 +105,15 @@
 	                          id="choixMontantEnchere"
 	                          placeholder="Montant"
 	                          aria-label="Montant de l'enchere"
-	                          min="${article.enchere.montantEnchere+1}"
+	                          <c:choose>
+			                	<c:when test="${article.enchere != null }">
+									min="${article.enchere.montantEnchere+1}"
+			                	</c:when>
+			                	<c:otherwise>
+									min="${article.prixInitial+1}"
+			                	</c:otherwise>
+		                	  </c:choose>	
+	                          
 	                          max="${sessionScope.utilisateurConnecte.credit}"
 	                	>
 						<div class="col mb-1">
@@ -119,7 +128,6 @@
 			</div>
 		</div>
 	</div>	
-</div>
 </div>
 
 <%@ include file="footer.jspf" %>

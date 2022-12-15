@@ -1,25 +1,22 @@
 package fr.eni.team42.enchere.servlets;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Locale;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import javax.servlet.http.HttpSession;
 
+import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.ArticleVendu;
+import fr.eni.team42.enchere.bo.Enchere;
+import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
+import fr.eni.team42.enchere.messages.LecteurMessage;
 
 
 /**
@@ -63,7 +60,37 @@ public class DetailVente extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		new DAOFactory();
+		
+		Utilisateur utilisateur;
+	    String articleVendu;
+	    LocalDateTime dateEnchere;
+	    int montantEnchere;
+	    
+		HttpSession session = request.getSession(false);
+	    utilisateur = (Utilisateur) session.getAttribute("utilisateurConnecte");
+	    articleVendu =  request.getParameter("idArticle");
+	    dateEnchere = LocalDateTime.now();
+	    montantEnchere = Integer.parseInt(request.getParameter("choixMontantEnchere"));
+
+	    ArticleVendu article = new ArticleVendu();
+	    try {
+			article = DAOFactory.getArticleDAO().selectById(Integer.parseInt(articleVendu));
+			Enchere enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
+			DAOFactory.getEnchereDAO().insert(enchere);
+			DAOFactory.getArticleDAO().updatePrixVente(enchere);
+			request.setAttribute("article", article);
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
+			rd.forward(request, response);
+
+		} catch (BusinessException e) {
+			e.printStackTrace();
+			request.setAttribute("article", article);
+			request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
+			rd.forward(request, response);		}
+	    
 	}
 
 }
