@@ -94,7 +94,7 @@ public class DetailVente extends HttpServlet {
 			request.setAttribute("article", updatedArticle);
 			LocalDateTime dateFinEnch = article.getDateFinEnchere();
 			request.setAttribute("dateFinEnchere", updateDate(dateFinEnch));
-			
+			request.setAttribute("info","Votre enchère a bien enregistrée !");
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
 			rd.forward(request, response);
 
