@@ -13,7 +13,7 @@
     <h1 class="text-center">Liste des enchères</h1>
 
     <!-- Filtres -->
-    <form method="post" action="<%=request.getContextPath()%>/encheres/">
+    <form method="post" action="<%=request.getContextPath()%>/accueil">
         <div class="row flex-row text-left mb-5">
             <p class="text-left">Filtres : </p>
             <div class="col-md-6 col-lg-7">
@@ -36,9 +36,9 @@
                         <select name="categorie" id="categorie" class="px-5">
                             <option value="-1">Toutes</option>
                             <c:forEach var="categorie" items="${categories}">
-                                <option value="${categorie.idCategorie}
-                                        <c:if test="${categorie.libelle == catStr}">selected</c:if>">
-                                        categorie.libelle</option>
+                                <option value="${categorie.libelle}"
+                                        <c:if test="${categorie.libelle == catStr}">selected</c:if>>
+                                        ${categorie.libelle}</option>
                             </c:forEach>
                         </select>
                     </div>
