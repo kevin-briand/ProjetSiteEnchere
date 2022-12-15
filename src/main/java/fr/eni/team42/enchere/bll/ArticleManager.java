@@ -4,6 +4,7 @@ import fr.eni.team42.enchere.BusinessException;
 import fr.eni.team42.enchere.bo.ArticleVendu;
 import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.EtatVenteArticle;
+import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
 import java.time.LocalDateTime;
@@ -87,9 +88,7 @@ public class ArticleManager {
         }
 
         if(encheresOuvertes || encheresEnCours || encheresRemportees) { //Filtre Achat
-            //récupération des enchères faites par l'utilisateur
-            EnchereManager em = new EnchereManager();
-            List<Enchere> listE = em.selectByUser(utilisateurId);
+
 
             for (ArticleVendu art : articles) {
                 //on boucle uniquement si l'état est dans le filtre, pour gagner du temps
@@ -99,11 +98,14 @@ public class ArticleManager {
                         listeFiltree.add(art);
                         break;
                     }
-                    for(Enchere e : listE) {
-                        //Si l'utilisateur à fait une enchère sur l'article, alors on l'ajoute
-                        if(e.getArticleVendu().getIdArticle() == art.getIdArticle())
-                            listeFiltree.add(art);
-                    }
+                    //récupération des enchères faites par l'utilisateur
+                    EnchereManager em = new EnchereManager();
+                    Utilisateur user = new Utilisateur();
+                    user.setIdUtilisateur(utilisateurId);
+                    Enchere e = em.selectById(art.getIdArticle(),user);
+                    //Si l'utilisateur à fait une enchère sur l'article, alors on l'ajoute
+                    if(e != null)
+                        listeFiltree.add(art);
                 }
             }
         } else { //Filtre Vente
