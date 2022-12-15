@@ -39,6 +39,7 @@
             <c:otherwise>
                 <div class="text-end">
                     <span style="color: white">${utilisateurConnecte.pseudo}</span>
+                    <span style="color: white; margin-right: 25px;"> || ${utilisateurConnecte.credit} points</span>
                     <a href="<%=request.getContextPath()%>/user/Deconnexion" type="button" class="btn btn-primary">Se
                         déconnecter</a>
                 </div>
