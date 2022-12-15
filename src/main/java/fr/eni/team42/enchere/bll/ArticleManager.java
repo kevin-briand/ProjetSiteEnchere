@@ -6,6 +6,7 @@ import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.EtatVenteArticle;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,5 +115,20 @@ public class ArticleManager {
             }
         }
         return listeFiltree;
+    }
+
+    public void majEtat () throws BusinessException {
+        List<ArticleVendu> articles = DAOFactory.getArticleDAO().selectAll();
+        for (ArticleVendu articleVendu : articles) {
+            if (LocalDateTime.now().isBefore(articleVendu.getDateDebutEnchere())) {
+                articleVendu.setEtatVenteArticle(EtatVenteArticle.NON_DEBUTEE);
+            } else if (LocalDateTime.now().isBefore(articleVendu.getDateFinEnchere())
+                    && LocalDateTime.now().isAfter(articleVendu.getDateDebutEnchere())) {
+                articleVendu.setEtatVenteArticle(EtatVenteArticle.EN_COURS);
+            } else if (LocalDateTime.now().isAfter(articleVendu.getDateFinEnchere())) {
+                articleVendu.setEtatVenteArticle(EtatVenteArticle.TERMINEE);
+            }
+            DAOFactory.getArticleDAO().update(articleVendu);
+        }
     }
 }
