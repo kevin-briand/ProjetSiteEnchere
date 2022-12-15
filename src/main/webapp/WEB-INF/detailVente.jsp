@@ -103,7 +103,8 @@
 										<c:when test="${sessionScope.utilisateurConnecte.pseudo == article.utilisateur.pseudo}">
 											Vous ne pouvez pas enchérir sur votre propre vente.
 										</c:when>
-										<c:when test="${sessionScope.utilisateurConnecte.credit > article.enchere.montantEnchere}">
+										<c:when test="${sessionScope.utilisateurConnecte.credit > article.enchere.montantEnchere || 
+										sessionScope.utilisateurConnecte.credit > article.prixInitial}">
 											<input style="width: 150px;"
 												   required="required"
 												   type="number"
@@ -127,7 +128,7 @@
 												<button type="submit" class="btn btn-primary btn-lg">Enchérir</button>
 											</div>
 										</c:when>
-										<c:otherwise>Vous n'avez pas assez de point.</c:otherwise>
+										<c:otherwise>Vous n'avez pas assez de points.</c:otherwise>
 									</c:choose>
 								</div>
 							</div>
