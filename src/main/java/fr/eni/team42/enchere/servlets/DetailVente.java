@@ -1,6 +1,7 @@
 package fr.eni.team42.enchere.servlets;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +19,7 @@ import fr.eni.team42.enchere.bo.ArticleVendu;
 import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
+import fr.eni.team42.enchere.messages.LecteurMessage;
 
 
 /**
@@ -80,14 +82,17 @@ public class DetailVente extends HttpServlet {
 			article = DAOFactory.getArticleDAO().selectById(Integer.parseInt(articleVendu));
 			Enchere enchere = new Enchere(utilisateur, article, dateEnchere, montantEnchere);
 			DAOFactory.getEnchereDAO().insert(enchere);
+			DAOFactory.getArticleDAO().updatePrixVente(enchere);
 			request.setAttribute("article", article);
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
 			rd.forward(request, response);
 
 		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+			request.setAttribute("article", article);
+			request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
+			rd.forward(request, response);		}
 	    
 	}
 
