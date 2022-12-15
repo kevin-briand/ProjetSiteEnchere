@@ -119,7 +119,7 @@
                 <div class="col-md-5">
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                         <div class="col-auto d-none d-lg-block">
-                            <img src="../img/no-img.svg" alt="pas d'image disponible"/>
+                            <img src="<%=request.getContextPath()%>/img/no-img.svg" alt="pas d'image disponible"/>
                         </div>
                         <div class="col p-4 d-flex flex-column">
                             <h3><strong class="d-inline-block mb-2 text-success">
