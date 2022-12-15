@@ -14,6 +14,8 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
             "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
     private final String UPDATE = "UPDATE UTILISATEURS SET pseudo=?, nom=?, prenom=?, email=?, telephone=?, rue=?, " +
             "code_postal=?, ville=?, mot_de_passe=?, credit=?, administrateur=? WHERE no_utilisateur=?";
+
+    private final String UPDATE_CREDIT_UTILISATEUR = "UPDATE UTILISATEURS SET credit=? WHERE no_utilisateur=?";
     private final String DELETE = "DELETE FROM UTILISATEURS WHERE no_utilisateur=?";
     private final String SELECT_BY_ID = "SELECT * FROM UTILISATEURS WHERE no_utilisateur=?";
     private final String SELECT_BY_PSEUDO = "SELECT * FROM UTILISATEURS WHERE pseudo=?";
@@ -143,6 +145,23 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
                 else
                     throw new BusinessException(DALExceptionCode.DUPLICATION_EMAIL);
             }
+            throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
+        }
+    }
+
+    @Override
+    public void updateCreditUtilisateur(Utilisateur utilisateur, Integer nouveauCredit) throws BusinessException {
+        if (utilisateur == null)
+            throw new BusinessException(DALExceptionCode.INSERT_OBJET_NULL);
+
+        try (Connection cnx = ConnectionProvider.getConnection()) {
+            PreparedStatement pstmt = cnx.prepareStatement(UPDATE_CREDIT_UTILISATEUR);
+            pstmt.setInt(1, nouveauCredit);
+            pstmt.setInt(2, utilisateur.getIdUtilisateur());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
             throw new BusinessException(DALExceptionCode.GENERAL_ERREUR);
         }
     }

@@ -31,6 +31,10 @@ public class UtilisateurManager {
         DAOFactory.getUtilisateurDAO().update(u);
     }
 
+    public void updateCreditUtilisateur(Utilisateur utilisateur, Integer nouveauCredit) throws BusinessException {
+        DAOFactory.getUtilisateurDAO().updateCreditUtilisateur(utilisateur, nouveauCredit);
+    }
+
     public void removeUtilisateur(Utilisateur u) throws BusinessException {
         DAOFactory.getUtilisateurDAO().delete(u);
     }

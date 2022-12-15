@@ -6,4 +6,6 @@ import fr.eni.team42.enchere.bo.Utilisateur;
 public interface UtilisateurDAO extends DAO<Utilisateur, Integer> {
     Utilisateur selectByPseudo(String pseudo) throws BusinessException;
     Utilisateur selectByEmail(String email) throws BusinessException;
+
+    void updateCreditUtilisateur(Utilisateur utilisateur, Integer nouveauCredit) throws BusinessException;
 }

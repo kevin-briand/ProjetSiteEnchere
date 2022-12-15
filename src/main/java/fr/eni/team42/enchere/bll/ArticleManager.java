@@ -131,7 +131,7 @@ public class ArticleManager {
                 //MAJ solde vendeur
                 a.getUtilisateur().setCredit(a.getUtilisateur().getCredit() + a.getPrixVente());
                 UtilisateurManager um = new UtilisateurManager();
-                um.updateUtilisateur(a.getUtilisateur());
+                um.updateCreditUtilisateur(a.getUtilisateur(), a.getUtilisateur().getCredit());
             }
             DAOFactory.getArticleDAO().update(a);
         }
