@@ -65,7 +65,7 @@
 		                <p>Fin de l'enchère :</p>
 		            </div>
 		           <div class="col mb-1 text-start">
-		                <p>${article.dateFinEnchere}</p>
+		                <p>${dateFinEnchere}</p>
 		            </div>
 		         </div>
 		         
