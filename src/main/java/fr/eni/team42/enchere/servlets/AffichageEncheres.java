@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "AffichageEncheres", value = "/encheres/")
+@WebServlet(name = "AffichageEncheres", value = "/accueil")
 public class AffichageEncheres extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
