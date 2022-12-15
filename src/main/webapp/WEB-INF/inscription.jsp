@@ -26,6 +26,7 @@
                             id="pseudo"
                             placeholder="Pseudo"
                             aria-label="Pseudo"
+                            maxlength="30"
                             value="${user.pseudo}"
                     />
                 </div>
@@ -38,17 +39,21 @@
                             id="prenom"
                             placeholder="Prénom"
                             aria-label="Prénom"
+                            maxlength="30"
 							value="${user.prenom}"
                     />
                 </div>
                 <div class="mb-3">
                     <input
-                            type="text"
+                            type="tel"
                             name="telephone"
                             class="form-control"
                             id="telephone"
                             placeholder="Téléphone"
                             aria-label="Téléphone"
+                            pattern="[0-9]{10-11}"
+                            minlength="10"
+                            maxlength="11"
                             value="${user.telephone}"
                     />
                 </div>
@@ -61,6 +66,8 @@
                             id="cp"
                             placeholder="Code Postal"
                             aria-label="Code Postal"
+                            maxlength="5"
+                            pattern="[0-9]{5}"
                             value="${user.codePostal}"
                     />
                 </div>
@@ -73,6 +80,8 @@
                             id="inputPassword"
                             placeholder="Mot de passe"
                             aria-label="Mot de passe"
+                            minlength="7"
+                            maxlength="30"
                     />
                 </div>
             </div>
@@ -86,18 +95,20 @@
                             id="nom"
                             placeholder="Nom"
                             aria-label="Nom"
+                            maxlength="30"
 					        value="${user.nom}"
                     />
                 </div>
                 <div class="mb-3">
                     <input
                             required="required"
-                            type="text"
+                            type="email"
                             name="email"
                             class="form-control"
                             id="email"
                             placeholder="Email"
                             aria-label="Email"
+                            maxlength="50"
                             value="${user.email}"
                     />
                 </div>
@@ -110,6 +121,7 @@
                             id="rue"
                             placeholder="Rue"
                             aria-label="Rue"
+                            maxlength="50"
                             value="${user.rue}"
                     />
                 </div>
@@ -122,6 +134,7 @@
                             id="ville"
                             placeholder="Ville"
                             aria-label="Ville"
+                            maxlength="30"
                             value="${user.ville}"
                     />
                 </div>
@@ -134,6 +147,8 @@
                             id="inputConfirmation"
                             placeholder="Confirmation mot de passe"
                             aria-label="Confirmation mot de passe"
+                            minlength="7"
+                            maxlength="30"
                             oninput="testPassword()"
                     />
                 </div>
