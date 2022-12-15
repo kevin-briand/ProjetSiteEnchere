@@ -83,7 +83,7 @@
 		                	</c:when>
 		                	
 						<%-- Option de secours s'il n'existe aucune catégorie en base--%>
-		                	<c:otherwise test="${empty categories}">
+		                	<c:otherwise>
 								<option value="1">Pas de catégorie</option>
 		                	</c:otherwise>
 		                </c:choose>	
