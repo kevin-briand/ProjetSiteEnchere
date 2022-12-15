@@ -44,7 +44,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
             "WHERE C.libelle = ? AND A.nom_article LIKE ?";
 
     private final String SELECT_ALL = "SELECT A.no_article, A.nom_article, A.date_fin_encheres, " +
-            "U.pseudo, U.no_utilisateur, prix_vente " +
+            "U.pseudo, U.no_utilisateur, prix_vente, etat_vente " +
             "FROM articles_vendus A INNER JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur;";
 
     public List<ArticleVendu> selectAll() throws BusinessException {

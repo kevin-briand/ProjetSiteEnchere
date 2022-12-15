@@ -7,6 +7,8 @@ import fr.eni.team42.enchere.bo.Enchere;
 import fr.eni.team42.enchere.bo.Utilisateur;
 import fr.eni.team42.enchere.dal.DAOFactory;
 
+import java.util.List;
+
 public class EnchereManager {
 
 	public EnchereManager() {
@@ -20,6 +22,10 @@ public class EnchereManager {
 	public Enchere selectById(int idArticle, Utilisateur user) throws BusinessException {
 		return DAOFactory.getEnchereDAO().selectById(idArticle, user.getIdUtilisateur());
 	}
+
+	public List<Enchere> selectByUser(int idUser) throws BusinessException {
+		return DAOFactory.getEnchereDAO().selectByUser(idUser);
+	}
 	
 	public void addEnchere(Enchere enchere) throws BusinessException{
 		DAOFactory.getEnchereDAO().insert(enchere);
@@ -32,5 +38,7 @@ public class EnchereManager {
 	public void deleteEnchere(Enchere enchere) throws BusinessException{
 		DAOFactory.getEnchereDAO().delete(enchere);
 	}
+
+
 
 }
