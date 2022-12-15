@@ -20,7 +20,7 @@
     <h1 style="margin-bottom: 50px; margin-top: 50px;">Nouvelle vente</h1>
     
     
-    <form method="post" action="<%=request.getContextPath()%>/encheres/NouvelleVente">
+    <form method="post" action="<%=request.getContextPath()%>/enchere/NouvelleVente">
     
     	<div class="row justify-content-md-around mb-3">
     		<div class="col md-4">

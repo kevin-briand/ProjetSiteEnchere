@@ -28,7 +28,7 @@ import fr.eni.team42.enchere.messages.LecteurMessage;
 /**
  * Servlet implementation class NouvelleVente
  */
-@WebServlet("/encheres/NouvelleVente")
+@WebServlet("/enchere/NouvelleVente")
 public class NouvelleVente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
