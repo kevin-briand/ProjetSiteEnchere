@@ -158,6 +158,7 @@
         let enable = document.getElementById("rAV").checked;
         if(!document.getElementById("rA").checked && !enable) {
             document.getElementById("rAV").checked = true;
+            enable = true;
         }
 
         toggleCheckBox(document.getElementById("ouvertes"), !enable);
