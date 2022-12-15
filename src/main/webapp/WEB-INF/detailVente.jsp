@@ -88,10 +88,11 @@
 		            </div>
 		         </div>
 		         
+		         <c:if test="${sessionScope.utilisateurConnecte != null}">
 				<form method="post" action="<%=request.getContextPath()%>/enchere/NouvelleEnchere">
 		        	<div class="row md-around mb-1">
 		            	<div class="col mb-1 text-end">
-		            		<label class="align-middle" for="choixMontantEnchere">Mise à prix :</label>
+		            		<label class="align-middle" for="choixMontantEnchere">Ma proposition :</label>
 		            	</div>
 		           <div class="col mb-1 text-start">
 		           		<div class="row mb-1">
@@ -103,7 +104,8 @@
 	                          id="choixMontantEnchere"
 	                          placeholder="Montant"
 	                          aria-label="Montant de l'enchere"
-	                          min="${article.enchere.montantEnchere}"
+	                          min="${article.enchere.montantEnchere+1}"
+	                          max="${sessionScope.utilisateurConnecte.credit}"
 	                	>
 						<div class="col mb-1">
 			                <button type="submit" class="btn btn-primary btn-lg">Enchérir</button>
@@ -112,6 +114,7 @@
 		            </div>
 		            </div>
 	                </form>
+	                </c:if>
 				</div>
 			</div>
 		</div>
