@@ -122,7 +122,7 @@ public class NouvelleVente extends HttpServlet {
         } catch (BusinessException e) {
             request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
         }
-
+        request.setAttribute("info","Mise en vente de votre article réussie !");
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
         rd.forward(request,response);
 
