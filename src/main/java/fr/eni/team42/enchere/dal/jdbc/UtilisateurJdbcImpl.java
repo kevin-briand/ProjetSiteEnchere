@@ -131,7 +131,7 @@ public class UtilisateurJdbcImpl implements UtilisateurDAO {
             pstmt.setString(7, utilisateur.getCodePostal());
             pstmt.setString(8, utilisateur.getVille());
             pstmt.setString(9, utilisateur.getMdp());
-            pstmt.setInt(10, 0);
+            pstmt.setInt(10, utilisateur.getCredit());
             pstmt.setBoolean(11, utilisateur.isAdmin());
             pstmt.setInt(12, utilisateur.getIdUtilisateur());
             pstmt.executeUpdate();

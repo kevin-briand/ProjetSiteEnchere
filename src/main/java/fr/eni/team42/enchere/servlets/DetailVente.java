@@ -89,6 +89,7 @@ public class DetailVente extends HttpServlet {
 			}
 			//Retrait crédits enchérisseur
 			utilisateur.setCredit(utilisateur.getCredit() - enchere.getMontantEnchere());
+			um.updateUtilisateur(utilisateur);
 
 			//contrôle que la liste n'est pas vide
 			if(listEncheres.size() > 0) {
@@ -96,6 +97,7 @@ public class DetailVente extends HttpServlet {
 				Enchere lastEnchere = listEncheres.get(0);
 				Utilisateur user = um.selectById(lastEnchere.getUtilisateur().getIdUtilisateur());
 				user.setCredit(user.getCredit() + article.getPrixVente());
+				um.updateUtilisateur(user);
 			}
 			DAOFactory.getArticleDAO().updatePrixVente(enchere);
 			
