@@ -21,7 +21,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
     private final String UPDATE_PRIX_VENTE = "UPDATE ARTICLES_VENDUS SET prix_vente=? WHERE no_article=?";
 
     private final String ARTICLE_ENCHERE_MAX = "SELECT * FROM ENCHERES E " +
-            "LEFT JOIN ARTICLES_VENDUS A on E.no_article = A.no_article " +
+            "RIGHT JOIN ARTICLES_VENDUS A on E.no_article = A.no_article " +
             "LEFT JOIN RETRAITS R on A.no_article = R.no_article " +
             "LEFT JOIN CATEGORIES C on C.no_categorie = A.no_categorie " +
             "LEFT JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur " +
