@@ -27,3 +27,7 @@ function formatDate() {
         dates[i].innerText = date + " à " + heure;
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    formatDate();
+    }, false);
