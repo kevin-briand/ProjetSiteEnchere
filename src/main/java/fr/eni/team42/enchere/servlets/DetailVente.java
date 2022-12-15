@@ -47,7 +47,7 @@ public class DetailVente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
-		int idArticle = 4; //pas encore trouvé la bonne méthode pour récupérer l'id article
+		int idArticle = Integer.parseInt(request.getParameter("id")); //pas encore trouvé la bonne méthode pour récupérer l'id article
 		try {
 			ArticleVendu article = new ArticleVendu();
 			if(idArticle > 0) {
