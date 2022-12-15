@@ -101,8 +101,16 @@ public class NouvelleVente extends HttpServlet {
 			
 		//créé automatiquement une  instance dans la table retrait à partir de l'objet article retourné après insert
 		Retrait pickUpPlace = new Retrait(article,rue,codePostal, ville);
-		System.out.println(article.getIdArticle());
-		DAOFactory.getRetraitDAO().insert(pickUpPlace);
+		try {
+			DAOFactory.getRetraitDAO().insert(pickUpPlace);
+		}catch (BusinessException e){
+			e.printStackTrace();
+			DAOFactory.getArticleDAO().delete(article);
+			request.setAttribute("article", article);
+			request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/nouvelleVente.jsp");
+			rd.forward(request, response);
+		}
 		
 		
 		request.setAttribute("article", article);
