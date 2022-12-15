@@ -22,7 +22,7 @@ public class EnchereJdbcImpl implements EnchereDAO {
     private final String DELETE = "DELETE FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
     private final String SELECT_BY_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_article=?";
     private final String SELECT_BY_USER_ID_AND_ARTICLE_ID = "SELECT * FROM ENCHERES WHERE no_utilisateur=? AND no_article=?";
-    private final String SELECT_BY_USER = "SELECT * FROM encheres WHERE no_utilisateur=?";
+    private final String SELECT_BY_USER = "SELECT * FROM ENCHERES WHERE no_utilisateur=?";
 
     
 	@Override
