@@ -17,3 +17,13 @@ if(alertErreur.outerText !== "") {
 if(alertInfo.outerText !== "") {
     alertInfo.innerHTML = alert(alertInfo.outerText,"success");
 }
+
+function formatDate() {
+    const dates = document.getElementsByClassName("date");
+    for (let i = 0; i < dates.length; i++) {
+        let date = dates[i].innerText.split("T")[0];
+        date = date.split("-")[2] + "-" + date.split("-")[1] + "-" + date.split("-")[0];
+        const heure = dates[i].innerText.split("T")[1];
+        dates[i].innerText = date + " à " + heure;
+    }
+}
