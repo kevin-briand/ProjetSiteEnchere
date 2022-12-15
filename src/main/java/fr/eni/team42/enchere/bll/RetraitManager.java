@@ -18,7 +18,7 @@ public class RetraitManager {
         DAOFactory.getRetraitDAO().insert(retrait);
     }
 
-    public void updateArticle(Retrait retrait) throws BusinessException {
+    public void updateRetrait(Retrait retrait) throws BusinessException {
         validerRetrait(retrait);
         DAOFactory.getRetraitDAO().update(retrait);
     }
