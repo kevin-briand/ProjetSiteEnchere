@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/user/*","/encheres/*"})
+@WebFilter(urlPatterns = {"/user/*","/enchere/*"})
 public class FilterActiveSession implements Filter {
 
     @Override
