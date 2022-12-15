@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.eni.team42.enchere.BusinessException;
+import fr.eni.team42.enchere.bll.ArticleManager;
+import fr.eni.team42.enchere.bll.CategorieManager;
 import fr.eni.team42.enchere.bo.ArticleVendu;
 import fr.eni.team42.enchere.bo.Categorie;
 import fr.eni.team42.enchere.bo.Enchere;
@@ -112,10 +114,17 @@ public class NouvelleVente extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
-		
-		request.setAttribute("article", article);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/detailVente.jsp");
-		rd.forward(request, response);
+		ArticleManager am = new ArticleManager();
+        CategorieManager cm = new CategorieManager();
+        try {
+            request.setAttribute("articles",am.selectAll());
+            request.setAttribute("categories", cm.selectAllCategories());
+        } catch (BusinessException e) {
+            request.setAttribute("erreur", LecteurMessage.getMessageErreur(e.getCodeErreur()));
+        }
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/index.jsp");
+        rd.forward(request,response);
 
 		} catch (BusinessException e) {
 			e.printStackTrace();
