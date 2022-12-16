@@ -226,7 +226,7 @@
 			</div>
         <div class="buttons" style="margin-top: 50px;">
             <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
-            <button type="button" class="btn btn-secondary btn-lg">Annuler</button>
+            <button type="button" class="btn btn-secondary btn-lg"><a style="text-decoration:none; color:white" href="../accueil">Annuler</a></button>
     	</div>
     </form>
     </div>
