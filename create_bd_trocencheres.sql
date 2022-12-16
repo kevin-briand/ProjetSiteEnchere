@@ -14,8 +14,8 @@ CREATE TABLE ENCHERES (
 
 CREATE TABLE RETRAITS (
 	no_article         INTEGER NOT NULL,
-    rue              VARCHAR(30) NOT NULL,
-    code_postal      VARCHAR(15) NOT NULL,
+    rue              VARCHAR(50) NOT NULL,
+    code_postal      VARCHAR(5) NOT NULL,
     ville            VARCHAR(30) NOT NULL
 );
 
