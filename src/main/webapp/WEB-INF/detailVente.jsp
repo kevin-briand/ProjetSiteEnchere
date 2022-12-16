@@ -104,6 +104,9 @@
                                             <c:when test="${sessionScope.utilisateurConnecte.pseudo == article.utilisateur.pseudo}">
                                                 Vous ne pouvez pas enchérir sur votre propre vente.
                                             </c:when>
+					    <c:when test="${sessionScope.utilisateurConnecte.pseudo == article.enchere.utilisateur.pseudo}">
+                                                Vous avez déjà l'enchère la plus haute !
+                                            </c:when>
                                             <c:when test="${article.etatVenteArticle == 'NON_DEBUTEE'}">
                                                 Vous ne pouvez pas enchérir : la vente n'a pas commencée. Elle débutera le 
                                                 <p class="date">${article.dateDebutEnchere}.</p>
