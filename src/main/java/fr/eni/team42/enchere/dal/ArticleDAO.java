@@ -9,11 +9,11 @@ import java.util.List;
 public interface ArticleDAO extends DAO<ArticleVendu, Integer> {
 
     List<ArticleVendu> selectAll() throws BusinessException;
-    List<ArticleVendu> selectByCategorie(String libelle) throws BusinessException;
+    List<ArticleVendu> selectByCategorie(int libelle) throws BusinessException;
 
     List<ArticleVendu> selectByNomArticle(String nomArticle) throws BusinessException;
 
-    List<ArticleVendu> selectByNomArticleEtCategorie(String nomArticle, String libelle) throws BusinessException;
+    List<ArticleVendu> selectByNomArticleEtCategorie(String nomArticle, int libelle) throws BusinessException;
 
     void updatePrixVente(Enchere enchere) throws BusinessException;
 

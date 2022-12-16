@@ -57,14 +57,14 @@ public class ArticleManager {
         }
     }
 
-    public List<ArticleVendu> recherche (Integer utilisateurId, String nomArticle, String libelleCategorie, boolean encheresOuvertes, boolean encheresEnCours, boolean encheresRemportees, boolean ventesNonDebutees, boolean ventesEnCours, boolean ventesTerminees) throws BusinessException {
+    public List<ArticleVendu> recherche (Integer utilisateurId, String nomArticle, int noCategorie, boolean encheresOuvertes, boolean encheresEnCours, boolean encheresRemportees, boolean ventesNonDebutees, boolean ventesEnCours, boolean ventesTerminees) throws BusinessException {
         List<ArticleVendu> articles;
         List<ArticleVendu> listeFiltree = new ArrayList<>();
-        if (nomArticle != null && libelleCategorie != null) {
-            articles = DAOFactory.getArticleDAO().selectByNomArticleEtCategorie(nomArticle, libelleCategorie);
-        } else if (nomArticle == null && libelleCategorie != null) {
-            articles = DAOFactory.getArticleDAO().selectByCategorie(libelleCategorie);
-        } else if (nomArticle != null && libelleCategorie == null) {
+        if (nomArticle != null && noCategorie != -1) {
+            articles = DAOFactory.getArticleDAO().selectByNomArticleEtCategorie(nomArticle, noCategorie);
+        } else if (nomArticle == null && noCategorie != -1) {
+            articles = DAOFactory.getArticleDAO().selectByCategorie(noCategorie);
+        } else if (nomArticle != null && noCategorie == -1) {
             articles = DAOFactory.getArticleDAO().selectByNomArticle(nomArticle);
         } else {
             articles = DAOFactory.getArticleDAO().selectAll();

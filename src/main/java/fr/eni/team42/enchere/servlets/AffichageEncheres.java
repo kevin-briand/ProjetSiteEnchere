@@ -57,7 +57,7 @@ public class AffichageEncheres extends HttpServlet {
 
         //récupération des variables du filtre
         String nom = request.getParameter("nom").trim().isEmpty() ? null : request.getParameter("nom");
-        String catStr = request.getParameter("categorie").equals("-1") ? null : request.getParameter("categorie");
+        String catStr = request.getParameter("categorie");
         //Param Utilisateur Achat
         boolean aOuvertes = request.getParameter("aOuvertes") != null;
         boolean aEnCours = request.getParameter("aEnCours") != null;
@@ -79,12 +79,12 @@ public class AffichageEncheres extends HttpServlet {
         request.setAttribute("vTerminees",vTerminees);
         request.setAttribute("radio",radio);
 
-
         Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
         List<ArticleVendu> listArt = new ArrayList<>();
         try {
             //liste des enchères
-            listArt = am.recherche(user == null ? null : user.getIdUtilisateur(), nom, catStr, aOuvertes, aEnCours, aRemportees, vNonDeb, vEnCours, vTerminees);
+            listArt = am.recherche(user == null ? null : user.getIdUtilisateur(), nom, Integer.parseInt(catStr),
+                    aOuvertes, aEnCours, aRemportees, vNonDeb, vEnCours, vTerminees);
             //liste des catégories
             request.setAttribute("categories", cm.selectAllCategories());
         } catch (BusinessException e) {
