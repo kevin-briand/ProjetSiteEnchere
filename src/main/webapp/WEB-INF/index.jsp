@@ -36,8 +36,8 @@
                         <select name="categorie" id="categorie" class="px-5">
                             <option value="-1">Toutes</option>
                             <c:forEach var="categorie" items="${categories}">
-                                <option value="${categorie.libelle}"
-                                        <c:if test="${categorie.libelle == catStr}">selected</c:if>>
+                                <option value="${categorie.idCategorie}"
+                                        <c:if test="${categorie.idCategorie == catStr}">selected</c:if>>
                                         ${categorie.libelle}</option>
                             </c:forEach>
                         </select>

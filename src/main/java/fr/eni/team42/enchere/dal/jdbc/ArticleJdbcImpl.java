@@ -33,7 +33,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
     private final String ARTICLE_PAR_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS A " +
             "LEFT JOIN CATEGORIES C on C.no_categorie = A.no_categorie " +
             "LEFT JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur " +
-            "WHERE C.libelle = ?";
+            "WHERE C.no_categorie = ?";
 
     private final String ARTICLE_PAR_NOM = "SELECT * FROM ARTICLES_VENDUS A " +
             "LEFT JOIN CATEGORIES C on C.no_categorie = A.no_categorie " +
@@ -43,7 +43,7 @@ public class ArticleJdbcImpl implements ArticleDAO {
     private final String ARTICLE_PAR_NOM_ET_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS A " +
             "LEFT JOIN CATEGORIES C on C.no_categorie = A.no_categorie " +
             "LEFT JOIN UTILISATEURS U on A.no_utilisateur = U.no_utilisateur " +
-            "WHERE C.libelle = ? AND A.nom_article LIKE ?";
+            "WHERE C.no_categorie = ? AND A.nom_article LIKE ?";
 
     private final String SELECT_ALL = "SELECT A.no_article, A.nom_article, A.date_debut_encheres, A.date_fin_encheres, " +
             "U.pseudo, U.no_utilisateur, prix_vente, etat_vente " +
@@ -127,10 +127,10 @@ public class ArticleJdbcImpl implements ArticleDAO {
     }
 
     @Override
-    public List<ArticleVendu> selectByCategorie(String libelle) throws BusinessException {
+    public List<ArticleVendu> selectByCategorie(int noCat) throws BusinessException {
         try (Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement ps = cnx.prepareStatement(ARTICLE_PAR_CATEGORIE);
-            ps.setString(1, libelle);
+            ps.setInt(1, noCat);
             ResultSet rs = ps.executeQuery();
             List<ArticleVendu> articles = new ArrayList<>();
             while (rs.next()) {
@@ -177,10 +177,10 @@ public class ArticleJdbcImpl implements ArticleDAO {
     }
 
     @Override
-    public List<ArticleVendu> selectByNomArticleEtCategorie(String nomArticle, String libelle) throws BusinessException {
+    public List<ArticleVendu> selectByNomArticleEtCategorie(String nomArticle, int noCat) throws BusinessException {
         try (Connection cnx = ConnectionProvider.getConnection()) {
             PreparedStatement ps = cnx.prepareStatement(ARTICLE_PAR_NOM_ET_CATEGORIE);
-            ps.setString(1, libelle);
+            ps.setInt(1, noCat);
             ps.setString(2, '%' + nomArticle + '%');
             ResultSet rs = ps.executeQuery();
             List<ArticleVendu> articles = new ArrayList<>();
