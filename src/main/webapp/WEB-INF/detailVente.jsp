@@ -16,6 +16,10 @@
 
             <h1 style="margin-bottom: 50px; margin-top: 50px;">Détail de la vente : ${article.nomArticle}</h1>
 
+			<c:if test="${article.etatVenteArticle == 'TERMINEE' && article.enchere.utilisateur.pseudo == sessionScope.utilisateurConnecte.pseudo }">
+				<h3 style="margin-bottom: 50px;">Vous avez remporté la vente !</h3>
+			</c:if>
+
             <div class="row justify-content-md-around mb-3">
                 <div class="col md-4">
 
@@ -102,7 +106,7 @@
                                             </c:when>
                                             <c:when test="${article.etatVenteArticle == 'NON_DEBUTEE'}">
                                                 Vous ne pouvez pas enchérir : la vente n'a pas commencée. Elle débutera le 
-                                                <p class="date">${article.dateDebutEnchere}</p>.
+                                                <p class="date">${article.dateDebutEnchere}.</p>
                                             </c:when>
                                              <c:when test="${article.etatVenteArticle == 'TERMINEE'}">
                                                 Vous ne pouvez plus enchérir : la vente est terminée depuis le <p class="date">${article.dateFinEnchere}.</p>
