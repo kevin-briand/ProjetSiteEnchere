@@ -1,0 +1,19 @@
+ALTER TABLE ARTICLES_VENDUS
+    MODIFY date_debut_encheres TIMESTAMP;
+
+ALTER TABLE ARTICLES_VENDUS
+    MODIFY date_fin_encheres TIMESTAMP;
+
+ALTER TABLE ENCHERES
+    MODIFY date_enchere TIMESTAMP;
+
+ALTER TABLE CATEGORIES
+    ADD CONSTRAINT libelle_unique UNIQUE(libelle);
+
+ALTER TABLE UTILISATEURS
+    MODIFY email VARCHAR(50) NOT NULL;
+
+INSERT INTO categories VALUES (1,'Informatique');
+INSERT INTO categories VALUES (2,'Ameublement');
+INSERT INTO categories VALUES (3,'Vêtement');
+INSERT INTO categories VALUES (4,'Sport&Loisirs');
