@@ -47,7 +47,7 @@ CREATE TABLE `ARTICLES_VENDUS` (
 INSERT INTO `ARTICLES_VENDUS` (`no_article`, `nom_article`, `description`, `date_debut_encheres`, `date_fin_encheres`, `prix_initial`, `prix_vente`, `no_utilisateur`, `no_categorie`, `etat_vente`) VALUES
 (1, 'Serveur AWS', 'much speed ', '2022-12-19 11:00:00', '2022-12-31 11:00:00', 2000, 2000, 1, 1, 'NON_DEBUTEE'),
 (2, 'Cuillère', 'Pas changer assiette pour fromage', '2022-12-16 11:00:00', '2022-12-17 11:00:00', 25, 25, 2, 2, 'NON_DEBUTEE'),
-(3, 'Ceinture noire karaté', 'Top pour ninja', '2022-12-16 09:46:21', '2022-12-16 15:15:00', 150, 200, 3, 4, 'EN_COURS'),
+(3, 'Ceinture noire karaté', 'Top pour ninja', '2022-12-16 09:46:21', '2022-12-16 11:15:00', 150, 200, 3, 4, 'EN_COURS'),
 (4, 'Yacht', 'Bateau très gros', '2022-12-16 11:00:00', '2025-12-16 11:00:00', 10000000, 10000000, 1, 4, 'NON_DEBUTEE'),
 (5, 'Chaussette', '(Elle est propre)', '2022-12-16 09:55:11', '2022-12-20 11:00:00', 2, 15, 2, 3, 'EN_COURS'),
 (6, 'Boulier', 'Pour compter sous', '2022-12-16 08:00:00', '2022-12-21 11:00:00', 20, 20, 2, 1, 'EN_COURS');
