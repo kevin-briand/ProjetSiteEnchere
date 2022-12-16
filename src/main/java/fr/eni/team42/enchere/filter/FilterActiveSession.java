@@ -1,6 +1,7 @@
 package fr.eni.team42.enchere.filter;
 
 import fr.eni.team42.enchere.bo.Utilisateur;
+import fr.eni.team42.enchere.messages.LecteurMessage;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -30,7 +31,9 @@ public class FilterActiveSession implements Filter {
 
         //S'il n'y a pas de session active, on redirige l'utilisateur vers une 403
         if (utilisateurConnecte == null) {
-            httpServletResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+            RequestDispatcher rd = request.getRequestDispatcher("/accueil");
+            request.setAttribute("erreur", LecteurMessage.getMessageErreur(FiltreExceptionCode.USER_NOT_CONNECTED));
+            rd.forward(request,response);
 
             //sinon on laisse passer la requête
         } else {
