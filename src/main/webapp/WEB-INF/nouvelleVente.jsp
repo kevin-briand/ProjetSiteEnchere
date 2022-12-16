@@ -38,6 +38,7 @@
                             id="nomArticle"
                             placeholder="Nom de l'article"
                             aria-label="Nom de l'article"
+                            maxlength="30"
                             value="${article.nomArticle}"
 		                >
 		            </div>
@@ -178,6 +179,7 @@
 				                            id="rueRetrait"
 				                            placeholder="Adresse de retrait de l'article"
 				                            aria-label="Adresse de retrait de l'article"
+											maxlength="50"
 				                            value="${sessionScope.utilisateurConnecte.rue}"
 						                >
 						               </div>
@@ -196,6 +198,7 @@
 					                            id="codePostalRetrait"
 					                            placeholder="Code postal de la ville de retrait"
 					                            aria-label="Code postal de la ville de retrait"
+												maxlength="30"
 					                            value="${sessionScope.utilisateurConnecte.codePostal}"
 					                			>
 				                		</div>
@@ -214,6 +217,7 @@
 					                            id="villeRetrait"
 					                            placeholder="Ville de retrait de l'article"
 					                            aria-label="Ville de retrait de l'article"
+					                            maxlength="30"
 					                            value="${sessionScope.utilisateurConnecte.ville}"
 				              				>
 			                			</div>	
@@ -226,7 +230,7 @@
 			</div>
         <div class="buttons" style="margin-top: 50px;">
             <button type="submit" class="btn btn-primary btn-lg">Enregistrer</button>
-            <button type="button" class="btn btn-secondary btn-lg">Annuler</button>
+            <button type="button" class="btn btn-secondary btn-lg"><a style="text-decoration:none; color:white" href="../accueil">Annuler</a></button>
     	</div>
     </form>
     </div>
