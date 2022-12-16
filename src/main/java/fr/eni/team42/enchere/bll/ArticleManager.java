@@ -57,7 +57,7 @@ public class ArticleManager {
         }
     }
 
-    public List<ArticleVendu> recherche (Integer utilisateurId, String nomArticle, String libelleCategorie, boolean encheresOuvertes, boolean encheresEnCours, boolean encheresRemportees, boolean ventesEnCours, boolean ventesNonDebutees, boolean ventesTerminees) throws BusinessException {
+    public List<ArticleVendu> recherche (Integer utilisateurId, String nomArticle, String libelleCategorie, boolean encheresOuvertes, boolean encheresEnCours, boolean encheresRemportees, boolean ventesNonDebutees, boolean ventesEnCours, boolean ventesTerminees) throws BusinessException {
         List<ArticleVendu> articles;
         List<ArticleVendu> listeFiltree = new ArrayList<>();
         if (nomArticle != null && libelleCategorie != null) {
@@ -88,24 +88,24 @@ public class ArticleManager {
         }
 
         if(encheresOuvertes || encheresEnCours || encheresRemportees) { //Filtre Achat
-
-
             for (ArticleVendu art : articles) {
                 //on boucle uniquement si l'état est dans le filtre, pour gagner du temps
                 if (filtreEtat.contains(art.getEtatVenteArticle())) {
-                    //Si on veux la liste de toutes les enchères en cours
-                    if(encheresOuvertes) {
-                        listeFiltree.add(art);
-                        break;
-                    }
                     //récupération des enchères faites par l'utilisateur
                     EnchereManager em = new EnchereManager();
                     Utilisateur user = new Utilisateur();
                     user.setIdUtilisateur(utilisateurId);
-                    Enchere e = em.selectById(art.getIdArticle(),user);
-                    //Si l'utilisateur à fait une enchère sur l'article, alors on l'ajoute
-                    if(e != null)
+                    List<Enchere> lE = em.selectById(art.getIdArticle());
+                    if(lE.size() > 0) {
+                        Enchere e = lE.get(0);
+                        //Si l'utilisateur à fait une enchère sur l'article, alors on l'ajoute
+                        if(e.getUtilisateur().getIdUtilisateur() == utilisateurId)
+                            listeFiltree.add(art);
+                    }
+                    //Si on veux la liste de toutes les enchères en cours
+                    if(encheresOuvertes && art.getUtilisateur().getIdUtilisateur() != utilisateurId && !listeFiltree.contains(art)) {
                         listeFiltree.add(art);
+                    }
                 }
             }
         } else { //Filtre Vente
